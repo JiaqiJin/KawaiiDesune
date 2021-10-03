@@ -54,13 +54,19 @@
     <ClCompile Include="Window\KawaiiWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Context\RenderContext.cpp">
+    <ClCompile Include="Backend\Context\RenderContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common\RenderBacken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common\RenderBackendImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Backend\RHI\Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Backend\RHI\CommandList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,13 +119,19 @@
     <ClInclude Include="Window\KawaiiWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Context\RenderContext.h">
+    <ClInclude Include="Backend\Context\RenderContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\RenderBacken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\RenderBackendImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Backend\RHI\Device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Backend\RHI\CommandList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
