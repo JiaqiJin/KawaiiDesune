@@ -37,3 +37,6 @@
 #include <shellapi.h>
 #include <intrin.h>
 #include <xmmintrin.h>
+
+#include "Common/d3dx12.h"
+#include "Utils/DxException.h"
