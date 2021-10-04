@@ -37,6 +37,3 @@
 #include <shellapi.h>
 #include <intrin.h>
 #include <xmmintrin.h>
-
-#include "Common/Config.h"
-#include "Common/ProjectHelper.h"
