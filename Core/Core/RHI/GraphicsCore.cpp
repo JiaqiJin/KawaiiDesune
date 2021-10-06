@@ -47,7 +47,49 @@ namespace RHI
 		ComPtr<IDXGIAdapter1> pAdapter;
 		dxgiFactory->EnumAdapters1(1, &pAdapter);
 
-		// TODO
+		// D3D12 Allocator
+		{
+
+		}
+
+		// Create Command Queue
+		{
+			D3D12_COMMAND_QUEUE_DESC graphic_Queue_Desc = {};
+			graphic_Queue_Desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
+			graphic_Queue_Desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
+			graphic_Queue_Desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+			graphic_Queue_Desc.NodeMask = 0;
+			ThrowIfFailed(m_device->CreateCommandQueue(&graphic_Queue_Desc, IID_PPV_ARGS(&m_graphicQueue)));
+			m_graphicQueue->SetName(L"Graphic Queue");
+
+			// Compute Queue
+			// TODO
+		}
+
+		// Create swap chain
+		{
+			IDXGISwapChain1* _swapChain = nullptr;
+			DXGI_SWAP_CHAIN_DESC1 sd = {};
+			sd.Width = width;
+			sd.Height = height;
+			sd.Format = DXGI_FORMAT_R10G10B10A2_UNORM;
+			sd.Stereo = false;
+			sd.SampleDesc.Count = 1; // Don't use multi-sampling.
+			sd.SampleDesc.Quality = 0;
+			sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+			sd.BufferCount = BACKBUFFER_COUNT;
+			sd.Flags = 0;
+			sd.AlphaMode = DXGI_ALPHA_MODE_IGNORE;
+			sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
+			sd.Scaling = DXGI_SCALING_NONE;
+			ThrowIfFailed(dxgiFactory->CreateSwapChainForHwnd(m_graphicQueue.Get(), hwnd, &sd, nullptr, nullptr, &_swapChain));
+			ThrowIfFailed(_swapChain->QueryInterface(IID_PPV_ARGS(&m_swapChain)));
+
+			m_backBufferIndex = m_swapChain->GetCurrentBackBufferIndex();
+			m_Last_backBufferIndex = m_backBufferIndex;
+		}
+
+
 	}
 
 	GraphicCore::~GraphicCore()
