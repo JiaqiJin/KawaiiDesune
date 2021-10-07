@@ -63,7 +63,13 @@ namespace RHI
 			m_graphicQueue->SetName(L"Graphic Queue");
 
 			// Compute Queue
-			// TODO
+			D3D12_COMMAND_QUEUE_DESC compute_Queue_Desc = {};
+			compute_Queue_Desc.Type = D3D12_COMMAND_LIST_TYPE_COMPUTE;
+			compute_Queue_Desc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;
+			compute_Queue_Desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+			compute_Queue_Desc.NodeMask = 0;
+			ThrowIfFailed(m_device->CreateCommandQueue(&compute_Queue_Desc, IID_PPV_ARGS(&m_computeQueue)));
+			m_computeQueue->SetName(L"Compute Queue");
 		}
 
 		// Create swap chain
@@ -89,11 +95,104 @@ namespace RHI
 			m_Last_backBufferIndex = m_backBufferIndex;
 		}
 
+		//create upload and descriptor allocators
+		{
+			D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
+			// TODO
+		}
 
+
+
+		//sync objects
+		{
+			for (size_t i = 0; i < BACKBUFFER_COUNT; ++i)
+			{
+				ThrowIfFailed(m_device->CreateFence(m_frameFenceValues[i], D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_frameFence[i])));
+				m_frameFenceEvent[i] = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+				if (m_frameFenceEvent == nullptr)
+				{
+					// TODO
+					// LOG
+				}
+			}
+			
+			m_waitFenceValue = 0;
+			ThrowIfFailed(m_device->CreateFence(m_waitFenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_waitFence)));
+			m_waitFenceValue++;
+			m_waitEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+			if (m_waitEvent == nullptr) { /*log*/}
+		}
 	}
 
 	GraphicCore::~GraphicCore()
 	{
 		// TODO
+	}
+
+	void GraphicCore::ResetDefaultCommandList()
+	{
+		auto& frameResouce = GetFrameResources();
+
+		ThrowIfFailed(frameResouce.m_default_cmd_Allocator->Reset());
+		ThrowIfFailed(frameResouce.m_default_cmd_List->Reset(frameResouce.m_default_cmd_Allocator.Get(), nullptr));
+	}
+
+	void GraphicCore::ExecuteDefaultCommandList()
+	{
+		auto& frameResouce = GetFrameResources();
+
+		frameResouce.m_default_cmd_List->Close();
+
+		ID3D12CommandList* cmd_List = frameResouce.m_default_cmd_List.Get();
+
+		m_graphicQueue->ExecuteCommandLists(1, &cmd_List);
+	}
+
+	GraphicCore::FrameResources& GraphicCore::GetFrameResources()
+	{
+		return frames[m_backBufferIndex];
+	}
+
+	const GraphicCore::FrameResources& GraphicCore::GetFrameResources() const
+	{
+		return frames[m_backBufferIndex];
+	}
+
+	void GraphicCore::ExecuteGraphicsCommandLists()
+	{
+		auto& frameResouce = GetFrameResources();
+
+		frameResouce.m_default_cmd_List->Close();
+
+		std::vector<ID3D12CommandList*> cmd_Lists = { frameResouce.m_default_cmd_List.Get() };
+
+		for (UINT i = 0; i < frameResouce.cmd_list_index; ++i)
+		{
+			frameResouce.m_cmd_lists[i]->Close();
+			cmd_Lists.push_back(frameResouce.m_cmd_lists[i].Get());
+		}
+
+		m_graphicQueue->ExecuteCommandLists(static_cast<UINT>(cmd_Lists.size()), cmd_Lists.data());
+
+		frameResouce.cmd_list_index = 0;
+	}
+
+	void GraphicCore::ExecuteComputeCommandLists()
+	{
+		auto& frameResouce = GetFrameResources();
+
+		if (frameResouce.compute_cmd_list_index == 0) return;
+
+		std::vector<ID3D12CommandList*> cmd_Lists = {};
+
+		for (UINT i = 0; i < frameResouce.compute_cmd_list_index; ++i)
+		{
+			frameResouce.m_compute_cmd_lists[i]->Close();
+			cmd_Lists.push_back(frameResouce.m_compute_cmd_lists[i].Get());
+		}
+
+		m_computeQueue->ExecuteCommandLists(static_cast<UINT>(cmd_Lists.size()), cmd_Lists.data());
+
+		frameResouce.compute_cmd_list_index = 0;
 	}
 }
