@@ -7,6 +7,13 @@ using namespace Microsoft::WRL;
 
 namespace RHI
 {
+	enum class QueueType : uint8_t
+	{
+		eGraphics,
+		eCompute,
+		eCount
+	};
+
 	class GraphicCore
 	{
 		static constexpr UINT CMD_LIST_COUNT = 8;
@@ -33,6 +40,11 @@ namespace RHI
 		GraphicCore(GraphicCore const&) = delete;
 		GraphicCore(GraphicCore&&) = default;
 		~GraphicCore();
+
+		void WaitForGPU();
+
+		void WaitOnQueue(QueueType type);
+		void SignalQueue(QueueType type);
 
 		ID3D12Device5* GetDevice() const { return m_device.Get(); }
 
@@ -62,12 +74,21 @@ namespace RHI
 		ComPtr<ID3D12CommandQueue> m_computeQueue;
 
 		// Sync
-		Microsoft::WRL::ComPtr<ID3D12Fence> m_frameFence[BACKBUFFER_COUNT];
+		ComPtr<ID3D12Fence> m_frameFence[BACKBUFFER_COUNT];
 		HANDLE m_frameFenceEvent[BACKBUFFER_COUNT];
 		UINT64 m_frameFenceValues[BACKBUFFER_COUNT];
 		UINT64 m_frameFenceValue;
 
-		Microsoft::WRL::ComPtr<ID3D12Fence> m_waitFence = nullptr;
+		ComPtr<ID3D12Fence> m_graphicsFences[BACKBUFFER_COUNT];
+		HANDLE m_graphicsFenceEvents[BACKBUFFER_COUNT];
+		UINT64 m_graphicsFenceValues[BACKBUFFER_COUNT];
+
+		ComPtr<ID3D12Fence> m_computFences[BACKBUFFER_COUNT];
+		HANDLE m_computeFenceEvents[BACKBUFFER_COUNT];
+		UINT64 m_computeFenceValues[BACKBUFFER_COUNT];
+
+
+		ComPtr<ID3D12Fence> m_waitFence = nullptr;
 		HANDLE m_waitEvent = nullptr;
 		UINT64 m_waitFenceValue = 0;
 	};

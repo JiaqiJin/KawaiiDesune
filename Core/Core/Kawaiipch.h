@@ -40,3 +40,4 @@
 
 #include "Common/d3dx12.h"
 #include "Utils/DxException.h"
+#include "Utils/Debug.h"

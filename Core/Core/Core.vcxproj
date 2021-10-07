@@ -145,6 +145,7 @@
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
+    <ClCompile Include="Utils\Debug.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
     <ClCompile Include="Vendor\imgui\imgui.cpp" />
     <ClCompile Include="Vendor\imgui\imgui_demo.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
+    <ClInclude Include="Utils\Debug.h" />
     <ClInclude Include="Utils\DxException.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Vendor\imgui\imconfig.h" />

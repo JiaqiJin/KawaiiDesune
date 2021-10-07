@@ -101,8 +101,6 @@ namespace RHI
 			// TODO
 		}
 
-
-
 		//sync objects
 		{
 			for (size_t i = 0; i < BACKBUFFER_COUNT; ++i)
@@ -111,8 +109,21 @@ namespace RHI
 				m_frameFenceEvent[i] = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 				if (m_frameFenceEvent == nullptr)
 				{
-					// TODO
-					// LOG
+					LOG_ERROR("Failed to create Frame Fence Event");
+				}
+
+				ThrowIfFailed(m_device->CreateFence(m_graphicsFenceValues[i], D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_graphicsFences[i])));
+				m_graphicsFenceEvents[i] = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+				if (m_graphicsFenceEvents[i] == nullptr)
+				{
+					LOG_ERROR("Failed to create Graphic Fence Event");
+				}
+
+				ThrowIfFailed(m_device->CreateFence(m_computeFenceValues[i], D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_computFences[i])));
+				m_computeFenceEvents[i] = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+				if (m_computeFenceEvents[i] == nullptr)
+				{
+					LOG_ERROR("Failed to create Compute Fence Event");
 				}
 			}
 			
@@ -120,13 +131,51 @@ namespace RHI
 			ThrowIfFailed(m_device->CreateFence(m_waitFenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&m_waitFence)));
 			m_waitFenceValue++;
 			m_waitEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-			if (m_waitEvent == nullptr) { /*log*/}
+			if (m_waitEvent == nullptr) { LOG_ERROR("Failed to create Wait Fence Event"); }
 		}
 	}
 
 	GraphicCore::~GraphicCore()
 	{
 		// TODO
+	}
+
+	void GraphicCore::WaitForGPU()
+	{
+		// Signa command in Queue
+		ThrowIfFailed(m_graphicQueue->Signal(m_waitFence.Get(), m_waitFenceValue));
+		ThrowIfFailed(m_waitFence->SetEventOnCompletion(m_waitFenceValue, m_waitEvent));
+		WaitForSingleObject(m_waitEvent, INFINITY);
+
+		m_waitFenceValue++;
+	}
+
+	void GraphicCore::WaitOnQueue(QueueType type)
+	{
+		switch (type)
+		{
+		case RHI::QueueType::eGraphics:
+			m_graphicQueue->Wait(m_computFences[m_backBufferIndex].Get(), m_computeFenceValues[m_backBufferIndex]);
+			++m_computeFenceValues[m_backBufferIndex];
+			break;
+		case RHI::QueueType::eCompute:
+			m_computeQueue->Wait(m_graphicsFences[m_backBufferIndex].Get(), m_graphicsFenceValues[m_backBufferIndex]);
+			++m_graphicsFenceValues[m_backBufferIndex];
+			break;
+		}
+	}
+
+	void GraphicCore::SignalQueue(QueueType type)
+	{
+		switch (type)
+		{
+		case RHI::QueueType::eGraphics:
+			m_graphicQueue->Signal(m_graphicsFences[m_backBufferIndex].Get(), m_graphicsFenceValues[m_backBufferIndex]);
+			break;
+		case RHI::QueueType::eCompute:
+			m_computeQueue->Signal(m_computFences[m_backBufferIndex].Get(), m_computeFenceValues[m_backBufferIndex]);
+			break;
+		}
 	}
 
 	void GraphicCore::ResetDefaultCommandList()
