@@ -28,6 +28,7 @@ public:
     void Set4xMsaaState(bool value);
 
     int Run();
+    void CalculateFrameStats();
 
     virtual bool Initialize();
     virtual LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
