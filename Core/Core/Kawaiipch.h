@@ -15,6 +15,7 @@
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
+#include <assert.h>
 
 // DirectX
 #include <d3d12.h>
