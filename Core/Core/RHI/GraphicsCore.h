@@ -28,11 +28,11 @@ namespace RHI
 
 			ComPtr<ID3D12CommandAllocator>      m_cmd_allocators[CMD_LIST_COUNT] = {};
 			ComPtr<ID3D12GraphicsCommandList4>  m_cmd_lists[CMD_LIST_COUNT] = {};
-			UINT cmd_list_index = 0;
+			mutable UINT cmd_list_index = 0;
 
 			ComPtr<ID3D12CommandAllocator>		m_compute_cmd_llocators[CMD_LIST_COUNT] = {};
 			ComPtr<ID3D12GraphicsCommandList4>  m_compute_cmd_lists[CMD_LIST_COUNT] = {};
-			UINT compute_cmd_list_index = 0;
+			mutable UINT compute_cmd_list_index = 0;
 		};
 
 	public:
@@ -47,6 +47,11 @@ namespace RHI
 		void SignalQueue(QueueType type);
 
 		ID3D12Device5* GetDevice() const { return m_device.Get(); }
+		ID3D12GraphicsCommandList4* GetDefaultCommandList() const;
+		ID3D12GraphicsCommandList4* GetNewGraphicsCommandList() const;
+		ID3D12GraphicsCommandList4* GetLastGraphicsCommandList() const;
+		ID3D12GraphicsCommandList4* GetNewComputeCommandList() const;
+		ID3D12GraphicsCommandList4* GetLastComputeCommandList() const;
 
 		void ResetDefaultCommandList();
 		void ExecuteDefaultCommandList();

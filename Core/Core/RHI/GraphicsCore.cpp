@@ -145,7 +145,7 @@ namespace RHI
 		// Signa command in Queue
 		ThrowIfFailed(m_graphicQueue->Signal(m_waitFence.Get(), m_waitFenceValue));
 		ThrowIfFailed(m_waitFence->SetEventOnCompletion(m_waitFenceValue, m_waitEvent));
-		WaitForSingleObject(m_waitEvent, INFINITY);
+		WaitForSingleObject(m_waitEvent, INFINITE);
 
 		m_waitFenceValue++;
 	}
@@ -176,6 +176,62 @@ namespace RHI
 			m_computeQueue->Signal(m_computFences[m_backBufferIndex].Get(), m_computeFenceValues[m_backBufferIndex]);
 			break;
 		}
+	}
+
+	ID3D12GraphicsCommandList4* GraphicCore::GetDefaultCommandList() const
+	{
+		return GetFrameResources().m_default_cmd_List.Get();
+	}
+
+	ID3D12GraphicsCommandList4* GraphicCore::GetNewGraphicsCommandList() const
+	{
+		auto& frameResouce = GetFrameResources();
+
+		unsigned int i = frameResouce.cmd_list_index;
+
+		frameResouce.cmd_list_index++;
+
+		assert(i < CMD_LIST_COUNT && "Not enough command lists");
+
+		ThrowIfFailed(frameResouce.m_cmd_allocators[i]->Reset());
+		ThrowIfFailed(frameResouce.m_cmd_lists[i]->Reset(frameResouce.m_cmd_allocators[i].Get(), nullptr));
+
+		//ID3D12DescriptorHeap** ppHeaps[] = {}
+		// TODO
+
+		return frameResouce.m_cmd_lists[i].Get();
+	}
+
+	ID3D12GraphicsCommandList4* GraphicCore::GetLastGraphicsCommandList() const
+	{
+		auto& frameResouce = GetFrameResources();
+		unsigned int i = frameResouce.cmd_list_index;
+		return i > 0 ? frameResouce.m_cmd_lists[i - 1].Get() : frameResouce.m_default_cmd_List.Get();
+	}
+
+	ID3D12GraphicsCommandList4* GraphicCore::GetNewComputeCommandList() const
+	{
+		auto& frameResouce = GetFrameResources();
+
+		unsigned int i = frameResouce.compute_cmd_list_index;
+
+		frameResouce.compute_cmd_list_index++;
+
+		assert(i < CMD_LIST_COUNT && "Not enough command lists");
+
+		ThrowIfFailed(frameResouce.m_compute_cmd_llocators[i]->Reset());
+		ThrowIfFailed(frameResouce.m_compute_cmd_lists[i]->Reset(frameResouce.m_compute_cmd_llocators[i].Get(), nullptr));
+
+		// TODO
+
+		return frameResouce.m_compute_cmd_lists[i].Get();
+	}
+
+	ID3D12GraphicsCommandList4* GraphicCore::GetLastComputeCommandList() const
+	{
+		auto& frameResouce = GetFrameResources();
+		unsigned int i = frameResouce.compute_cmd_list_index;
+		return i > 0 ? frameResouce.m_compute_cmd_lists[i - 1].Get() : frameResouce.m_default_cmd_List.Get();
 	}
 
 	void GraphicCore::ResetDefaultCommandList()

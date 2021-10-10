@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
+    <ClInclude Include="Common\Input.h" />
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\DescriptorHeap.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
