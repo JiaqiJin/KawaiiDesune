@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="1\InitApp.cpp" />
+    <ClCompile Include="Common\D3D12MemAlloc.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
     <ClCompile Include="Common\GameTimer.cpp" />
@@ -154,6 +155,7 @@
     <None Include="Shader\shaders.hlsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\D3D12MemAlloc.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
     <ClInclude Include="Common\d3dx12.h" />
