@@ -7,6 +7,8 @@
 #define D3D12MA_D3D12_HEADERS_ALREADY_INCLUDED
 #include "D3D12MemAlloc.h"
 
+#include "DescriptorHeap.h"
+
 using namespace Microsoft::WRL;
 
 namespace RHI
@@ -26,7 +28,8 @@ namespace RHI
 		struct FrameResources
 		{
 			ComPtr<ID3D12Resource> m_backBuffer;
-			
+			D3D12_CPU_DESCRIPTOR_HANDLE m_backBufferRTV;
+
 			ComPtr<ID3D12CommandAllocator> m_default_cmd_Allocator;
 			ComPtr<ID3D12GraphicsCommandList4> m_default_cmd_List;
 
@@ -66,6 +69,8 @@ namespace RHI
 
 		void ExecuteGraphicsCommandLists();
 		void ExecuteComputeCommandLists();
+
+		void ProcessReleaseQueue();
 	private:
 
 		UINT width, height;
@@ -96,9 +101,12 @@ namespace RHI
 		HANDLE m_computeFenceEvents[BACKBUFFER_COUNT];
 		UINT64 m_computeFenceValues[BACKBUFFER_COUNT];
 
-
 		ComPtr<ID3D12Fence> m_waitFence = nullptr;
 		HANDLE m_waitEvent = nullptr;
 		UINT64 m_waitFenceValue = 0;
+
+		// Descriptor
+		std::unique_ptr<DescriptorHeap> m_RTVHeap = nullptr;
+		// Allocators
 	};
 }

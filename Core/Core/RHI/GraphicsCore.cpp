@@ -101,6 +101,51 @@ namespace RHI
 			// TODO
 		}
 
+		m_RTVHeap = std::make_unique<DescriptorHeap>(m_device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 
+			D3D12_DESCRIPTOR_HEAP_FLAG_NONE, BACKBUFFER_COUNT);
+
+		// Frame Resouce
+		{
+			for (UINT fr = 0; fr < BACKBUFFER_COUNT; fr++)
+			{
+				ThrowIfFailed(m_swapChain->GetBuffer(fr, IID_PPV_ARGS(&frames[fr].m_backBuffer)));
+				frames[fr].m_backBufferRTV = m_RTVHeap->GetCpuHandle(fr);
+				m_device->CreateRenderTargetView(frames[fr].m_backBuffer.Get(), nullptr, frames[fr].m_backBufferRTV);
+
+				ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT,
+					IID_PPV_ARGS(frames[fr].m_default_cmd_Allocator.GetAddressOf())));
+
+				ThrowIfFailed(m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, 
+					frames[fr].m_default_cmd_Allocator.Get(),
+					nullptr, IID_PPV_ARGS(frames[fr].m_default_cmd_List.GetAddressOf())));
+
+				ThrowIfFailed(frames[fr].m_default_cmd_List->Close());
+
+				for (UINT i = 0; i < CMD_LIST_COUNT; ++i)
+				{
+					// Direct Commands
+					ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT,
+						IID_PPV_ARGS(frames[fr].m_cmd_allocators[i].GetAddressOf())));
+
+					ThrowIfFailed(m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, 
+						frames[fr].m_cmd_allocators[i].Get(),
+						nullptr, IID_PPV_ARGS(frames[fr].m_cmd_lists[i].GetAddressOf())));
+
+					ThrowIfFailed(frames[fr].m_cmd_lists[i]->Close());
+
+					// Compute Commands
+					ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_COMPUTE,
+						IID_PPV_ARGS(frames[fr].m_compute_cmd_llocators[i].GetAddressOf())));
+
+					ThrowIfFailed(m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_COMPUTE, 
+						frames[fr].m_compute_cmd_llocators[i].Get(),
+						nullptr, IID_PPV_ARGS(frames[fr].m_compute_cmd_lists[i].GetAddressOf())));
+
+					ThrowIfFailed(frames[fr].m_compute_cmd_lists[i]->Close());
+				}
+			}
+		}
+
 		//sync objects
 		{
 			for (size_t i = 0; i < BACKBUFFER_COUNT; ++i)
@@ -137,7 +182,27 @@ namespace RHI
 
 	GraphicCore::~GraphicCore()
 	{
-		// TODO
+		WaitForGPU();
+		ProcessReleaseQueue();
+		for (UINT i = 0; i < BACKBUFFER_COUNT; i++)
+		{
+			// Graphic
+			if (m_graphicsFences[i]->GetCompletedValue() < m_graphicsFenceValues[i])
+			{
+				ThrowIfFailed(m_graphicsFences[i]->SetEventOnCompletion(m_graphicsFenceValues[i], m_graphicsFenceEvents[i]));
+				WaitForSingleObject(m_graphicsFenceEvents[i], INFINITE);
+			}
+			//Compute 
+			if (m_graphicsFences[i]->GetCompletedValue() < m_graphicsFenceValues[i])
+			{
+				ThrowIfFailed(m_computFences[i]->SetEventOnCompletion(m_computeFenceValues[i], m_computeFenceEvents[i]));
+				WaitForSingleObject(m_computeFenceEvents[i], INFINITE);
+			}
+
+			CloseHandle(m_computeFenceEvents[i]);
+			CloseHandle(m_graphicsFenceEvents[i]);
+			CloseHandle(m_frameFenceEvent[i]);
+		}
 	}
 
 	void GraphicCore::WaitForGPU()
@@ -299,5 +364,10 @@ namespace RHI
 		m_computeQueue->ExecuteCommandLists(static_cast<UINT>(cmd_Lists.size()), cmd_Lists.data());
 
 		frameResouce.compute_cmd_list_index = 0;
+	}
+
+	void GraphicCore::ProcessReleaseQueue()
+	{
+
 	}
 }

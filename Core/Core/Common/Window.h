@@ -28,6 +28,14 @@ public:
 	static float GetHeight();
 
 	static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	static void SetCallback(std::function<void(WindowMsg_t const& window_data)> callback);
+
+	bool Loop();
+	void Destroy();
+	void* Handle();
+	bool IsActive();
+
 private:
 	inline static HINSTANCE m_instance = nullptr;
 	inline static HWND m_handle = nullptr;

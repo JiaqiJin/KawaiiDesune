@@ -87,6 +87,38 @@ LRESULT Window::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return result;
 }
 
+void Window::SetCallback(std::function<void(WindowMsg_t const& window_data)> callback)
+{
+    _msg_callback = callback;
+}
+
+bool Window::Loop()
+{
+    MSG msg{};
+    while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+        if (msg.message == WM_QUIT) return false;
+    }
+    return true;
+}
+
+void Window::Destroy()
+{
+    _msg_callback = nullptr;
+    if (m_handle) ::DestroyWindow(m_handle);
+}
+
+void* Window::Handle()
+{
+    return static_cast<void*>(m_handle);
+}
+bool Window::IsActive()
+{
+    return ::GetForegroundWindow() == m_handle;
+}
+
 float Window::GetWidth()
 {
     RECT rect{};
