@@ -1,5 +1,4 @@
 #include "../Kawaiipch.h"
-
 #include "DescriptorHeap.h"
 
 namespace RHI

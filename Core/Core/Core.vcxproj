@@ -148,6 +148,7 @@
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
+    <ClCompile Include="RHI\LinealDescriptorAllocation.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
@@ -169,9 +170,12 @@
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\DescriptorHeap.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
+    <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
+    <ClInclude Include="Utils\AllocatorUtil.h" />
     <ClInclude Include="Utils\Debug.h" />
     <ClInclude Include="Utils\DxException.h" />
+    <ClInclude Include="Utils\LinearAllocator.h" />
     <ClInclude Include="Utils\StringUtil.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Vendor\imgui\imconfig.h" />

@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\InitApp.cpp" />
+    <ClCompile Include="1\DrawBox.cpp" />
     <ClCompile Include="Common\D3D12MemAlloc.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
@@ -163,6 +163,7 @@
     <ClInclude Include="Common\GameTimer.h" />
     <ClInclude Include="Common\Helpers.h" />
     <ClInclude Include="Common\MathHelper.h" />
+    <ClInclude Include="Common\UploadBuffer.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

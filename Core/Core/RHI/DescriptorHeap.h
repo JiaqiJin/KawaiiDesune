@@ -1,5 +1,10 @@
 #pragma once
 
+#include <d3d12.h>
+#include <wrl.h>
+#include <mutex>
+#include <vector>
+
 namespace RHI
 {
 	class DescriptorHeap
@@ -29,6 +34,12 @@ namespace RHI
 		D3D12_CPU_DESCRIPTOR_HANDLE GetFirstCpuHandle() const;
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGpuHandle(size_t index) const;
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCpuHandle(size_t index) const;
+
+		size_t Count() const { return m_desc.NumDescriptors; }
+		D3D12_DESCRIPTOR_HEAP_FLAGS Flags() const { return m_desc.Flags; }
+		D3D12_DESCRIPTOR_HEAP_TYPE  Type() const { return m_desc.Type; }
+		size_t Increment() const { return m_descriptorHandleSize; }
+		ID3D12DescriptorHeap* Heap() const { return m_heap.Get(); }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_heap;
