@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <vector>
+#include <d3d12.h>
+
 namespace RHI
 {
 	enum class ShaderStage
@@ -37,6 +41,28 @@ namespace RHI
 		}
 	};
 
+	struct ShaderDefine
+	{
+		std::wstring name;
+		std::wstring value;
+	};
+
+	struct ShaderInfo
+	{
+		enum FLAGS
+		{
+			FLAG_NONE = 0,
+			FLAG_DEBUG = 1 << 0,
+			FLAG_DISABLE_OPTIMIZATION = 1 << 1,
+		};
+
+		ShaderStage stage = ShaderStage::COUNT;
+		std::string shadersource = "";
+		std::string entrypoint = "";
+		std::vector<ShaderDefine> defines;
+		UINT64 flags = FLAG_NONE;
+	};
+
 	struct InputLayout
 	{
 		std::vector<D3D12_INPUT_ELEMENT_DESC> IE_Desc;
@@ -44,6 +70,10 @@ namespace RHI
 
 	namespace ShaderUtil
 	{
-		void CompileShader();
+		void Init();
+
+		void Destroy();
+
+		void CompileShader(ShaderInfo const& input, ShaderBlob& blob);
 	}
 }
