@@ -10,7 +10,7 @@ namespace RHI
 	class LinealDescriptorAllocation : public DescriptorHeap
 	{
 	public:
-
+		// Constructors
 		LinealDescriptorAllocation(ID3D12DescriptorHeap* pExistingHeap, OffsetType reserve = 0);
 
 		LinealDescriptorAllocation(
@@ -30,10 +30,12 @@ namespace RHI
 
 		OffsetType Allocate();
 		OffsetType AllocateRange(size_t);
-		void Free();
+		void Clear();
 
 	private:
+		// Lineal Allocation
 		LinearAllocator m_linearAllocator;
+		// Mutex
 		std::mutex m_mutex;
 	};
 }

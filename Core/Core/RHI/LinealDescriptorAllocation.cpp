@@ -55,9 +55,9 @@ namespace RHI
 		return start;
 	}
 
-	void LinealDescriptorAllocation::Free()
+	void LinealDescriptorAllocation::Clear()
 	{
 		std::lock_guard<std::mutex> guard(m_mutex);
-		m_linearAllocator.Free();
+		m_linearAllocator.Clear();
 	}
 }

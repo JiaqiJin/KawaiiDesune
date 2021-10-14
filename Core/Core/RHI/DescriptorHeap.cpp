@@ -22,7 +22,7 @@ namespace RHI
 		m_GPUHandle{},
 		m_descriptorHandleSize(0)
 	{
-		CreateHelper(device, _desc);
+		CreateDescriptorHelper(device, _desc);
 	}
 
 	DescriptorHeap::DescriptorHeap(
@@ -40,7 +40,7 @@ namespace RHI
 		desc.Flags = flags;
 		desc.NumDescriptors = static_cast<UINT>(count);
 		desc.Type = type;
-		CreateHelper(device, desc);
+		CreateDescriptorHelper(device, desc);
 	}
 
 	DescriptorHeap::DescriptorHeap(ID3D12Device* device, size_t count)
@@ -84,7 +84,7 @@ namespace RHI
 		return cpuHandle;
 	}
 
-	void DescriptorHeap::CreateHelper(ID3D12Device* pDevice, D3D12_DESCRIPTOR_HEAP_DESC const& desc)
+	void DescriptorHeap::CreateDescriptorHelper(ID3D12Device* pDevice, D3D12_DESCRIPTOR_HEAP_DESC const& desc)
 	{
 		m_desc = desc;
 		m_descriptorHandleSize = pDevice->GetDescriptorHandleIncrementSize(m_desc.Type);

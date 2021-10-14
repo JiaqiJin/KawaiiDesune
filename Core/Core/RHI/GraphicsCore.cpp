@@ -189,13 +189,13 @@ namespace RHI
 			// Graphic
 			if (m_graphicsFences[i]->GetCompletedValue() < m_graphicsFenceValues[i])
 			{
-				ThrowIfFailed(m_graphicsFences[i]->SetEventOnCompletion(m_graphicsFenceValues[i], m_graphicsFenceEvents[i]));
+				(m_graphicsFences[i]->SetEventOnCompletion(m_graphicsFenceValues[i], m_graphicsFenceEvents[i]));
 				WaitForSingleObject(m_graphicsFenceEvents[i], INFINITE);
 			}
 			//Compute 
 			if (m_graphicsFences[i]->GetCompletedValue() < m_graphicsFenceValues[i])
 			{
-				ThrowIfFailed(m_computFences[i]->SetEventOnCompletion(m_computeFenceValues[i], m_computeFenceEvents[i]));
+				(m_computFences[i]->SetEventOnCompletion(m_computeFenceValues[i], m_computeFenceEvents[i]));
 				WaitForSingleObject(m_computeFenceEvents[i], INFINITE);
 			}
 
