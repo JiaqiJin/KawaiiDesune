@@ -152,6 +152,7 @@
     <ClCompile Include="RHI\GraphicsCore.cpp" />
     <ClCompile Include="RHI\LinealDescriptorAllocation.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
+    <ClCompile Include="RHI\Texture2D.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
     <ClCompile Include="Vendor\imgui\imgui.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="RHI\GraphicsCore.h" />
     <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
+    <ClInclude Include="RHI\Texture2D.h" />
     <ClInclude Include="Utils\AllocatorUtil.h" />
     <ClInclude Include="Utils\Debug.h" />
     <ClInclude Include="Utils\DxException.h" />
