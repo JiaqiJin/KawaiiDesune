@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DynamicAllocation.h"
 #include "../Utils/LinearAllocator.h"
 #include "../Utils/RingAllocator.h"
 
@@ -11,6 +12,8 @@ namespace RHI
 	{
 	public:
 		UploadBuffer(ID3D12Device* device, size_t max_size_in_bytes);
+
+		virtual DynamicAllocation Allocate(SIZE_T size_in_bytes, SIZE_T alignment) = 0;
 
 	protected:
 		std::mutex m_mutex;
@@ -26,6 +29,8 @@ namespace RHI
 	public:
 		LinealUploadBuffer(ID3D12Device* device, SIZE_T max_size_in_bytes);
 		
+		virtual DynamicAllocation Allocate(SIZE_T size_in_bytes, SIZE_T alignment) override;
+
 		void Clear();
 
 		D3D12_GPU_VIRTUAL_ADDRESS GPUAddress() const;
@@ -39,8 +44,9 @@ namespace RHI
 	public:
 		RingUploadBuffer(ID3D12Device* device, SIZE_T max_size_in_bytes);
 
-		void FinishCurrentFrame(uint64_t frame);
+		virtual DynamicAllocation Allocate(SIZE_T size_in_bytes, SIZE_T alignment) override;
 
+		void FinishCurrentFrame(uint64_t frame);
 		void ReleaseCompletedFrames(uint64_t completedFrame);
 	private:
 		RingAllocator m_ringAllocator;

@@ -28,6 +28,31 @@ namespace RHI
 
 	}
 
+	DynamicAllocation LinealUploadBuffer::Allocate(SIZE_T size_in_bytes, SIZE_T alignment)
+	{
+		OffsetType offset = INVALID_OFFSET;
+
+		{
+			std::lock_guard<std::mutex> guard(m_mutex);
+			offset = m_linearAllocator.Allocate(size_in_bytes, alignment);
+		}
+
+		if (offset != INVALID_OFFSET)
+		{
+			DynamicAllocation allocation;
+			allocation.pBuffer = m_buffer.Get();
+			allocation.CPUAddress = reinterpret_cast<uint8_t*>(m_cpuAddress) + offset;
+			allocation.GPUAddress = m_gpuAddress + offset;
+			allocation.Offset = offset;
+			allocation.Size = size_in_bytes;
+			return allocation;
+		}
+		else
+		{
+			return DynamicAllocation{};
+		}
+	}
+
 	void LinealUploadBuffer::Clear()
 	{
 		std::lock_guard<std::mutex> guard(m_mutex);
@@ -44,6 +69,31 @@ namespace RHI
 		: UploadBuffer(device, max_size_in_bytes), m_ringAllocator(max_size_in_bytes)
 	{
 
+	}
+
+	DynamicAllocation RingUploadBuffer::Allocate(SIZE_T size_in_bytes, SIZE_T alignment)
+	{
+		OffsetType offset = INVALID_OFFSET;
+
+		{
+			std::lock_guard<std::mutex> guard(m_mutex);
+			offset = m_ringAllocator.Allocate(size_in_bytes, alignment);
+		}
+
+		if (offset != INVALID_OFFSET)
+		{
+			DynamicAllocation allocation{};
+			allocation.pBuffer = m_buffer.Get();
+			allocation.CPUAddress = reinterpret_cast<uint8_t*>(m_cpuAddress) + offset;
+			allocation.GPUAddress = m_gpuAddress + offset;
+			allocation.Offset = offset;
+			allocation.Size = size_in_bytes;
+			return allocation;
+		}
+		else
+		{
+			return DynamicAllocation{};
+		}
 	}
 
 	void RingUploadBuffer::FinishCurrentFrame(uint64_t frame)
