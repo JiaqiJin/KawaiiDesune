@@ -170,6 +170,9 @@
     <ClInclude Include="Utils\RingAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RHI\DynamicAllocation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

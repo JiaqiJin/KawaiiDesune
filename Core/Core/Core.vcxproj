@@ -173,6 +173,7 @@
     <ClInclude Include="Common\Window.h" />
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\DescriptorHeap.h" />
+    <ClInclude Include="RHI\DynamicAllocation.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
     <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
