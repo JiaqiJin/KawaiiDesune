@@ -172,6 +172,8 @@
     <ClInclude Include="Common\Input.h" />
     <ClInclude Include="Common\KawaiiEngine.h" />
     <ClInclude Include="Common\Window.h" />
+    <ClInclude Include="RHI\ConstantBuffer.h" />
+    <ClInclude Include="RHI\ConstantBuffers.h" />
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\DescriptorHeap.h" />
     <ClInclude Include="RHI\DynamicAllocation.h" />
