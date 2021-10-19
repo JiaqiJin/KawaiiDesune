@@ -151,6 +151,7 @@
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
     <ClCompile Include="RHI\LinealDescriptorAllocation.cpp" />
+    <ClCompile Include="RHI\RenderPass.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
     <ClCompile Include="RHI\Texture2D.cpp" />
     <ClCompile Include="RHI\UploadBuffer.cpp" />
@@ -176,6 +177,8 @@
     <ClInclude Include="RHI\DynamicAllocation.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
     <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
+    <ClInclude Include="RHI\RenderPass.h" />
+    <ClInclude Include="RHI\ResourceBarriers.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
     <ClInclude Include="RHI\Texture2D.h" />
     <ClInclude Include="RHI\UploadBuffer.h" />
