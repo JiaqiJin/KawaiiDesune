@@ -154,6 +154,7 @@
     <ClCompile Include="RHI\RenderPass.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
     <ClCompile Include="RHI\Texture2D.cpp" />
+    <ClCompile Include="RHI\TextureManager.cpp" />
     <ClCompile Include="RHI\UploadBuffer.cpp" />
     <ClCompile Include="Utils\Debug.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
@@ -183,10 +184,12 @@
     <ClInclude Include="RHI\ResourceBarriers.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
     <ClInclude Include="RHI\Texture2D.h" />
+    <ClInclude Include="RHI\TextureManager.h" />
     <ClInclude Include="RHI\UploadBuffer.h" />
     <ClInclude Include="Utils\AllocatorUtil.h" />
     <ClInclude Include="Utils\Debug.h" />
     <ClInclude Include="Utils\DxException.h" />
+    <ClInclude Include="Utils\FilesUtil.h" />
     <ClInclude Include="Utils\LinearAllocator.h" />
     <ClInclude Include="Utils\RingAllocator.h" />
     <ClInclude Include="Utils\StringUtil.h" />
