@@ -7,26 +7,26 @@ using namespace Util;
 
 namespace RHI
 {
-	class LinealDescriptorAllocation : public DescriptorHeap
+	class LinealDescriptorAllocator : public DescriptorHeap
 	{
 	public:
 		// Constructors
-		LinealDescriptorAllocation(ID3D12DescriptorHeap* pExistingHeap, OffsetType reserve = 0);
+		LinealDescriptorAllocator(ID3D12DescriptorHeap* pExistingHeap, OffsetType reserve = 0);
 
-		LinealDescriptorAllocation(
+		LinealDescriptorAllocator(
 			ID3D12Device* device,
 			D3D12_DESCRIPTOR_HEAP_DESC const& desc,
 			OffsetType reserve = 0);
 
-		LinealDescriptorAllocation(
+		LinealDescriptorAllocator(
 			ID3D12Device* device,
 			D3D12_DESCRIPTOR_HEAP_TYPE type,
 			D3D12_DESCRIPTOR_HEAP_FLAGS flags,
 			size_t capacity, OffsetType reserve = 0);
 
-		LinealDescriptorAllocation(ID3D12Device* device, size_t count, OffsetType reserve = 0);
+		LinealDescriptorAllocator(ID3D12Device* device, size_t count, OffsetType reserve = 0);
 
-		~LinealDescriptorAllocation() = default;
+		~LinealDescriptorAllocator() = default;
 
 		OffsetType Allocate();
 		OffsetType AllocateRange(size_t);

@@ -8,6 +8,9 @@
 #include "D3D12MemAlloc.h"
 
 #include "DescriptorHeap.h"
+#include "LinealDescriptorAllocation.h"
+#include "UploadBuffer.h"
+#include "Releasable.h"
 
 using namespace Microsoft::WRL;
 
@@ -83,9 +86,16 @@ namespace RHI
 		// Frame Resources
 		FrameResources frames[BACKBUFFER_COUNT];
 
+		// Releaseble queue
+		ReleasablePtr<D3D12MA::Allocator> m_allocator = nullptr;
+		std::queue<ReleasableItem> m_releaseQueue;
+		Microsoft::WRL::ComPtr<ID3D12Fence> m_releaseQueueFence = nullptr;
+		HANDLE m_releaseQueueEvent = nullptr;
+		UINT64 m_releaseQueueFenceValue = 0;
+
 		// Commands Queue
-		ComPtr<ID3D12CommandQueue> m_graphicQueue;
-		ComPtr<ID3D12CommandQueue> m_computeQueue;
+		ComPtr<ID3D12CommandQueue> m_graphicQueue = nullptr;
+		ComPtr<ID3D12CommandQueue> m_computeQueue = nullptr;
 
 		// Sync
 		ComPtr<ID3D12Fence> m_frameFence[BACKBUFFER_COUNT];
@@ -107,6 +117,8 @@ namespace RHI
 
 		// Descriptor
 		std::unique_ptr<DescriptorHeap> m_RTVHeap = nullptr;
-		// Allocators
+		std::vector<std::unique_ptr<LinealDescriptorAllocator>> m_descriptroAllocator;
+		std::vector<std::unique_ptr<LinealUploadBuffer>> m_uploadBuffer;
+
 	};
 }

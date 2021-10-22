@@ -49,7 +49,12 @@ namespace RHI
 
 		// D3D12 Allocator
 		{
-
+			D3D12MA::ALLOCATOR_DESC allocDesc = {};
+			allocDesc.pDevice = m_device.Get();
+			allocDesc.pAdapter = pAdapter.Get();
+			D3D12MA::Allocator* allocator = nullptr;
+			ThrowIfFailed(D3D12MA::CreateAllocator(&allocDesc, &allocator));
+			m_allocator.reset(allocator);
 		}
 
 		// Create Command Queue
@@ -98,7 +103,15 @@ namespace RHI
 		//create upload and descriptor allocators
 		{
 			D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
-			// TODO
+			heapDesc.NumDescriptors = 1000;
+			heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+			heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+
+			for (UINT i = 0; i < BACKBUFFER_COUNT; i++)
+			{
+				m_descriptroAllocator.emplace_back(new LinealDescriptorAllocator(m_device.Get(), heapDesc));
+				m_uploadBuffer.emplace_back(new LinealUploadBuffer(m_device.Get(), 10000000));
+			}
 		}
 
 		m_RTVHeap = std::make_unique<DescriptorHeap>(m_device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 
