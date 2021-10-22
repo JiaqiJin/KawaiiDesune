@@ -6,21 +6,21 @@ using namespace Util;
 
 namespace RHI
 {
-	LinealDescriptorAllocation::LinealDescriptorAllocation(ID3D12DescriptorHeap* pExistingHeap, OffsetType reserve)
+	LinealDescriptorAllocator::LinealDescriptorAllocator(ID3D12DescriptorHeap* pExistingHeap, OffsetType reserve)
 		: DescriptorHeap(pExistingHeap), m_linearAllocator(Count(), reserve)
 
 	{
 
 	}
 
-	LinealDescriptorAllocation::LinealDescriptorAllocation(ID3D12Device* device, 
+	LinealDescriptorAllocator::LinealDescriptorAllocator(ID3D12Device* device, 
 		D3D12_DESCRIPTOR_HEAP_DESC const& desc, OffsetType reserve)
 		: DescriptorHeap(device, desc), m_linearAllocator(Count(), reserve)
 	{
 
 	}
 
-	LinealDescriptorAllocation::LinealDescriptorAllocation(ID3D12Device* device, 
+	LinealDescriptorAllocator::LinealDescriptorAllocator(ID3D12Device* device, 
 		D3D12_DESCRIPTOR_HEAP_TYPE type, 
 		D3D12_DESCRIPTOR_HEAP_FLAGS flags, 
 		size_t capacity, OffsetType reserve)
@@ -29,8 +29,8 @@ namespace RHI
 
 	}
 
-	LinealDescriptorAllocation::LinealDescriptorAllocation(ID3D12Device* device, size_t count, OffsetType reserve) :
-		LinealDescriptorAllocation(device, 
+	LinealDescriptorAllocator::LinealDescriptorAllocator(ID3D12Device* device, size_t count, OffsetType reserve) :
+		LinealDescriptorAllocator(device, 
 			D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 
 			D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE, 
 			count, reserve)
@@ -38,12 +38,12 @@ namespace RHI
 
 	}
 
-	OffsetType LinealDescriptorAllocation::Allocate()
+	OffsetType LinealDescriptorAllocator::Allocate()
 	{
 		return AllocateRange(1);
 	}
 
-	OffsetType LinealDescriptorAllocation::AllocateRange(size_t num_descriptors)
+	OffsetType LinealDescriptorAllocator::AllocateRange(size_t num_descriptors)
 	{
 		OffsetType start = INVALID_OFFSET;
 		{
@@ -55,7 +55,7 @@ namespace RHI
 		return start;
 	}
 
-	void LinealDescriptorAllocation::Clear()
+	void LinealDescriptorAllocator::Clear()
 	{
 		std::lock_guard<std::mutex> guard(m_mutex);
 		m_linearAllocator.Clear();
