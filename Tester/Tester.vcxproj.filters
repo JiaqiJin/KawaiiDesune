@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Shader\shaders.hlsl" />
+    <None Include="Shaders\shaders.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -75,5 +75,8 @@
     <ClInclude Include="Common\UploadBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\CH1\color.hlsl" />
   </ItemGroup>
 </Project>

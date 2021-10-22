@@ -197,6 +197,12 @@
     <ClInclude Include="Utils\FilesUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RHI\Releasable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\ReadbackBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -180,6 +180,8 @@
     <ClInclude Include="RHI\DynamicAllocation.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
     <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
+    <ClInclude Include="RHI\ReadbackBuffer.h" />
+    <ClInclude Include="RHI\Releasable.h" />
     <ClInclude Include="RHI\RenderPass.h" />
     <ClInclude Include="RHI\ResourceBarriers.h" />
     <ClInclude Include="RHI\ShaderUtil.h" />
