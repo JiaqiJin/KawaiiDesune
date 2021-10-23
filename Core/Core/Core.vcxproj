@@ -150,6 +150,7 @@
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
+    <ClCompile Include="RHI\index.cpp" />
     <ClCompile Include="RHI\LinealDescriptorAllocation.cpp" />
     <ClCompile Include="RHI\RenderPass.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="RHI\DescriptorHeap.h" />
     <ClInclude Include="RHI\DynamicAllocation.h" />
     <ClInclude Include="RHI\GraphicsCore.h" />
+    <ClInclude Include="RHI\IndexBuffer.h" />
     <ClInclude Include="RHI\LinealDescriptorAllocation.h" />
     <ClInclude Include="RHI\ReadbackBuffer.h" />
     <ClInclude Include="RHI\Releasable.h" />

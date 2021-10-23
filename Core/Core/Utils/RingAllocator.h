@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include <cassert>
 #include "AllocatorUtil.h"
 
 namespace Util

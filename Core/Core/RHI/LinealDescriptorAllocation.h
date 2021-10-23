@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mutex>
 #include "DescriptorHeap.h"
 #include "../Utils/LinearAllocator.h"
 
