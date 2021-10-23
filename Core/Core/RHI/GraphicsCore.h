@@ -56,6 +56,7 @@ namespace RHI
 		void WaitOnQueue(QueueType type);
 		void SignalQueue(QueueType type);
 
+		// Command List Getters
 		ID3D12Device5* GetDevice() const { return m_device.Get(); }
 		ID3D12GraphicsCommandList4* GetDefaultCommandList() const;
 		ID3D12GraphicsCommandList4* GetNewGraphicsCommandList() const;
@@ -66,6 +67,10 @@ namespace RHI
 		void ResetDefaultCommandList();
 		void ExecuteDefaultCommandList();
 
+		D3D12MA::Allocator* GetAllocator() const;
+		void AddToReleaseQueue(D3D12MA::Allocation* alloc);
+		void AddToReleaseQueue(ID3D12Resource* resource);
+
 	private:
 		FrameResources& GetFrameResources();
 		const FrameResources& GetFrameResources() const;
@@ -74,6 +79,9 @@ namespace RHI
 		void ExecuteComputeCommandLists();
 
 		void ProcessReleaseQueue();
+
+		LinealDescriptorAllocator* GetDescriptorAllocator() const;
+		LinealUploadBuffer* GetUploadBuffer() const;
 	private:
 
 		UINT width, height;

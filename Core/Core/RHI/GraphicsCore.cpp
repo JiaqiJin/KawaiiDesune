@@ -381,6 +381,43 @@ namespace RHI
 
 	void GraphicCore::ProcessReleaseQueue()
 	{
+		while (!m_releaseQueue.empty())
+		{
+			if (m_releaseQueue.front().fence_value > m_releaseQueueFence->GetCompletedValue())
+				break;
 
+			auto allocation = std::move(m_releaseQueue.front());
+			allocation.Release();
+			m_releaseQueue.pop();
+		}
+
+		ThrowIfFailed(m_graphicQueue->Signal(m_releaseQueueFence.Get(), m_releaseQueueFenceValue));
+
+		++m_releaseQueueFenceValue;
+	}
+
+	D3D12MA::Allocator* GraphicCore::GetAllocator() const
+	{
+		return m_allocator.get();
+	}
+
+	void GraphicCore::AddToReleaseQueue(D3D12MA::Allocation* alloc)
+	{
+		m_releaseQueue.emplace(new ReleasableResource(alloc), m_releaseQueueFenceValue);
+	}
+
+	void GraphicCore::AddToReleaseQueue(ID3D12Resource* resource)
+	{
+		m_releaseQueue.emplace(new ReleasableResource(resource), m_releaseQueueFenceValue);
+	}
+
+	LinealDescriptorAllocator* GraphicCore::GetDescriptorAllocator() const
+	{
+		return m_descriptroAllocator[m_backBufferIndex].get();
+	}
+
+	LinealUploadBuffer* GraphicCore::GetUploadBuffer() const
+	{
+		return m_uploadBuffer[m_backBufferIndex].get();
 	}
 }
