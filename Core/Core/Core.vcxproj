@@ -150,7 +150,6 @@
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
-    <ClCompile Include="RHI\index.cpp" />
     <ClCompile Include="RHI\LinealDescriptorAllocation.cpp" />
     <ClCompile Include="RHI\RenderPass.cpp" />
     <ClCompile Include="RHI\ShaderUtil.cpp" />
@@ -190,6 +189,7 @@
     <ClInclude Include="RHI\Texture2D.h" />
     <ClInclude Include="RHI\TextureManager.h" />
     <ClInclude Include="RHI\UploadBuffer.h" />
+    <ClInclude Include="RHI\VertexBuffer.h" />
     <ClInclude Include="Utils\AllocatorUtil.h" />
     <ClInclude Include="Utils\Debug.h" />
     <ClInclude Include="Utils\DxException.h" />
