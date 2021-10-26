@@ -66,7 +66,7 @@
     <ClCompile Include="Common\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Common\KawaiiEngine.cpp">
+    <ClCompile Include="Core\KawaiiEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common\Window.cpp">
@@ -85,6 +85,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RHI\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +152,7 @@
     <ClInclude Include="Common\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Common\KawaiiEngine.h">
+    <ClInclude Include="Core\KawaiiEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\Window.h">
@@ -188,7 +191,7 @@
     <ClInclude Include="RHI\ConstantBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\ConstantBuffers.h">
+    <ClInclude Include="Common\ConstantBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\TextureManager.h">
@@ -207,6 +210,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

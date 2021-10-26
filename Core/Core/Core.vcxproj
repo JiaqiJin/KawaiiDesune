@@ -144,9 +144,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common\Input.cpp" />
-    <ClCompile Include="Common\KawaiiEngine.cpp" />
+    <ClCompile Include="Core\KawaiiEngine.cpp" />
     <ClCompile Include="Common\Window.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="RHI\D3D12MemAlloc.cpp" />
     <ClCompile Include="RHI\DescriptorHeap.cpp" />
     <ClCompile Include="RHI\GraphicsCore.cpp" />
@@ -171,10 +172,11 @@
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
     <ClInclude Include="Common\Input.h" />
-    <ClInclude Include="Common\KawaiiEngine.h" />
+    <ClInclude Include="Core\KawaiiEngine.h" />
     <ClInclude Include="Common\Window.h" />
+    <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="RHI\ConstantBuffer.h" />
-    <ClInclude Include="RHI\ConstantBuffers.h" />
+    <ClInclude Include="Common\ConstantBuffers.h" />
     <ClInclude Include="RHI\D3D12MemAlloc.h" />
     <ClInclude Include="RHI\DescriptorHeap.h" />
     <ClInclude Include="RHI\DynamicAllocation.h" />
