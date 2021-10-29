@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Camera.cpp" />
     <ClCompile Include="Common\Input.cpp" />
     <ClCompile Include="Core\KawaiiEngine.cpp" />
     <ClCompile Include="Common\Window.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Kawaiipch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\Camera.h" />
     <ClInclude Include="Common\d3dx12.h" />
     <ClInclude Include="Common\Input.h" />
     <ClInclude Include="Core\KawaiiEngine.h" />
