@@ -90,5 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\CH1\color.hlsl" />
+    <FxCompile Include="Shaders\Lighting\LightingUtil.hlsl" />
   </ItemGroup>
 </Project>
