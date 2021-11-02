@@ -145,7 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Shape.cpp" />
+    <ClCompile Include="1\Light.cpp" />
     <ClCompile Include="Common\D3D12MemAlloc.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\CH1\color.hlsl" />
+    <FxCompile Include="Shaders\Lighting\Default.hlsl" />
     <FxCompile Include="Shaders\Lighting\LightingUtil.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

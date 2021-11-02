@@ -36,13 +36,13 @@
     <ClCompile Include="Common\D3D12MemAlloc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Common\FrameResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Common\GeometryGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="1\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,5 +91,6 @@
   <ItemGroup>
     <FxCompile Include="Shaders\CH1\color.hlsl" />
     <FxCompile Include="Shaders\Lighting\LightingUtil.hlsl" />
+    <FxCompile Include="Shaders\Lighting\Default.hlsl" />
   </ItemGroup>
 </Project>
