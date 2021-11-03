@@ -176,6 +176,7 @@
     <ClInclude Include="Common\Input.h" />
     <ClInclude Include="Core\KawaiiEngine.h" />
     <ClInclude Include="Common\Window.h" />
+    <ClInclude Include="Renderer\ObjectEnum.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="RHI\ConstantBuffer.h" />
     <ClInclude Include="Common\ConstantBuffers.h" />

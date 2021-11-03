@@ -109,7 +109,7 @@ namespace RHI
 
 			for (UINT i = 0; i < BACKBUFFER_COUNT; i++)
 			{
-				m_descriptroAllocator.emplace_back(new LinealDescriptorAllocator(m_device.Get(), heapDesc));
+				m_descriptorAllocator.emplace_back(new LinealDescriptorAllocator(m_device.Get(), heapDesc));
 				m_uploadBuffer.emplace_back(new LinealUploadBuffer(m_device.Get(), 10000000));
 			}
 		}
@@ -274,8 +274,8 @@ namespace RHI
 		ThrowIfFailed(frameResouce.m_cmd_allocators[i]->Reset());
 		ThrowIfFailed(frameResouce.m_cmd_lists[i]->Reset(frameResouce.m_cmd_allocators[i].Get(), nullptr));
 
-		//ID3D12DescriptorHeap** ppHeaps[] = {}
-		// TODO
+		ID3D12DescriptorHeap* ppHeaps[] = { m_descriptorAllocator[m_backBufferIndex]->Heap() };
+		frameResouce.m_cmd_lists[i]->SetDescriptorHeaps(1, ppHeaps);
 
 		return frameResouce.m_cmd_lists[i].Get();
 	}
@@ -300,7 +300,8 @@ namespace RHI
 		ThrowIfFailed(frameResouce.m_compute_cmd_llocators[i]->Reset());
 		ThrowIfFailed(frameResouce.m_compute_cmd_lists[i]->Reset(frameResouce.m_compute_cmd_llocators[i].Get(), nullptr));
 
-		// TODO
+		ID3D12DescriptorHeap* ppHeaps[] = { m_descriptorAllocator[m_backBufferIndex]->Heap() };
+		frameResouce.m_compute_cmd_lists[i]->SetDescriptorHeaps(1, ppHeaps);
 
 		return frameResouce.m_compute_cmd_lists[i].Get();
 	}
@@ -413,7 +414,7 @@ namespace RHI
 
 	LinealDescriptorAllocator* GraphicCore::GetDescriptorAllocator() const
 	{
-		return m_descriptroAllocator[m_backBufferIndex].get();
+		return m_descriptorAllocator[m_backBufferIndex].get();
 	}
 
 	LinealUploadBuffer* GraphicCore::GetUploadBuffer() const

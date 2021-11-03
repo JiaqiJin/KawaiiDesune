@@ -71,6 +71,8 @@ namespace RHI
 		void AddToReleaseQueue(D3D12MA::Allocation* alloc);
 		void AddToReleaseQueue(ID3D12Resource* resource);
 
+		static constexpr UINT BackbufferCount() { return BACKBUFFER_COUNT; }
+
 	private:
 		FrameResources& GetFrameResources();
 		const FrameResources& GetFrameResources() const;
@@ -125,7 +127,7 @@ namespace RHI
 
 		// Descriptor
 		std::unique_ptr<DescriptorHeap> m_RTVHeap = nullptr;
-		std::vector<std::unique_ptr<LinealDescriptorAllocator>> m_descriptroAllocator;
+		std::vector<std::unique_ptr<LinealDescriptorAllocator>> m_descriptorAllocator;
 		std::vector<std::unique_ptr<LinealUploadBuffer>> m_uploadBuffer;
 
 	};
