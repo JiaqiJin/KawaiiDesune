@@ -42,7 +42,10 @@
     <ClCompile Include="Common\GeometryGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Light.cpp">
+    <ClCompile Include="1\Texturing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DDSTextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,5 +95,7 @@
     <FxCompile Include="Shaders\CH1\color.hlsl" />
     <FxCompile Include="Shaders\Lighting\LightingUtil.hlsl" />
     <FxCompile Include="Shaders\Lighting\Default.hlsl" />
+    <FxCompile Include="Shaders\Texture\LightingUtil.hlsl" />
+    <FxCompile Include="Shaders\Texture\Default.hlsl" />
   </ItemGroup>
 </Project>

@@ -36,6 +36,7 @@ struct Vertex
 {
 	DirectX::XMFLOAT3 Pos;
     DirectX::XMFLOAT3 Normal;
+    DirectX::XMFLOAT2 TexCoord;
 };
 
 struct FrameResource
@@ -47,6 +48,7 @@ struct FrameResource
 
     Microsoft::WRL::ComPtr<ID3D12CommandAllocator> CmdListAlloc;
 
+    // std::unique_ptr<UploadBuffer<FrameConstants>> FrameCB = nullptr;
     std::unique_ptr<UploadBuffer<PassConstants>> PassCB = nullptr;
     std::unique_ptr<UploadBuffer<MaterialConstants>> MaterialCB = nullptr;
     std::unique_ptr<UploadBuffer<ObjectConstants>> ObjectCB = nullptr;
