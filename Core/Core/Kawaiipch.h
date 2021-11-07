@@ -1,4 +1,19 @@
-#pragma once
+#ifndef PCH_H
+#define PCH_H
+
+// Windows
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#define NODRAWTEXT
+#define NOGDI
+#define NOMCX
+#define NOSERVICE
+#define NOHELP
+
 
 #pragma warning(disable:4201) // nonstandard extension used : nameless struct/union
 #pragma warning(disable:4238) // nonstandard extension used : class rvalue used as lvalue
@@ -27,26 +42,28 @@
 #include <assert.h>
 #include <ppltasks.h>
 
-// DirectX
-#include <wrl/client.h>
-#include <wrl/event.h>
-
+// Direct3d12
+#include <D3d12SDKLayers.h>
+#include <dxgi1_4.h>
+#include <D3Dcompiler.h>
 #include <d3d12.h>
-#include <d3dcompiler.h>
 #include <dxgi1_6.h>
 #include <pix3.h>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+#include <DirectXPackedVector.h>
+
+#pragma comment(lib, "d3d12.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxguid.lib")
+
+#include <wrl/client.h>
+#include <wrl/event.h>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>
 #endif
-
-// Windows
-#define NOMINMAX
-#define NODRAWTEXT
-#define NOGDI
-#define NOMCX
-#define NOSERVICE
-#define NOHELP
 
 #include <windows.h>
 #include <WindowsX.h>
@@ -62,5 +79,9 @@
 #include "Math//VectorMath.h"
 #include "Math/Common.h"
 
+#include "Utils/d3dx12.h"
 #include "Utils/Debug.h"
 #include "Utils/DxException.h"
+#include "Utils/Singleton.h"
+
+#endif
