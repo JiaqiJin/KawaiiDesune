@@ -145,7 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Texturing.cpp" />
+    <ClCompile Include="1\Blending.cpp" />
+    <ClCompile Include="1\Waves.cpp" />
     <ClCompile Include="Common\D3D12MemAlloc.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
@@ -162,6 +163,7 @@
     <None Include="Shaders\shaders.hlsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="1\Waves.h" />
     <ClInclude Include="Common\D3D12MemAlloc.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
@@ -176,6 +178,8 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\Blending\Default.hlsl" />
+    <FxCompile Include="Shaders\Blending\LightingUtil.hlsl" />
     <FxCompile Include="Shaders\CH1\color.hlsl" />
     <FxCompile Include="Shaders\Lighting\Default.hlsl" />
     <FxCompile Include="Shaders\Lighting\LightingUtil.hlsl" />

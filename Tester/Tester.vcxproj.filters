@@ -42,10 +42,13 @@
     <ClCompile Include="Common\GeometryGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Texturing.cpp">
+    <ClCompile Include="Common\DDSTextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Common\DDSTextureLoader.cpp">
+    <ClCompile Include="1\Waves.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="1\Blending.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,6 +93,9 @@
     <ClInclude Include="Common\GeometryGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="1\Waves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\CH1\color.hlsl" />
@@ -97,5 +103,7 @@
     <FxCompile Include="Shaders\Lighting\Default.hlsl" />
     <FxCompile Include="Shaders\Texture\LightingUtil.hlsl" />
     <FxCompile Include="Shaders\Texture\Default.hlsl" />
+    <FxCompile Include="Shaders\Blending\Default.hlsl" />
+    <FxCompile Include="Shaders\Blending\LightingUtil.hlsl" />
   </ItemGroup>
 </Project>

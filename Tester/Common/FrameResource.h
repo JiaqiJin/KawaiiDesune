@@ -6,8 +6,8 @@
 
 struct ObjectConstants
 {
-	DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
-	DirectX::XMFLOAT4X4 TexTransform = MathHelper::Identity4x4();
+    DirectX::XMFLOAT4X4 World = MathHelper::Identity4x4();
+    DirectX::XMFLOAT4X4 TexTransform = MathHelper::Identity4x4();
 };
 
 struct PassConstants
@@ -29,19 +29,28 @@ struct PassConstants
 
     DirectX::XMFLOAT4 AmbientLight = { 0.0f, 0.0f, 0.0f, 1.0f };
 
+    DirectX::XMFLOAT4 FogColor = { 0.7f, 0.7f, 0.7f, 1.0f };
+    float gFogStart = 5.0f;
+    float gFogRange = 150.0f;
+    DirectX::XMFLOAT2 cbPerObjectPad2;
+
+    // Indices [0, NUM_DIR_LIGHTS) are directional lights;
+    // indices [NUM_DIR_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHTS) are point lights;
+    // indices [NUM_DIR_LIGHTS+NUM_POINT_LIGHTS, NUM_DIR_LIGHTS+NUM_POINT_LIGHT+NUM_SPOT_LIGHTS)
+    // are spot lights for a maximum of MaxLights per object.
     Light Lights[MaxLights];
 };
 
 struct Vertex
 {
-	DirectX::XMFLOAT3 Pos;
+    DirectX::XMFLOAT3 Pos;
     DirectX::XMFLOAT3 Normal;
-    DirectX::XMFLOAT2 TexCoord;
+    DirectX::XMFLOAT2 TexC;
 };
 
 struct FrameResource
 {
-    FrameResource(ID3D12Device* device, UINT passCount, UINT objectCount, UINT materialCount);
+    FrameResource(ID3D12Device* device, UINT passCount, UINT objectCount, UINT materialCount, UINT waveVertCount);
     FrameResource(const FrameResource& rhs) = delete;
     FrameResource& operator=(const FrameResource& rhs) = delete;
     ~FrameResource();
@@ -52,6 +61,7 @@ struct FrameResource
     std::unique_ptr<UploadBuffer<PassConstants>> PassCB = nullptr;
     std::unique_ptr<UploadBuffer<MaterialConstants>> MaterialCB = nullptr;
     std::unique_ptr<UploadBuffer<ObjectConstants>> ObjectCB = nullptr;
+    std::unique_ptr<UploadBuffer<Vertex>> WavesVB = nullptr;
 
     UINT64 Fence = 0;
 };
