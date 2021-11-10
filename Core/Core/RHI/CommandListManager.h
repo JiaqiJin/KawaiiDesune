@@ -33,6 +33,25 @@ namespace RHI
 		}
 
 		void CreateNewCommandList(D3D12_COMMAND_LIST_TYPE Type, ID3D12GraphicsCommandList** List, ID3D12CommandAllocator** Allocator);
+
+		bool IsFenceComplete(uint64_t FenceValue, D3D12_COMMAND_LIST_TYPE Type)
+		{
+			return GetQueue(Type).IsFenceComplete(FenceValue);
+		}
+
+		void WaitForFence(uint64_t FenceValue, D3D12_COMMAND_LIST_TYPE Type)
+		{
+			return GetQueue(Type).WaitForFence(FenceValue);
+		}
+
+		// The CPU will wait for all command queues to empty (so that the GPU is idle)
+		void IdleGPU(void)
+		{
+			m_GraphicsQueue.WaitForIdle();
+			m_ComputeQueue.WaitForIdle();
+			m_CopyQueue.WaitForIdle();
+		}
+
 	private:
 		ID3D12Device* m_Device;
 

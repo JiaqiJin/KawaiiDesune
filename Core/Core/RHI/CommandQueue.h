@@ -7,6 +7,7 @@ namespace RHI
 	class CommandQueue
 	{
 		friend class CommandListManager;
+		friend class CommandContext;
 	public:
 		CommandQueue(D3D12_COMMAND_LIST_TYPE Type, ID3D12Device* Device);
 		~CommandQueue();
