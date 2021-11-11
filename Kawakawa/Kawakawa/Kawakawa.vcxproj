@@ -147,6 +147,7 @@
     <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Math\Random.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
     <ClCompile Include="Platform\Window\Win32Application.cpp" />
     <ClCompile Include="Utility\Debug.cpp" />
@@ -160,11 +161,22 @@
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />
+    <ClInclude Include="Math\Common.h" />
+    <ClInclude Include="Math\Matrix3.h" />
+    <ClInclude Include="Math\Matrix4.h" />
+    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Math\Random.h" />
+    <ClInclude Include="Math\Scalar.h" />
+    <ClInclude Include="Math\Transform.h" />
+    <ClInclude Include="Math\Vector.h" />
     <ClInclude Include="Math\KawaiiMath.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\Config.h" />
     <ClInclude Include="Platform\Window\Win32Application.h" />
     <ClInclude Include="Utility\Debug.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Math\Functions.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

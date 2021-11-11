@@ -1,10 +1,13 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <cstddef>
 
 // http://allenchou.net/2013/05/memory-management-part-1-of-3-the-allocator/
 
+/*
+* 我们分配的每个内存块称为"Page"，我们用来存储整条数据的"Page"的每一小部分称为"Block"
+*/
 namespace Kawaii::Core
 {
     struct BlockHeader
@@ -29,6 +32,7 @@ namespace Kawaii::Core
         static const uint8_t PATTERN_ALLOC = 0XFD;
         static const uint8_t PATTERN_FREE = 0XFE;
 
+        // Constructor
         Allocator();
         Allocator(size_t dataSize, size_t pageSize, size_t alignment);
         Allocator(const Allocator* clone);
