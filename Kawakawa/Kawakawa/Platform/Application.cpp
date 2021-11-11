@@ -6,6 +6,7 @@
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 #include "../Core/MemoryManager.h"
+#include "../Graphics/GraphicsManager.h"
 
 namespace Kawaii
 {
@@ -30,6 +31,7 @@ namespace Kawaii
         int ret = 0;
 
         if ((ret = g_MemoryManager->Initialize()) != 0) return ret;
+        if ((ret = g_GraphicsManager->Initialize()) != 0) return ret;
 
         return ret;
     }
@@ -37,6 +39,7 @@ namespace Kawaii
     void Application::Finalize()
     {
         g_MemoryManager->Finalize();
+        g_GraphicsManager->Finalize();
 
         m_Logger->info("Finalized.");
     }
@@ -44,6 +47,7 @@ namespace Kawaii
     void Application::Tick()
     {
         g_MemoryManager->Tick();
+        g_GraphicsManager->Tick();
     }
 
     GfxConfiguration& Application::GetConfiguration()
