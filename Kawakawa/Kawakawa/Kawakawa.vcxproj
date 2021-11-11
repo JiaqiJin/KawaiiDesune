@@ -143,12 +143,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Allocator.cpp" />
+    <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
     <ClCompile Include="Platform\Window\Win32Application.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Allocator.h" />
+    <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />
+    <ClInclude Include="Math\KawaiiMath.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\Config.h" />
     <ClInclude Include="Platform\Window\Win32Application.h" />

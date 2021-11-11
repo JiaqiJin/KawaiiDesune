@@ -22,4 +22,4 @@ namespace Kawaii
     protected:
         std::shared_ptr<spdlog::logger> m_Logger;
     };
-}  // namespace Hitagi
+}   
