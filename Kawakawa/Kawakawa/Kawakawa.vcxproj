@@ -149,11 +149,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
     <ClCompile Include="Platform\Window\Win32Application.cpp" />
+    <ClCompile Include="Utility\Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Allocator.h" />
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
+    <ClInclude Include="Graphics\DX12\D3Dpch.h" />
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\Config.h" />
     <ClInclude Include="Platform\Window\Win32Application.h" />
+    <ClInclude Include="Utility\Debug.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
