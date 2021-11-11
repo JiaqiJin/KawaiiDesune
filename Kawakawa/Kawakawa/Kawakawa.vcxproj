@@ -153,6 +153,9 @@
   <ItemGroup>
     <ClInclude Include="Core\Allocator.h" />
     <ClInclude Include="Core\MemoryManager.h" />
+    <ClInclude Include="Graphics\DriverApi.h" />
+    <ClInclude Include="Graphics\DX12\d3dx12.h" />
+    <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />
     <ClInclude Include="Math\KawaiiMath.h" />
