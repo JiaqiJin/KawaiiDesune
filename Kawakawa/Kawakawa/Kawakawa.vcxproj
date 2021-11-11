@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\VisualStudio\KawaiiEngine\Dependencies\stb;E:\VisualStudio\KawaiiEngine\Dependencies\Logger\include;E:\VisualStudio\KawaiiEngine\Dependencies\glm;E:\VisualStudio\KawaiiEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\VisualStudio\KawaiiEngine\Dependencies\stb;E:\VisualStudio\KawaiiEngine\Dependencies\Logger\include;E:\VisualStudio\KawaiiEngine\Dependencies\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -146,6 +146,7 @@
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
+    <ClCompile Include="HID\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math\Random.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
@@ -160,6 +161,8 @@
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
+    <ClInclude Include="HID\InputEvent.h" />
+    <ClInclude Include="HID\InputManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />
     <ClInclude Include="Math\Common.h" />
     <ClInclude Include="Math\Matrix3.h" />

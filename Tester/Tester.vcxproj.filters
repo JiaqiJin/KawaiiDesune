@@ -33,9 +33,6 @@
     <ClCompile Include="Common\d3dApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Common\D3D12MemAlloc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Common\FrameResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,8 +50,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Shaders\shaders.hlsl" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -79,9 +76,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\DDSTextureLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\D3D12MemAlloc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Common\UploadBuffer.h">

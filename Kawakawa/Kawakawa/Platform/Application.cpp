@@ -7,6 +7,7 @@
 
 #include "../Core/MemoryManager.h"
 #include "../Graphics/GraphicsManager.h"
+#include "../HID/InputManager.h"
 
 namespace Kawaii
 {
@@ -32,6 +33,7 @@ namespace Kawaii
 
         if ((ret = g_MemoryManager->Initialize()) != 0) return ret;
         if ((ret = g_GraphicsManager->Initialize()) != 0) return ret;
+        if ((ret = g_InputManager->Initialize()) != 0) return ret;
 
         return ret;
     }
@@ -40,6 +42,7 @@ namespace Kawaii
     {
         g_MemoryManager->Finalize();
         g_GraphicsManager->Finalize();
+        g_InputManager->Finalize();
 
         m_Logger->info("Finalized.");
     }
@@ -48,6 +51,7 @@ namespace Kawaii
     {
         g_MemoryManager->Tick();
         g_GraphicsManager->Tick();
+        g_InputManager->Tick();
     }
 
     GfxConfiguration& Application::GetConfiguration()

@@ -16,6 +16,9 @@ namespace Kawaii
 		void Finalize() final;
 		void Tick() final;
 
+		void UpdateState(VirtualKeyCode key, bool state) noexcept { m_KeyState[static_cast<size_t>(key)].current = state; }
+		void UpdateState(std::array<float, 2> position) noexcept { m_MouseState.currPos = position; }
+
 	private:
 		std::array<KeyState, static_cast<size_t>(VirtualKeyCode::NUM)> m_KeyState;
 		MouseState                                                     m_MouseState;

@@ -147,7 +147,6 @@
   <ItemGroup>
     <ClCompile Include="1\Blending.cpp" />
     <ClCompile Include="1\Waves.cpp" />
-    <ClCompile Include="Common\D3D12MemAlloc.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
     <ClCompile Include="Common\DDSTextureLoader.cpp" />
@@ -164,7 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1\Waves.h" />
-    <ClInclude Include="Common\D3D12MemAlloc.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
     <ClInclude Include="Common\d3dx12.h" />
@@ -189,11 +187,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Core\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets" Condition="Exists('..\Core\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets')" />
+    <Import Project="..\Kawakawa\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets" Condition="Exists('..\Kawakawa\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\Core\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Core\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets'))" />
+    <Error Condition="!Exists('..\Kawakawa\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Kawakawa\packages\WinPixEventRuntime.1.0.210818001\build\WinPixEventRuntime.targets'))" />
   </Target>
 </Project>
