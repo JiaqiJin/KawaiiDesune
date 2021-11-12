@@ -145,6 +145,9 @@
   <ItemGroup>
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
+    <ClCompile Include="Graphics\DX12\CommandAllocatorPool.cpp" />
+    <ClCompile Include="Graphics\DX12\CommandListManager.cpp" />
+    <ClCompile Include="Graphics\DX12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
     <ClCompile Include="HID\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -157,6 +160,9 @@
     <ClInclude Include="Core\Allocator.h" />
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
+    <ClInclude Include="Graphics\DX12\CommandAllocatorPool.h" />
+    <ClInclude Include="Graphics\DX12\CommandListManager.h" />
+    <ClInclude Include="Graphics\DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\DX12\D3Dpch.h" />
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
@@ -177,6 +183,7 @@
     <ClInclude Include="Platform\Config.h" />
     <ClInclude Include="Platform\Window\Win32Application.h" />
     <ClInclude Include="Utility\Debug.h" />
+    <ClInclude Include="Utility\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />
