@@ -12,7 +12,8 @@ namespace Kawaii::Graphics::backend::DX12
 
 	}
 
-	void CommandListManager::CreateNewCommandList(D3D12_COMMAND_LIST_TYPE Type, ID3D12GraphicsCommandList** List, ID3D12CommandAllocator** Allocator)
+	void CommandListManager::CreateNewCommandList(D3D12_COMMAND_LIST_TYPE Type, ID3D12GraphicsCommandList5** List,
+		ID3D12CommandAllocator** Allocator)
 	{
 		assert(Type != D3D12_COMMAND_LIST_TYPE_BUNDLE && "Bundles are not yet supported");
 		switch (Type)
