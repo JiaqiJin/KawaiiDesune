@@ -5,6 +5,11 @@
 #pragma warning(disable:4239) // A non-const reference may only be bound to an lvalue; assignment operator takes a reference to non-const
 #pragma warning(disable:4324) // structure was padded due to __declspec(align())
 
+#pragma comment(lib, "d3d12.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxguid.lib")
+
 // Use the C++ standard templated min/max
 #ifndef NOMINMAX
 #define NOMINMAX

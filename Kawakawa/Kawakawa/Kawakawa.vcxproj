@@ -115,7 +115,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
+      <ConformanceMode>Default</ConformanceMode>
       <AdditionalIncludeDirectories>E:\VisualStudio\KawaiiDesune\Dependencies\assimp\include;E:\VisualStudio\KawaiiDesune\Dependencies\Logger\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
@@ -146,8 +146,10 @@
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Graphics\DX12\CommandAllocatorPool.cpp" />
+    <ClCompile Include="Graphics\DX12\CommandContext.cpp" />
     <ClCompile Include="Graphics\DX12\CommandListManager.cpp" />
     <ClCompile Include="Graphics\DX12\CommandQueue.cpp" />
+    <ClCompile Include="Graphics\DX12\DX12DriverAPI.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
     <ClCompile Include="HID\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -161,10 +163,12 @@
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
     <ClInclude Include="Graphics\DX12\CommandAllocatorPool.h" />
+    <ClInclude Include="Graphics\DX12\CommandContext.h" />
     <ClInclude Include="Graphics\DX12\CommandListManager.h" />
     <ClInclude Include="Graphics\DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\DX12\D3Dpch.h" />
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
+    <ClInclude Include="Graphics\DX12\DX12DriverAPI.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
     <ClInclude Include="HID\InputEvent.h" />
