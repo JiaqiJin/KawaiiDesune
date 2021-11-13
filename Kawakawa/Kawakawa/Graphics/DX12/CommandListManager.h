@@ -43,7 +43,7 @@ namespace Kawaii::Graphics::backend::DX12
 		}
 
 		// The CPU will wait for a fence to reach a specified value
-		void WaitForFence(uint64_t FenceValue, D3D12_COMMAND_LIST_TYPE Type);
+		void WaitForFence(uint64_t FenceValue);
 
 		// The CPU will wait for all command queues to empty (so that the GPU is idle)
 		void IdleGPU(void)

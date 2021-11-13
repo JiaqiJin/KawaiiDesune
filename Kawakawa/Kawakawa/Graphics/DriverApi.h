@@ -17,6 +17,12 @@ namespace Kawaii::Graphics
         virtual ~DriverAPI() = default;
 
         virtual void CreateSwapChain(uint32_t width, uint32_t height, unsigned frameCount, Format format, void* window) = 0;
+        virtual void Present(size_t frameIndex) = 0;
+
+        // Fence
+        virtual void WaitFence(uint64_t fenceValue) = 0;
+        virtual void IdleGPU() = 0;
+
         APIType GetType() const { return m_Type; }
 
     protected:

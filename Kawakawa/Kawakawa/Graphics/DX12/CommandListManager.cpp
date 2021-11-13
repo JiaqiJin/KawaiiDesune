@@ -28,7 +28,7 @@ namespace Kawaii::Graphics::backend::DX12
 		(*List)->SetName(L"CommandList");
 	}
 
-	void CommandListManager::WaitForFence(uint64_t FenceValue, D3D12_COMMAND_LIST_TYPE Type)
+	void CommandListManager::WaitForFence(uint64_t FenceValue)
 	{
 		switch (static_cast<D3D12_COMMAND_LIST_TYPE>(FenceValue >> 56))
 		{

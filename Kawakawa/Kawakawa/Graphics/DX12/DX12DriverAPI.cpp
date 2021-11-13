@@ -1,4 +1,3 @@
-#include "D3Dpch.h"
 #include "DX12DriverAPI.h"
 
 #include <windef.h>
@@ -68,5 +67,21 @@ namespace Kawaii::Graphics::backend::DX12
         ThrowIfFailed(m_DxgiFactory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_ALT_ENTER));
 
         m_Viewport = CD3DX12_VIEWPORT(0.0f, 0.0f, width, height);
+    }
+
+    void DX12DriverAPI::Present(size_t frameIndex)
+    {
+        ThrowIfFailed(m_SwapChain->Present(0, 0));
+    }
+
+    // Fence
+    void DX12DriverAPI::WaitFence(uint64_t fenceValue)
+    {
+        m_CommandManager.WaitForFence(fenceValue);
+    }
+
+    void DX12DriverAPI::IdleGPU()
+    {
+        m_CommandManager.IdleGPU();
     }
 }

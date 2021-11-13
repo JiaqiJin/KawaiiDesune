@@ -146,6 +146,9 @@
     <ClInclude Include="Graphics\DX12\DX12DriverAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\Format.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl">

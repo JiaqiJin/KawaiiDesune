@@ -170,6 +170,7 @@
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
     <ClInclude Include="Graphics\DX12\DX12DriverAPI.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
+    <ClInclude Include="Graphics\Format.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
     <ClInclude Include="HID\InputEvent.h" />
     <ClInclude Include="HID\InputManager.h" />
