@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssertManager\AssetManager.cpp" />
+    <ClCompile Include="AssertManager\SceneManager.cpp" />
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Graphics\DX12\CommandAllocatorPool.cpp" />
@@ -159,6 +161,8 @@
     <ClCompile Include="Utility\Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssertManager\AssetManager.h" />
+    <ClInclude Include="AssertManager\SceneManager.h" />
     <ClInclude Include="Core\Allocator.h" />
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
