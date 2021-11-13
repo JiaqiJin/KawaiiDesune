@@ -29,6 +29,8 @@ namespace Kawaii::Graphics::backend::DX12
 			}
 		}
 
+		ID3D12CommandQueue* GetCommandQueue() { return m_GraphicsQueue.GetCommandQueue(); }
+
 		void CreateNewCommandList(
 			D3D12_COMMAND_LIST_TYPE Type,
 			ID3D12GraphicsCommandList5** list,

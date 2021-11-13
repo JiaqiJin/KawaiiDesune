@@ -12,8 +12,16 @@ namespace Kawaii::Graphics::backend::DX12
 		DX12DriverAPI();
 		~DX12DriverAPI();
 
+		void CreateSwapChain(uint32_t width, uint32_t height, unsigned frameCount, Format format, void* window) final;
+
 		ID3D12Device* GetDevice() const noexcept { return m_Device.Get(); }
 		CommandListManager& GetCmdMgr() noexcept { return m_CommandManager; }
+
+	private:
+		// Static method
+		static DXGI_FORMAT ToDxgiFormat(Graphics::Format format) noexcept { return static_cast<DXGI_FORMAT>(format); }
+		static Graphics::Format ToFormat(DXGI_FORMAT format) noexcept { return static_cast<Graphics::Format>(format); }
+
 	private:
 		// Device
 		ComPtr<ID3D12Device6> m_Device;
