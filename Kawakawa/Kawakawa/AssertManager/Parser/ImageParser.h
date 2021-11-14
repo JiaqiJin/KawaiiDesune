@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Image.h"
+#include "../../Core/Buffer.h"
 
 namespace Kawaii::Asset
 {
@@ -16,7 +17,7 @@ namespace Kawaii::Asset
 	class ImageParser
 	{
 	public:
-		virtual Image Parse() = 0;
+		virtual Image Parse(const Core::Buffer& buf) = 0;
 		virtual ~ImageParser() = default;
 	};
 }

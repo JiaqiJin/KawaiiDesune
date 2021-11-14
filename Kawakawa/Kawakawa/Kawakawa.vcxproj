@@ -144,8 +144,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssertManager\AssetManager.cpp" />
+    <ClCompile Include="AssertManager\Image.cpp" />
     <ClCompile Include="AssertManager\SceneManager.cpp" />
     <ClCompile Include="Core\Allocator.cpp" />
+    <ClCompile Include="Core\Buffer.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
     <ClCompile Include="Graphics\DX12\CommandAllocatorPool.cpp" />
     <ClCompile Include="Graphics\DX12\CommandContext.cpp" />
@@ -162,8 +164,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssertManager\AssetManager.h" />
+    <ClInclude Include="AssertManager\Image.h" />
+    <ClInclude Include="AssertManager\Parser\ImageParser.h" />
     <ClInclude Include="AssertManager\SceneManager.h" />
     <ClInclude Include="Core\Allocator.h" />
+    <ClInclude Include="Core\Buffer.h" />
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
     <ClInclude Include="Graphics\DX12\CommandAllocatorPool.h" />

@@ -1,7 +1,9 @@
 #include "Image.h"
 
-#include <fmt/format.h>
+#include <string>
 #include <array>
+
+#include "../Core/MemoryManager.h"
 
 namespace Kawaii::Asset
 {
@@ -10,30 +12,21 @@ namespace Kawaii::Asset
         m_Height(height),
         m_Bitcount(bitcount),
         m_Pitch(pitch),
-        m_DataSize(dataSize)
+        Core::Buffer(dataSize)
     {
 
     }
 
     std::ostream& operator<<(std::ostream& out, const Image& image)
     {
-        double               size = image.GetDataSize();
-        constexpr std::array unit = { "B", "kB", "MB" };
-        size_t               i = 0;
-        for (; i < 2; i++) 
-        {
-            if (size < 10) break;
-            size /= 1024;
-        }
+        out << "Image" << std::endl;
+        out << "-----" << std::endl;
+        out << "Width: " << image.m_Width << std::endl;
+        out << "Height: " << image.m_Height << std::endl;
+        out << "Bit Count: " << image.m_Bitcount << std::endl;
+        out << "Pitch: " << image.m_Pitch << std::endl;
+        out << "Data Size: " << image.GetDataSize() << std::endl;
 
-        return out << fmt::format(
-            "{0:-^25}\n"
-            "Width     {1:>10} px\n"
-            "Height    {2:>10} px\n"
-            "Bit Count {3:>10} bits\n"
-            "Pitch     {4:>10} \n"
-            "Data Size {5:>10.2f} {6}\n"
-            "{7:-^25}",
-            "Image Info", image.m_Width, image.m_Height, image.m_Bitcount, image.m_Pitch, size, unit[i], "End");
+        return out;
     }
 }

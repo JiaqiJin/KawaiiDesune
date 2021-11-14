@@ -15,7 +15,9 @@ namespace Kawaii::Asset
         m_Logger = spdlog::stdout_color_mt("AssetManager");
         m_Logger->info("Initialize...");
 
-    
+        // TODO
+        // Image Parser Format(PNG, JPG ...).
+
         return 0;
     }
 
@@ -25,5 +27,28 @@ namespace Kawaii::Asset
     {
         m_Logger->info("Finalized.");
         m_Logger = nullptr;
+    }
+
+    Image AssetManager::ParseImage(const std::filesystem::path& path) const
+    {
+        ImageFormat format = ImageFormat::NUM_SUPPORT;
+
+        auto ext = path.extension();
+        if (ext == ".jpeg" || ext == ".jpg")
+            format = ImageFormat::JPEG;
+        else if (ext == ".bmp")
+            format = ImageFormat::BMP;
+        else if (ext == ".tga")
+            format = ImageFormat::TGA;
+        else if (ext == ".png")
+            format = ImageFormat::PNG;
+
+        if (format >= ImageFormat::NUM_SUPPORT)
+        {
+            m_Logger->error("Unkown image format, and return a empty image");
+        }
+        
+        // TODO
+        return Image{};
     }
 }
