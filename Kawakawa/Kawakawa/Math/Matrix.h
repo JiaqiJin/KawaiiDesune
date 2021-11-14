@@ -92,56 +92,6 @@ namespace Kawaii {
             for (unsigned row = 0; row < D; row++) data[row] /= rhs;
             return *this;
         }
-#if defined(USE_ISPC)
-        explicit Matrix(const T num) requires IspcSpeedable<T> {
-            ispc::zero(*this, D* D);
-            for (size_t i = 0; i < D; i++)
-                data[i][i] = num;
-        }
-
-        const Matrix operator+(const Matrix& rhs) const noexcept requires IspcSpeedable<T> {
-            Matrix result;
-            ispc::vector_add(*this, rhs, result, D* D);
-            return result;
-        }
-        const Matrix operator-() const noexcept requires IspcSpeedable<T> {
-            Matrix result;
-            ispc::vector_inverse(*this, result, D* D);
-            return result;
-        }
-        const Matrix operator-(const Matrix& rhs) const noexcept requires IspcSpeedable<T> {
-            Matrix result;
-            ispc::vector_sub(*this, rhs, result, D* D);
-            return result;
-        }
-        const Matrix operator*(const T& rhs) const noexcept requires IspcSpeedable<T> {
-            Matrix result;
-            ispc::vector_mult(*this, rhs, result, D* D);
-            return result;
-        }
-        const Matrix operator/(const T& rhs) const noexcept requires IspcSpeedable<T> {
-            Matrix result;
-            ispc::vector_div(*this, rhs, result, D* D);
-            return result;
-        }
-
-        Matrix& operator+=(const Matrix& rhs) noexcept requires IspcSpeedable<T> {
-            ispc::vector_add_assgin(*this, rhs, D* D);
-            return *this;
-        }
-        Matrix& operator-=(const Matrix& rhs) noexcept requires IspcSpeedable<T> {
-            ispc::vector_sub_assgin(*this, rhs, D* D);
-            return *this;
-        }
-        Matrix& operator*=(const T& rhs) noexcept requires IspcSpeedable<T> {
-            ispc::vector_mult_assgin(*this, rhs, D* D);
-            return *this;
-        }
-        Matrix& operator/=(const T& rhs) noexcept requires IspcSpeedable<T> {
-            ispc::vector_div_assign(*this, rhs, D* D);
-            return *this;
-        }
-#endif  // USE_ISPC
     };
 
     using mat3f = Matrix<float, 3>;
