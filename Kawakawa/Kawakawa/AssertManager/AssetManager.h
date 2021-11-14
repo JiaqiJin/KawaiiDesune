@@ -1,6 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "../Interface/IRuntimeModule.h"
+
+/*
+* Responsible for loading resource files. 
+* 静态图片（Image）, 动态图像, 音频文件, 3D场景文件
+*/
 
 namespace Kawaii::Asset
 {
@@ -11,7 +16,7 @@ namespace Kawaii::Asset
         void Tick() final;
         void Finalize() final;
     };
-}  // namespace Hitagi::Asset
+}  
 
 namespace Kawaii 
 {
