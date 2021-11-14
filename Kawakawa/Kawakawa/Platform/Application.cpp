@@ -34,11 +34,11 @@ namespace Kawaii
         int ret = 0;
 
         if ((ret = g_MemoryManager->Initialize()) != 0) return ret;
-        if ((ret = g_GraphicsManager->Initialize()) != 0) return ret;
         if ((ret = g_InputManager->Initialize()) != 0) return ret;
         if ((ret = g_SceneManager->Initialize()) != 0) return ret;
         if ((ret = g_AssetManager->Initialize()) != 0) return ret;
-
+        if ((ret = g_GraphicsManager->Initialize()) != 0) return ret;
+       
         return ret;
     }
 

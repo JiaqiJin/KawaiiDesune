@@ -5,8 +5,7 @@
 namespace Kawaii::Graphics::backend::DX12
 {
     DX12DriverAPI::DX12DriverAPI()
-		: DriverAPI(APIType::DirectX12),
-		m_CommandManager(m_Device.Get())
+		: DriverAPI(APIType::DirectX12)
 	{
         unsigned dxgiFactoryFlags = 0;
 
@@ -26,7 +25,7 @@ namespace Kawaii::Graphics::backend::DX12
 
         // Create device.
         {
-            if (FAILED(D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_1, IID_PPV_ARGS(&m_Device))))
+            if (FAILED(D3D12CreateDevice(nullptr, D3D_FEATURE_LEVEL_11_1, IID_PPV_ARGS(&m_Device)))) 
             {
                 ComPtr<IDXGIAdapter4> pWarpaAdapter;
                 ThrowIfFailed(m_DxgiFactory->EnumWarpAdapter(IID_PPV_ARGS(&pWarpaAdapter)));
@@ -34,8 +33,12 @@ namespace Kawaii::Graphics::backend::DX12
             }
         }
 
+        // Initialize command manager
+        m_CommandManager.Initialize(m_Device.Get());
+
+        // Init Descriptor Allcator
         // TODO
-	}
+    }
 
     DX12DriverAPI::~DX12DriverAPI()
     {

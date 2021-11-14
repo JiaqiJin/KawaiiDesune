@@ -8,7 +8,7 @@ namespace Kawaii::Graphics::backend::DX12
     class CommandListManager : public Singleton<CommandListManager>
     {
     public:
-        CommandListManager(ID3D12Device* Device);
+        CommandListManager();
 
 		CommandListManager(const CommandListManager&) = delete;
 		CommandListManager& operator=(const CommandListManager&) = delete;
@@ -36,10 +36,12 @@ namespace Kawaii::Graphics::backend::DX12
 			ID3D12GraphicsCommandList5** list,
 			ID3D12CommandAllocator** Allocator);
 
+		void Initialize(ID3D12Device6* device);
+
 		// Test to see if a fence has already been reached
-		bool IsFenceComplete(uint64_t FenceValue, D3D12_COMMAND_LIST_TYPE Type)
+		bool IsFenceComplete(uint64_t fenceValue) 
 		{
-			return GetQueue(Type).IsFenceComplete(FenceValue);
+			return GetQueue(static_cast<D3D12_COMMAND_LIST_TYPE>(fenceValue >> 56)).IsFenceComplete(fenceValue);
 		}
 
 		// The CPU will wait for a fence to reach a specified value
@@ -48,9 +50,9 @@ namespace Kawaii::Graphics::backend::DX12
 		// The CPU will wait for all command queues to empty (so that the GPU is idle)
 		void IdleGPU(void)
 		{
-			m_GraphicsQueue.WaitForIdle();
-			m_ComputeQueue.WaitForIdle();
-			m_CopyQueue.WaitForIdle();
+			m_GraphicsQueue.WaitIdle();
+			m_ComputeQueue.WaitIdle();
+			m_CopyQueue.WaitIdle();
 		}
 
 		ID3D12Device* GetDevice() const noexcept { return m_Device; }

@@ -8,37 +8,37 @@ namespace Kawaii::Graphics::backend::DX12
 		friend class CommandListManager;
 		friend class CommandContext;
     public:
-		CommandQueue(D3D12_COMMAND_LIST_TYPE Type, ID3D12Device* Device);
-		~CommandQueue();
+        CommandQueue(D3D12_COMMAND_LIST_TYPE type);
+        ~CommandQueue();
 
-		UINT64 IncrementFence(void);
-		bool IsFenceComplete(UINT64 FenceValue);
-		void StallForFence(UINT64 FenceValue, D3D12_COMMAND_LIST_TYPE Type);
-		void StallForProducer(CommandQueue& Producer);
-		void WaitForFence(UINT64 FenceValue);
-		void WaitForIdle(void) { WaitForFence(IncrementFence()); }
+        inline bool IsReady() const { return m_CommandQueue != nullptr; }
 
-		UINT64 GetNextFenceValue() const { return m_NextFenceValue; }
-		UINT64 GetCompletedFenceValue() const { return m_pFence->GetCompletedValue(); }
+        void Initialize(ID3D12Device6* device);
 
-		ID3D12CommandQueue* GetCommandQueue() { return m_CommandQueue.Get(); }
+        ID3D12CommandAllocator* RequestAllocator();
+        void                    DiscardAllocator(uint64_t fenceValue, ID3D12CommandAllocator* allocator);
+
+        uint64_t ExecuteCommandList(ID3D12CommandList* list);
+        bool     IsFenceComplete(uint64_t fenceValue);
+        uint64_t IncreaseFence();
+        void     WaitForQueue(CommandQueue& other);
+        void     WaitForFence(uint64_t fenceValue);
+        void     WaitIdle() { WaitForFence(IncreaseFence()); }
+
+        ID3D12CommandQueue* GetCommandQueue() { return m_CommandQueue.Get(); }
+        uint64_t            GetNextFenceValue() const { return m_NextFenceValue; }
+        uint64_t            GetLastCompletedFenceValue() const { return m_LastCompletedFenceValue; }
 
     private:
-		UINT64 ExecuteCommandList(ID3D12CommandList* List);
+        D3D12_COMMAND_LIST_TYPE                    m_type;
+        Microsoft::WRL::ComPtr<ID3D12CommandQueue> m_CommandQueue;
+        CommandAllocatorPool                       m_AllocatorPool;
 
-		ID3D12CommandAllocator* RequestAllocator(void);
-		void DiscardAllocator(uint64_t FenceValue, ID3D12CommandAllocator* Allocator);
-
-
-		Microsoft::WRL::ComPtr<ID3D12CommandQueue> m_CommandQueue;
-
-		const D3D12_COMMAND_LIST_TYPE m_Type;
-		CommandAllocatorPool m_AllocatorPool;
-
-		Microsoft::WRL::ComPtr<ID3D12Fence> m_pFence;
-		UINT64 m_NextFenceValue;
-		UINT64 m_LastCompletedFenceValue;
-		HANDLE m_FenceEventHandle;
+        // Fence
+        Microsoft::WRL::ComPtr<ID3D12Fence1> m_Fence;
+        uint64_t                             m_LastCompletedFenceValue;
+        uint64_t                             m_NextFenceValue;
+        HANDLE                               m_FenceHandle;
     };
 
 }

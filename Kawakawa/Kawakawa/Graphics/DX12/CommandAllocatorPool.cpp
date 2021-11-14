@@ -3,45 +3,36 @@
 
 namespace Kawaii::Graphics::backend::DX12
 {
-	CommandAllocatorPool::CommandAllocatorPool(D3D12_COMMAND_LIST_TYPE Type, ID3D12Device* Device) :
-		m_cCommandListType(Type),
-		m_Device(Device)
+	CommandAllocatorPool::CommandAllocatorPool(D3D12_COMMAND_LIST_TYPE type)
+		: m_Type(type)
 	{
 
 	}
 
-	ID3D12CommandAllocator* CommandAllocatorPool::RequestAllocator(UINT64 CompletedFenceValue)
-	{
-		ID3D12CommandAllocator* pAllocator = nullptr;
+    ID3D12CommandAllocator* CommandAllocatorPool::GetAllocator(uint64_t completedFenceValue) 
+    {
+        if (!m_ReadyAllocators.empty()) 
+        {
+            auto& [fenceValue, allocator] = m_ReadyAllocators.front();
+            if (fenceValue <= completedFenceValue) {
+                ThrowIfFailed(allocator->Reset());
+                m_ReadyAllocators.pop();
+                return allocator;
+            }
+        }
 
-		if (!m_ReadyAllocators.empty())
-		{
-			std::pair<uint64_t, ID3D12CommandAllocator*>& AllocatorPair = m_ReadyAllocators.front();
+        // If no allocator(s) were ready to be used, create a new one
+        Microsoft::WRL::ComPtr<ID3D12CommandAllocator> newAllocator;
+        if (newAllocator == nullptr) 
+        {
+            ThrowIfFailed(m_Device->CreateCommandAllocator(m_Type, IID_PPV_ARGS(&newAllocator)));
+            m_AllocatorPool.push_back(newAllocator);
+        }
+        return newAllocator.Get();
+    }
 
-			if (AllocatorPair.first <= CompletedFenceValue)
-			{
-				pAllocator = AllocatorPair.second;
-				ThrowIfFailed(pAllocator->Reset());
-				m_ReadyAllocators.pop();
-			}
-		}
-
-		// If no allocator's were ready to be reused, create a new one
-		if (pAllocator == nullptr)
-		{
-			ThrowIfFailed(m_Device->CreateCommandAllocator(m_cCommandListType, IID_PPV_ARGS(&pAllocator)));
-			wchar_t AllocatorName[32];
-			swprintf(AllocatorName, 32, L"CommandAllocator %zu", m_Allocators.size());
-			pAllocator->SetName(AllocatorName);
-			m_Allocators.push_back(pAllocator);
-		}
-
-		return pAllocator;
-	}
-
-	void CommandAllocatorPool::DiscardAllocator(uint64_t FenceValue, ID3D12CommandAllocator* Allocator)
-	{
-		m_ReadyAllocators.push(std::make_pair(FenceValue, Allocator));
-	}
-
+    void CommandAllocatorPool::DiscardAllocator(uint64_t fenceValue, ID3D12CommandAllocator* allocator)
+    {
+        m_ReadyAllocators.push({ fenceValue, allocator });
+    }
 }

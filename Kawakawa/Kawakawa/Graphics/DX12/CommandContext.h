@@ -8,23 +8,13 @@ namespace Kawaii::Graphics::backend::DX12
 	class GraphicsContext;
 	class ComputeContext;
 	class DX12DriverAPI;
+
 	// Compute Command List只支持这几种状态的过渡
 #define VALID_COMPUTE_QUEUE_RESOURCE_STATES \
 	    ( D3D12_RESOURCE_STATE_UNORDERED_ACCESS \
 	    | D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE \
 		| D3D12_RESOURCE_STATE_COPY_DEST \
 		| D3D12_RESOURCE_STATE_COPY_SOURCE )
-
-	//class ContextManager : public Singleton<ContextManager>
-	//{
-	//public:
-	//	CommandContext* AllocateContext(D3D12_COMMAND_LIST_TYPE Type);
-	//	void FreeContext(CommandContext* UsedContext);
-
-	//private:
-	//	std::vector<std::unique_ptr<CommandContext> > m_ContextPool[4];
-	//	std::queue<CommandContext*> m_AvailableContexts[4];
-	//};
 
 	/**
 	* CommandList和CommandListAllocator的集合体
