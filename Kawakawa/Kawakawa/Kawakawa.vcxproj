@@ -145,7 +145,10 @@
   <ItemGroup>
     <ClCompile Include="AssertManager\AssetManager.cpp" />
     <ClCompile Include="AssertManager\Image.cpp" />
+    <ClCompile Include="AssertManager\Parser\Assimp.cpp" />
     <ClCompile Include="AssertManager\Parser\BMP.cpp" />
+    <ClCompile Include="AssertManager\Parser\JPEG.cpp" />
+    <ClCompile Include="AssertManager\Parser\PNG.cpp" />
     <ClCompile Include="AssertManager\SceneManager.cpp" />
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\Buffer.cpp" />
@@ -165,10 +168,14 @@
   <ItemGroup>
     <ClInclude Include="AssertManager\AssetManager.h" />
     <ClInclude Include="AssertManager\Image.h" />
+    <ClInclude Include="AssertManager\Parser\Assimp.h" />
     <ClInclude Include="AssertManager\Parser\BMP.h" />
     <ClInclude Include="AssertManager\Parser\ImageParser.h" />
+    <ClInclude Include="AssertManager\Parser\JPEG.h" />
+    <ClInclude Include="AssertManager\Parser\PNG.h" />
     <ClInclude Include="AssertManager\SceneManager.h" />
     <ClInclude Include="Core\Allocator.h" />
+    <ClInclude Include="Core\BaseSceneObject.h" />
     <ClInclude Include="Core\Buffer.h" />
     <ClInclude Include="Core\MemoryManager.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
@@ -182,6 +189,7 @@
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\Format.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
+    <ClInclude Include="Graphics\ICommandContext.h" />
     <ClInclude Include="HID\InputEvent.h" />
     <ClInclude Include="HID\InputManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />

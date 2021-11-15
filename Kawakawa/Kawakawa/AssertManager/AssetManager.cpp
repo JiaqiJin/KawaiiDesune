@@ -3,6 +3,12 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
+#include "Parser/PNG.h"
+#include "Parser/JPEG.h"
+#include "Parser/BMP.h"
+
+#include "Parser/Assimp.h"
+
 namespace Kawaii
 {
 	std::unique_ptr<Asset::AssetManager> g_AssetManager = std::make_unique<Asset::AssetManager>();
@@ -17,6 +23,9 @@ namespace Kawaii::Asset
 
         // TODO
         // Image Parser Format(PNG, JPG ...).
+        m_ImageParser[static_cast<size_t>(ImageFormat::PNG)] = std::make_unique<PngParser>();
+        m_ImageParser[static_cast<size_t>(ImageFormat::JPEG)] = std::make_unique<JpegParser>();
+        m_ImageParser[static_cast<size_t>(ImageFormat::BMP)] = std::make_unique<BmpParser>();
 
         return 0;
     }
