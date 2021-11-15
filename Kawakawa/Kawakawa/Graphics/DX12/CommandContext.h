@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "../ICommandContext.h"
 #include "../../Utility/Singleton.h"
 
 namespace Kawaii::Graphics::backend::DX12
@@ -24,7 +25,7 @@ namespace Kawaii::Graphics::backend::DX12
 	*/
 	class CommandContext
 	{
-	private:
+	protected:
 		CommandContext(DX12DriverAPI& driver, D3D12_COMMAND_LIST_TYPE Type);
 		// 创建CommandContext时调用，该函数会创建一个CommandList，并请求一个Allocator
 		void Initialize();
@@ -32,8 +33,13 @@ namespace Kawaii::Graphics::backend::DX12
 		void Reset();
 
 	public:
+		CommandContext(const CommandContext&) = delete;
+		CommandContext& operator=(const CommandContext&) = delete;
+		CommandContext(CommandContext&&) = default;
+		CommandContext& operator=(CommandContext&&) = delete;
 		~CommandContext();
 
+		auto GetCommandList() noexcept { return m_CommandList; }
 	private:
 		DX12DriverAPI& m_Driver;
 		// Command List Type
@@ -47,5 +53,21 @@ namespace Kawaii::Graphics::backend::DX12
 		std::array<ID3D12DescriptorHeap*, D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES> m_CurrentDescriptorHeaps{};
 		// Root Signature
 		ID3D12RootSignature* m_RootSignature;
+	};
+
+	class GraphicsCommandContext : public CommandContext, public Graphics::IGraphicsCommandContext
+	{
+	public:
+		GraphicsCommandContext(DX12DriverAPI& driver)
+			: CommandContext(driver, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
+	private:
+
+	};
+
+	class ComputeCommandContext : public CommandContext
+	{
+	public:
+		ComputeCommandContext(DX12DriverAPI& driver)
+			: CommandContext(driver, D3D12_COMMAND_LIST_TYPE_COMPUTE) {}
 	};
 }
