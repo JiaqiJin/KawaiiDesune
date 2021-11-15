@@ -188,6 +188,12 @@
     <ClInclude Include="Graphics\ICommandContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\SceneObjectTypeDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Portable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

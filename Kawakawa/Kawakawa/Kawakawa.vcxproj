@@ -201,6 +201,8 @@
     <ClInclude Include="Platform\Config.h" />
     <ClInclude Include="Platform\Window\Win32Application.h" />
     <ClInclude Include="Utility\Debug.h" />
+    <ClInclude Include="Utility\Portable.h" />
+    <ClInclude Include="Utility\SceneObjectTypeDef.h" />
     <ClInclude Include="Utility\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
