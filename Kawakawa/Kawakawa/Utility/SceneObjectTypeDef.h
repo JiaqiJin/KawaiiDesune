@@ -56,4 +56,17 @@ namespace Kawaii
         Int32,
         Int64,
     };
+
+    enum struct PrimitiveType 
+    {
+        PointList,
+        LineList,
+        LineStrip,
+        TriangleList,
+        TriangleStrip,
+        LineListAdjacency,
+        LineStripAdjacency,
+        TriangleListAdjacency,
+        TriangleStripAdjacency,
+    };
 }

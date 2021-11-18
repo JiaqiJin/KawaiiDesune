@@ -41,6 +41,10 @@ namespace Kawaii::Core
 		uint32_t m_MorphTargetIndex;
 	};
 
+	/*
+	* In order to save memory bandwidth, we should try to use 16bit index(max 65535 vertices).
+	* But at the same time, in order to reduce the drawcall, we need to draw as many vertices as possible each time the drawcall is called.
+	*/
 	class SceneObjectIndexArray : public BaseSceneObject
 	{
 	public:
@@ -68,5 +72,33 @@ namespace Kawaii::Core
 		Core::Buffer  m_Data;
 
 		size_t m_ResetartIndex = 0;
+	};
+
+	/*
+	* Different vector elements correspond to different attributes of
+    * vertices, such as the first element is coorespond to the position of
+    * vertices, the second element is coorrespond to the normal of vertices, etc.
+	*/
+	class SceneObjectMesh : public BaseSceneObject
+	{
+	public:
+		SceneObjectMesh(bool visible = true, bool shadow = true, bool motion_blur = true)
+			: BaseSceneObject(SceneObjectType::Mesh) {}
+
+		SceneObjectMesh(SceneObjectMesh&& mesh)
+			: BaseSceneObject(SceneObjectType::Mesh),
+			m_IndexArray(std::move(mesh.m_IndexArray)),
+			m_VertexArray(std::move(mesh.m_VertexArray)),
+			m_PrimitiveType(mesh.m_PrimitiveType) {}
+
+		friend std::ostream& operator<<(std::ostream& out, const SceneObjectMesh& obj);
+	protected:
+		std::vector<SceneObjectVertexArray> m_VertexArray;
+		std::vector<SceneObjectIndexArray>  m_IndexArray;
+		PrimitiveType m_PrimitiveType;
+
+		bool m_Visible = true;
+		bool m_Shadow = false;
+		bool m_MotionBlur = false;
 	};
 }

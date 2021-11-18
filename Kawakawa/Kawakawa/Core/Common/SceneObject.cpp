@@ -157,4 +157,24 @@ namespace Kawaii::Core
         }
         return out << std::endl;
     }
+
+    // Class SceneObjectMesh
+    std::ostream& operator<<(std::ostream& out, const SceneObjectMesh& obj)
+    {
+        out << static_cast<const BaseSceneObject&>(obj) << std::endl;
+        out << "Primitive Type: " << magic_enum::enum_name(obj.m_PrimitiveType) << std::endl;
+
+        out << "This mesh contains " << obj.m_VertexArray.size() << " vertex properties." << std::endl;
+        for (auto&& v : obj.m_VertexArray)
+        {
+            out << v << std::endl;
+        }
+
+        out << "This mesh contains " << obj.m_IndexArray.size() << " index properties." << std::endl;
+        for (auto&& index : obj.m_IndexArray)
+        {
+            out << index << std::endl;
+        }
+        return out;
+    }
 }
