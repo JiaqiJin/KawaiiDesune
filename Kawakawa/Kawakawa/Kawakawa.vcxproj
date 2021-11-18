@@ -152,11 +152,14 @@
     <ClCompile Include="AssertManager\SceneManager.cpp" />
     <ClCompile Include="Core\Allocator.cpp" />
     <ClCompile Include="Core\Buffer.cpp" />
+    <ClCompile Include="Core\Common\SceneNode.cpp" />
     <ClCompile Include="Core\MemoryManager.cpp" />
+    <ClCompile Include="Core\Common\SceneObject.cpp" />
     <ClCompile Include="Graphics\DX12\CommandAllocatorPool.cpp" />
     <ClCompile Include="Graphics\DX12\CommandContext.cpp" />
     <ClCompile Include="Graphics\DX12\CommandListManager.cpp" />
     <ClCompile Include="Graphics\DX12\CommandQueue.cpp" />
+    <ClCompile Include="Graphics\DX12\DescriptorAllocator.cpp" />
     <ClCompile Include="Graphics\DX12\DX12DriverAPI.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
     <ClCompile Include="HID\InputManager.cpp" />
@@ -177,7 +180,9 @@
     <ClInclude Include="Core\Allocator.h" />
     <ClInclude Include="Core\BaseSceneObject.h" />
     <ClInclude Include="Core\Buffer.h" />
+    <ClInclude Include="Core\Common\SceneNode.h" />
     <ClInclude Include="Core\MemoryManager.h" />
+    <ClInclude Include="Core\Common\SceneObject.h" />
     <ClInclude Include="Graphics\DriverApi.h" />
     <ClInclude Include="Graphics\DX12\CommandAllocatorPool.h" />
     <ClInclude Include="Graphics\DX12\CommandContext.h" />
@@ -185,6 +190,7 @@
     <ClInclude Include="Graphics\DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\DX12\D3Dpch.h" />
     <ClInclude Include="Graphics\DX12\d3dx12.h" />
+    <ClInclude Include="Graphics\DX12\DescriptorAllocator.h" />
     <ClInclude Include="Graphics\DX12\DX12DriverAPI.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\Format.h" />

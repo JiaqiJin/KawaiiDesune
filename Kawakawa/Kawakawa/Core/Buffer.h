@@ -16,7 +16,7 @@ namespace Kawaii::Core
 		Buffer& operator=(Buffer && rhs);
 		~Buffer();
 
-		uint8_t* GetData() { return m_Data; }
+		uint8_t*	   GetData() { return m_Data; }
 		const uint8_t* GetData() const { return m_Data; }
 		size_t         GetDataSize() const { return m_Size; }
 		bool           Empty() const { return m_Data == nullptr || m_Size == 0; }

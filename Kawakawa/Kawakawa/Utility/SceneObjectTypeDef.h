@@ -6,18 +6,54 @@
 
 namespace Kawaii
 {
-    enum struct SceneObjectType : int32_t 
+    // Common Base Objt attributes types 
+    enum struct SceneObjectType 
     {
-        MESH = "MESH"_i32,
-        MATERIAL = "MATL"_i32,
-        TEXTURE = "TXTU"_i32,
-        LIGHT = "LGHT"_i32,
-        CAMERA = "CAMR"_i32,
-        ANIMATOR = "ANIM"_i32,
-        CLIP = "CLIP"_i32,
-        GEOMETRY = "GEOM"_i32,
-        INDEX_ARRAY = "VARR"_i32,
-        VERETEX_ARRAY = "VARR"_i32,
+        Mesh,
+        Material,
+        Texture,
+        Light,
+        Camera,
+        Animator,
+        Clip,
+        Geometry,
+        IndexArray,
+        VertexArray,
     };
 
+    enum struct SceneObjectCollisionType
+    {
+        None,
+        Sphere,
+        BOx,
+        Cylinder,
+        Capsule,
+        Cone,
+        MultiSphere,
+        ConvexHull,
+        ConvexMesh,
+        BvhMesh,
+        HeightField,
+        P
+    };
+
+    enum struct VertexDataType 
+    {
+        Float1,
+        Float2,
+        Float3,
+        Float4,
+        Double1,
+        Double2,
+        Double3,
+        Double4,
+    };
+
+    enum struct IndexDataType 
+    {
+        Int8,
+        Int16,
+        Int32,
+        Int64,
+    };
 }

@@ -1,10 +1,13 @@
-#pragma once
+﻿#pragma once
 #include "CommandQueue.h"
 
 #include "../../Utility/Singleton.h"
 
 namespace Kawaii::Graphics::backend::DX12
 {
+	/**
+	 * 单例类，持有三个CommandQueue：Graphic、Compute、Copy，对应GPU中的三种可以并行的管线
+	*/
     class CommandListManager : public Singleton<CommandListManager>
     {
     public:

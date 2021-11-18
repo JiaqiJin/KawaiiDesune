@@ -1,4 +1,4 @@
-#include "D3Dpch.h"
+﻿#include "D3Dpch.h"
 #include "CommandAllocatorPool.h"
 
 namespace Kawaii::Graphics::backend::DX12
@@ -9,12 +9,16 @@ namespace Kawaii::Graphics::backend::DX12
 
 	}
 
+    // 请求一个CommandAllocator，检查对象池中的第一个Allocator是否可用，
+    // 如果CompletedFenceValue > Pool中的FenceValue，表明GPU已经完成了这个Allocator的命令，表示可用
+    // 否则重新创建一个CommandAllocator
     ID3D12CommandAllocator* CommandAllocatorPool::GetAllocator(uint64_t completedFenceValue) 
     {
         if (!m_ReadyAllocators.empty()) 
         {
             auto& [fenceValue, allocator] = m_ReadyAllocators.front();
-            if (fenceValue <= completedFenceValue) {
+            if (fenceValue <= completedFenceValue)
+            {
                 ThrowIfFailed(allocator->Reset());
                 m_ReadyAllocators.pop();
                 return allocator;
