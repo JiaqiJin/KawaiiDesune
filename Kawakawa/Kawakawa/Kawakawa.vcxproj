@@ -178,6 +178,7 @@
     <ClInclude Include="AssertManager\Parser\PNG.h" />
     <ClInclude Include="AssertManager\SceneManager.h" />
     <ClInclude Include="Core\Allocator.h" />
+    <ClInclude Include="Core\BaseSceneNode.h" />
     <ClInclude Include="Core\BaseSceneObject.h" />
     <ClInclude Include="Core\Buffer.h" />
     <ClInclude Include="Core\Common\SceneNode.h" />
