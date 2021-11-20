@@ -48,49 +48,6 @@ namespace Kawaii::Core
         return 0;
     }
 
-    std::ostream& operator<<(std::ostream& out, const SceneObjectVertexArray& obj)
-    {
-        out << "Attribute:          " << obj.m_Attribute << std::endl;
-        out << "Morph Target Index: " << obj.m_MorphTargetIndex << std::endl;
-        out << "Data Type:          " << magic_enum::enum_name(obj.m_DataType) << std::endl;
-        out << "Data Size:          " << obj.GetDataSize() << " bytes" << std::endl;
-        out << "Data Count:         " << obj.GetVertexCount() << std::endl;
-        out << "Data:               ";
-        const uint8_t* data = obj.m_Data.GetData();
-        for (size_t i = 0; i < obj.GetVertexCount(); i++) 
-        {
-            switch (obj.m_DataType) {
-            case VertexDataType::Float1:
-                std::cout << *(reinterpret_cast<const float*>(data) + i) << " ";
-                break;
-            case VertexDataType::Float2:
-                std::cout << *(reinterpret_cast<const vec2f*>(data) + i) << " ";
-                break;
-            case VertexDataType::Float3:
-                std::cout << *(reinterpret_cast<const vec3f*>(data) + i) << " ";
-                break;
-            case VertexDataType::Float4:
-                std::cout << *(reinterpret_cast<const vec4f*>(data) + i) << " ";
-                break;
-            case VertexDataType::Double1:
-                std::cout << *(reinterpret_cast<const double*>(data) + i) << " ";
-                break;
-            case VertexDataType::Double2:
-                std::cout << *(reinterpret_cast<const Vector<double, 2>*>(data) + i) << " ";
-                break;
-            case VertexDataType::Double3:
-                std::cout << *(reinterpret_cast<const Vector<double, 3>*>(data) + i) << " ";
-                break;
-            case VertexDataType::Double4:
-                std::cout << *(reinterpret_cast<const Vector<double, 4>*>(data) + i) << " ";
-                break;
-            default:
-                break;
-            }
-        }
-        return out << std::endl;
-    }
-
     // Class SceneObjectIndexArray
     SceneObjectIndexArray::SceneObjectIndexArray(
         const IndexDataType data_type,
@@ -128,7 +85,156 @@ namespace Kawaii::Core
         return 0;
     }
 
-    std::ostream& operator<<(std::ostream& out, const SceneObjectIndexArray& obj) {
+    // Class SceneObjectGeometry
+    void SceneObjectGeometry::SetVisibility(bool visible) { m_Visible = visible; }
+    void SceneObjectGeometry::SetIfCastShadow(bool shadow) { m_Shadow = shadow; }
+    void SceneObjectGeometry::SetIfMotionBlur(bool motion_blur) { m_MotionBlur = motion_blur; }
+    void SceneObjectGeometry::SetCollisionType(SceneObjectCollisionType collision_type) { m_CollisionType = collision_type; }
+    void SceneObjectGeometry::SetCollisionParameters(const float* param, int32_t count) 
+    {
+        assert(count > 0 && count < 10);
+        memcpy(m_CollisionParameters.data(), param, sizeof(float) * count);
+    }
+    const bool SceneObjectGeometry::Visible() const { return m_Visible; }
+    const bool SceneObjectGeometry::CastShadow() const { return m_Shadow; }
+    const bool SceneObjectGeometry::MotionBlur() const { return m_MotionBlur; }
+    const SceneObjectCollisionType SceneObjectGeometry::CollisionType() const { return m_CollisionType; }
+    const float* SceneObjectGeometry::CollisionParameters() const { return m_CollisionParameters.data(); }
+
+    void SceneObjectGeometry::AddMesh(std::unique_ptr<SceneObjectMesh> mesh, size_t level)
+    {
+        if (level >= m_MeshesLOD.size()) m_MeshesLOD.resize(level + 1);
+        m_MeshesLOD[level].emplace_back(mesh.release());
+    }
+
+    const std::vector<std::unique_ptr<SceneObjectMesh>>& SceneObjectGeometry::GetMeshes(size_t lod) const
+    {
+        return m_MeshesLOD[lod];
+    }
+
+    // Class SceneObjectTransform
+    // Class SceneObjectTranslation
+    SceneObjectTranslation::SceneObjectTranslation(const char axis, const float amount)
+    {
+        switch (axis)
+        {
+        case 'x':
+            m_Transform = translate(m_Transform, vec3f(amount, 0.0f, 0.0f));
+            break;
+        case 'y':
+            m_Transform = translate(m_Transform, vec3f(0.0f, amount, 0.0f));
+            break;
+        case 'z':
+            m_Transform = translate(m_Transform, vec3f(0.0f, 0.0f, amount));
+        default:
+            break;
+        }
+    }
+
+    SceneObjectTranslation::SceneObjectTranslation(const float x, const float y, const float z) 
+    {
+        m_Transform = translate(m_Transform, vec3f(x, y, z));
+    }
+
+    // Class SceneObjectRotation
+    SceneObjectRotation::SceneObjectRotation(const char axis, const float theta)
+    {
+        switch (axis) {
+        case 'x':
+            m_Transform = rotate(m_Transform, radians(theta), vec3f(1.0f, 0.0f, 0.0f));
+            break;
+        case 'y':
+            m_Transform = rotate(m_Transform, radians(theta), vec3f(0.0f, 1.0f, 0.0f));
+            break;
+        case 'z':
+            m_Transform = rotate(m_Transform, radians(theta), vec3f(0.0f, 0.0f, 1.0f));
+            break;
+        default:
+            break;
+        }
+    }
+
+    SceneObjectRotation::SceneObjectRotation(vec3f& axis, const float theta)
+    {
+        axis = normalize(axis);
+        m_Transform = rotate(m_Transform, theta, axis);
+    }
+
+    SceneObjectRotation::SceneObjectRotation(quatf quaternion) { m_Transform = rotate(m_Transform, quaternion); }
+
+    // Class SceneObjectScale
+    SceneObjectScale::SceneObjectScale(const char axis, const float amount) 
+    {
+        switch (axis) {
+        case 'x':
+            m_Transform = scale(m_Transform, vec3f(amount, 0.0f, 0.0f));
+            break;
+        case 'y':
+            m_Transform = scale(m_Transform, vec3f(0.0f, amount, 0.0f));
+            break;
+        case 'z':
+            m_Transform = scale(m_Transform, vec3f(0.0f, 0.0f, amount));
+            break;
+        default:
+            break;
+        }
+    }
+
+    SceneObjectScale::SceneObjectScale(const float x, const float y, const float z) {
+        m_Transform = scale(m_Transform, vec3f(x, y, z));
+    }
+
+
+    // ---------------------------- Ostream ------------------------------------------
+    // -------------------------------------------------------------------------------
+
+    // SceneObjectVertexArray
+    std::ostream& operator<<(std::ostream& out, const SceneObjectVertexArray& obj)
+    {
+        out << "Attribute:          " << obj.m_Attribute << std::endl;
+        out << "Morph Target Index: " << obj.m_MorphTargetIndex << std::endl;
+        out << "Data Type:          " << magic_enum::enum_name(obj.m_DataType) << std::endl;
+        out << "Data Size:          " << obj.GetDataSize() << " bytes" << std::endl;
+        out << "Data Count:         " << obj.GetVertexCount() << std::endl;
+        out << "Data:               ";
+        const uint8_t* data = obj.m_Data.GetData();
+        for (size_t i = 0; i < obj.GetVertexCount(); i++)
+        {
+            switch (obj.m_DataType) {
+            case VertexDataType::Float1:
+                std::cout << *(reinterpret_cast<const float*>(data) + i) << " ";
+                break;
+            case VertexDataType::Float2:
+                std::cout << *(reinterpret_cast<const vec2f*>(data) + i) << " ";
+                break;
+            case VertexDataType::Float3:
+                std::cout << *(reinterpret_cast<const vec3f*>(data) + i) << " ";
+                break;
+            case VertexDataType::Float4:
+                std::cout << *(reinterpret_cast<const vec4f*>(data) + i) << " ";
+                break;
+            case VertexDataType::Double1:
+                std::cout << *(reinterpret_cast<const double*>(data) + i) << " ";
+                break;
+            case VertexDataType::Double2:
+                std::cout << *(reinterpret_cast<const Vector<double, 2>*>(data) + i) << " ";
+                break;
+            case VertexDataType::Double3:
+                std::cout << *(reinterpret_cast<const Vector<double, 3>*>(data) + i) << " ";
+                break;
+            case VertexDataType::Double4:
+                std::cout << *(reinterpret_cast<const Vector<double, 4>*>(data) + i) << " ";
+                break;
+            default:
+                break;
+            }
+        }
+        return out << std::endl;
+    }
+
+    // SceneObjectIndexArray
+    std::ostream& operator<<(std::ostream& out, const SceneObjectIndexArray& obj)
+    {
         out << "Restart Index:   " << obj.m_ResetartIndex << std::endl;
         out << "Index Data Type: " << magic_enum::enum_name(obj.m_DataType) << std::endl;
         out << "Data Size:       " << obj.GetDataSize() << std::endl;
@@ -175,6 +281,26 @@ namespace Kawaii::Core
         {
             out << index << std::endl;
         }
+        return out;
+    }
+
+    std::ostream& operator<<(std::ostream& out, const SceneObjectGeometry& obj) 
+    {
+        out << static_cast<const BaseSceneObject&>(obj) << std::endl;
+        for (size_t i = 0; i < obj.m_MeshesLOD.size(); i++) 
+        {
+            out << "Level: " << i << std::endl;
+            for (size_t j = 0; j < obj.m_MeshesLOD[i].size(); j++)
+                out << "Mesh[{}]:\n" << i << *obj.m_MeshesLOD[i][j] << std::endl;
+        }
+        return out << std::endl;
+    }
+
+    // Scene Transform
+    std::ostream& operator<<(std::ostream& out, const SceneObjectTransform& obj)
+    {
+        out << "Transform Matrix: " << obj.m_Transform << std::endl;
+        out << "Is Object Local:  " << obj.m_SceneObjectOnly;
         return out;
     }
 }

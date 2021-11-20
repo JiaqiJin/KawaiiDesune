@@ -101,4 +101,76 @@ namespace Kawaii::Core
 		bool m_Shadow = false;
 		bool m_MotionBlur = false;
 	};
+
+	// Scene 
+	class SceneObjectGeometry : public BaseSceneObject
+	{
+	public:
+		SceneObjectGeometry()
+			:BaseSceneObject(SceneObjectType::Geometry) {}
+
+		void SetVisibility(bool visible);
+		void SetIfCastShadow(bool shadow);
+		void SetIfMotionBlur(bool motion_blur);
+		void SetCollisionType(SceneObjectCollisionType collision_type);
+		void SetCollisionParameters(const float* param, int32_t count);
+		const bool Visible() const;
+		const bool CastShadow() const;
+		const bool MotionBlur() const;
+		const SceneObjectCollisionType CollisionType() const;
+		const float* CollisionParameters() const;
+		void AddMesh(std::unique_ptr<SceneObjectMesh> mesh, size_t level = 0);
+		const std::vector<std::unique_ptr<SceneObjectMesh>>& GetMeshes(size_t lod = 0) const;
+		friend std::ostream& operator<<(std::ostream& out, const SceneObjectGeometry& obj);
+	protected:
+		// LOD | meshes array
+		//  0  | meshes array[0] include multiple meshes at 0 LOD
+		// ... | ...
+		std::vector<std::vector<std::unique_ptr<SceneObjectMesh>>> m_MeshesLOD;
+		bool                     m_Visible = true;
+		bool                     m_Shadow = false;
+		bool                     m_MotionBlur = false;
+		SceneObjectCollisionType m_CollisionType{ SceneObjectCollisionType::None };
+		std::array<float, 10>    m_CollisionParameters{};
+	};
+
+	// Scene Transform
+	class SceneObjectTransform
+	{
+	public:
+		SceneObjectTransform() : m_Transform(1.0f) {}
+		SceneObjectTransform(const mat4f matrix, const bool objectOnly = false)
+			: m_Transform(matrix), m_SceneObjectOnly(objectOnly) {}
+
+		operator mat4f() { return m_Transform; }
+		operator const mat4f() const { return m_Transform; }
+
+		friend std::ostream& operator<<(std::ostream& out, const SceneObjectTransform& obj);
+	protected:
+		mat4f m_Transform;
+		bool m_SceneObjectOnly{ false };
+	};
+
+	// Scene Translation
+	class SceneObjectTranslation : public SceneObjectTransform
+	{
+	public:
+		SceneObjectTranslation(const char axis, const float amount);
+		SceneObjectTranslation(const float x, const float y, const float z);
+	};
+
+	class SceneObjectRotation : public SceneObjectTransform 
+	{
+	public:
+		SceneObjectRotation(const char axis, const float theta);
+		SceneObjectRotation(vec3f& axis, const float theta);
+		SceneObjectRotation(quatf quaternion);
+	};
+
+	class SceneObjectScale : public SceneObjectTransform
+	{
+	public:
+		SceneObjectScale(const char axis, const float amount);
+		SceneObjectScale(const float x, const float y, const float z);
+	};
 }

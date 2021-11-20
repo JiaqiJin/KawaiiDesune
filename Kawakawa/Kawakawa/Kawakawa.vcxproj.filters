@@ -212,6 +212,9 @@
     <ClInclude Include="Core\Common\SceneNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Core\BaseSceneNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

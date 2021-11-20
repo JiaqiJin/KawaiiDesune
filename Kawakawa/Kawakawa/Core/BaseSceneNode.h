@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseSceneObject.h"
+#include "Common/SceneObject.h"
 #include "../Math/KawaiiMath.h"
 
 #include <string>
@@ -11,6 +12,7 @@ namespace Kawaii::Core
 {
 	/*
 	* Base Scene Node 
+	* This base class is actually a node of a standard tree structure.
 	*/
 	class BaseSceneNode
 	{
@@ -28,11 +30,11 @@ namespace Kawaii::Core
 		void ClearDirty() { m_Dirty = false; }
 
 	protected:
-		std::string m_Name;
-		std::list<std::shared_ptr<BaseSceneNode>> m_Chlidren;
-		// TODO Transform
-		mat4f m_RuntimeTransform = mat4f(1.0f);
-		bool m_Dirty = true;
+		std::string                                      m_Name;
+		std::list<std::shared_ptr<BaseSceneNode>>        m_Chlidren;
+		std::list<std::shared_ptr<SceneObjectTransform>> m_Transforms;
+		mat4f                                            m_RuntimeTransform = mat4f(1.0f);
+		bool                                             m_Dirty = true;
 	};
 
 	template<typename T>
@@ -48,6 +50,27 @@ namespace Kawaii::Core
 	protected:
 		// Represents the mount point of the scene object on the node graph
 		std::weak_ptr<T> m_SceneObjectRef;
+	};
+
+	using SceneEmptyNode = BaseSceneNode;
+	class SceneGeometryNode : public SceneNode<SceneObjectGeometry>
+	{
+	public:
+		using SceneNode::SceneNode;
+
+		void       SetVisibility(bool visible) { m_Visible = visible; }
+		void       SetIfCastShadow(bool shadow) { m_Shadow = shadow; }
+		void       SetIfMotionBlur(bool motion_blur) { m_MotionBlur = motion_blur; }
+		const bool Visible() { return m_Visible; }
+		const bool CastShadow() { return m_Shadow; }
+		const bool MotionBlur() { return m_MotionBlur; }
+
+		using SceneNode::AddSceneObjectRef;
+	protected:
+
+		bool m_Visible = true;
+		bool m_Shadow = true;
+		bool m_MotionBlur = false;
 	};
 
 	// TODO
