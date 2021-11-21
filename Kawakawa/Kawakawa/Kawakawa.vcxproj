@@ -194,9 +194,11 @@
     <ClInclude Include="Graphics\DX12\DescriptorAllocator.h" />
     <ClInclude Include="Graphics\DX12\DX12DriverAPI.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
+    <ClInclude Include="Graphics\DX12\GpuResource.h" />
     <ClInclude Include="Graphics\Format.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
     <ClInclude Include="Graphics\ICommandContext.h" />
+    <ClInclude Include="Graphics\Resource.h" />
     <ClInclude Include="HID\InputEvent.h" />
     <ClInclude Include="HID\InputManager.h" />
     <ClInclude Include="Interface\IRuntimeModule.h" />
