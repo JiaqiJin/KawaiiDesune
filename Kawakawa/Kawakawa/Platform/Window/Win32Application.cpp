@@ -109,7 +109,7 @@ namespace Kawaii
 
         for (int key = 0; key < static_cast<int>(VirtualKeyCode::NUM); key++)
         {
-            g_InputManager->UpdateState(static_cast<VirtualKeyCode>(key), GetAsyncKeyState(key) & 0x8000);
+            g_InputManager->UpdateKeyState(static_cast<VirtualKeyCode>(key), GetAsyncKeyState(key) & 0x8000);
         }
     }
 
