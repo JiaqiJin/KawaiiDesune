@@ -11,6 +11,8 @@
 */
 // https://www.3dgep.com/learning-directx-12-3/#Descriptor_Allocator
 
+// TODO THREAD
+
 namespace Kawaii::Graphics::backend::DX12
 {
 	class DescriptorPage;
@@ -38,12 +40,17 @@ namespace Kawaii::Graphics::backend::DX12
 	};
 
 	// The AllocatorPage also keeps track of the free list for the Descriptor.
-	class DescriptorPage : public std::enable_shared_from_this<DescriptorPage>
+	// DescriptorPage satisfy descriptor allocation requests but it also needs to provide some functions to query the number of free handles 
+	// and to check to see if it has sufficient space to satisfy a request
+	class DescriptorPage : public std::enable_shared_from_this<DescriptorPage> // retrieve a std::shared_ptr from itself
 	{
 	public:
 
 		std::optional<std::vector<DescriptorAllocation>> Allocate(size_t num_descriptors);
 		void DiscardDescriptor(DescriptorAllocation& descriptor);
+
+	protected:
+		DescriptorPage(ID3D12Device* device, D3D12_DESCRIPTOR_HEAP_TYPE type, size_t num_descriptors);
 	private:
 		ComPtr<ID3D12DescriptorHeap> m_DescriptorHeap;
 		D3D12_CPU_DESCRIPTOR_HANDLE m_Handle{};

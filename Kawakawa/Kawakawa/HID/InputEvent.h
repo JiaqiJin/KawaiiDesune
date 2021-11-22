@@ -6,25 +6,21 @@ namespace Kawaii
 {
     struct KeyState 
     {
-        bool current = false;
-        bool previous = false;
-        bool toggle = false;
+        bool current = false, previous = false, toggle = false;
     };
 
-    struct MouseState
+    struct MouseState 
     {
-        std::array<float, 2> lastPos;
-        std::array<float, 2> currPos;
-        std::array<float, 2> lastScroll;
-        std::array<float, 2> currScroll;
+        std::array<float, 2> last_pos;
+        std::array<float, 2> curr_pos;
+        float                scroll;
     };
 
     enum class MouseEvent
     {
         MOVE_X,
         MOVE_Y,
-        SCROLL_X,
-        SCROLL_Y,
+        SCROLL,
     };
 
     enum class VirtualKeyCode

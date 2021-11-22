@@ -15,6 +15,25 @@ namespace Kawaii::Graphics::backend::DX12
 	}
 
 	// ---------------------------- Descriptor Page ------------------------------
+
+	DescriptorPage::DescriptorPage(ID3D12Device* device, D3D12_DESCRIPTOR_HEAP_TYPE type, size_t num_descriptors)
+	{
+		assert(device);
+		m_IncrementSize = device->GetDescriptorHandleIncrementSize(type);
+
+		D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+		desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;  // Just CPU Visiable
+		desc.NodeMask = 0;
+		desc.NumDescriptors = num_descriptors;
+		desc.Type = type;
+
+		ThrowIfFailed(device->CreateDescriptorHeap(&desc, IID_PPV_ARGS(&m_DescriptorHeap)));
+		m_DescriptorHeap->SetName(L"CPU Descriptor Heap");
+		m_Handle = m_DescriptorHeap->GetCPUDescriptorHandleForHeapStart();
+
+		// TODO
+	}
+
 	void DescriptorPage::DiscardDescriptor(DescriptorAllocation& descriptor)
 	{
 		auto offset = (descriptor.m_Handle.ptr - m_Handle.ptr) / m_IncrementSize;
