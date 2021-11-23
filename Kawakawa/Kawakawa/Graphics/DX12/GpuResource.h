@@ -21,7 +21,7 @@ namespace Kawaii::Graphics::backend::DX12
 
 		ID3D12Resource* GetResource() { return m_Resource.Get(); }
 		const ID3D12Resource* GetResource() const { return m_Resource.Get(); }
-	private:
+	protected :
 		// Resouce
 		ComPtr<ID3D12Resource> m_Resource;
 		D3D12_RESOURCE_STATES  m_UsageState{ D3D12_RESOURCE_STATE_COMMON };
