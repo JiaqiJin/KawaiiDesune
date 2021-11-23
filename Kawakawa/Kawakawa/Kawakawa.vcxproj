@@ -161,6 +161,8 @@
     <ClCompile Include="Graphics\DX12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\DX12\DescriptorAllocator.cpp" />
     <ClCompile Include="Graphics\DX12\DX12DriverAPI.cpp" />
+    <ClCompile Include="Graphics\DX12\PSO.cpp" />
+    <ClCompile Include="Graphics\PipelineState.cpp" />
     <ClCompile Include="Graphics\DX12\RootSignature.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
     <ClCompile Include="HID\InputManager.cpp" />
@@ -196,6 +198,8 @@
     <ClInclude Include="Graphics\DX12\DX12DriverAPI.h" />
     <ClInclude Include="Graphics\DX12\DXHelper.h" />
     <ClInclude Include="Graphics\DX12\GpuResource.h" />
+    <ClInclude Include="Graphics\DX12\PSO.h" />
+    <ClInclude Include="Graphics\PipelineState.h" />
     <ClInclude Include="Graphics\DX12\RootSignature.h" />
     <ClInclude Include="Graphics\Format.h" />
     <ClInclude Include="Graphics\GraphicsManager.h" />
