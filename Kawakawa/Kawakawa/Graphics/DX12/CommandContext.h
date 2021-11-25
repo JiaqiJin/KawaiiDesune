@@ -1,6 +1,11 @@
 ﻿#pragma once
 
 #include "../ICommandContext.h"
+#include "../../Math/KawaiiMath.h"
+#include "CommandListManager.h"
+#include "GpuResource.h"
+#include "../PipelineState.h"
+
 #include "../../Utility/Singleton.h"
 
 namespace Kawaii::Graphics::backend::DX12
@@ -28,7 +33,7 @@ namespace Kawaii::Graphics::backend::DX12
 	protected:
 		CommandContext(DX12DriverAPI& driver, D3D12_COMMAND_LIST_TYPE Type);
 		// 创建CommandContext时调用，该函数会创建一个CommandList，并请求一个Allocator
-		void Initialize();
+		//void Initialize();
 		// 复用CommandContext时调用，重置渲染状态，该函数会请求一个Allocator，并调用CommandList::Reset
 		void Reset();
 
@@ -40,6 +45,11 @@ namespace Kawaii::Graphics::backend::DX12
 		~CommandContext();
 
 		auto GetCommandList() noexcept { return m_CommandList; }
+
+		void TransitionResource(GpuResource& resource, D3D12_RESOURCE_STATES new_state, bool flush_immediate = false);
+		void FlushResourceBarriers();
+		uint64_t Finish(bool wait_for_complete = false);
+
 	private:
 		DX12DriverAPI& m_Driver;
 		// Command List Type
@@ -49,8 +59,13 @@ namespace Kawaii::Graphics::backend::DX12
 		// Command Allocator
 		ID3D12CommandAllocator* m_CommandAllocator = nullptr;
 
+		// Resouces Barrier
+		std::array<D3D12_RESOURCE_BARRIER, 16> m_Barriers{};
+		unsigned m_NumBarriersToFlush = 0;
+
 		// Descriptor Heaps
 		std::array<ID3D12DescriptorHeap*, D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES> m_CurrentDescriptorHeaps{};
+
 		// Root Signature
 		ID3D12RootSignature* m_RootSignature;
 	};
@@ -61,7 +76,7 @@ namespace Kawaii::Graphics::backend::DX12
 		GraphicsCommandContext(DX12DriverAPI& driver)
 			: CommandContext(driver, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
 	private:
-
+		const Graphics::PipelineState m_Pipeline;
 	};
 
 	class ComputeCommandContext : public CommandContext

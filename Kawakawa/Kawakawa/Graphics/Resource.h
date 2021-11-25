@@ -33,7 +33,7 @@ namespace Kawaii::Graphics
 			return static_cast<T*>(m_Resource.get());
 		}
 
-	private:
+	protected:
 		std::string m_Name;
 		std::unique_ptr<backend::Resource> m_Resource;
 	};

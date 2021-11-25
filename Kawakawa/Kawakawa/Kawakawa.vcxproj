@@ -163,6 +163,7 @@
     <ClCompile Include="Graphics\DX12\DX12DriverAPI.cpp" />
     <ClCompile Include="Graphics\DX12\GpuBuffer.cpp" />
     <ClCompile Include="Graphics\DX12\PSO.cpp" />
+    <ClCompile Include="Graphics\DX12\Sampler.cpp" />
     <ClCompile Include="Graphics\PipelineState.cpp" />
     <ClCompile Include="Graphics\DX12\RootSignature.cpp" />
     <ClCompile Include="Graphics\GraphicsManager.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Graphics\DX12\GpuBuffer.h" />
     <ClInclude Include="Graphics\DX12\GpuResource.h" />
     <ClInclude Include="Graphics\DX12\PSO.h" />
+    <ClInclude Include="Graphics\DX12\Sampler.h" />
     <ClInclude Include="Graphics\PipelineState.h" />
     <ClInclude Include="Graphics\DX12\RootSignature.h" />
     <ClInclude Include="Graphics\Format.h" />
