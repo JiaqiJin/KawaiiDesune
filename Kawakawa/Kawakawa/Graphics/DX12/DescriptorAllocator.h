@@ -19,19 +19,19 @@ namespace Kawaii::Graphics::backend::DX12
 
 	// Allocation that is returned from the DescriptorAllocator::Allocate
 	// Stores a pointer back to the page it came from and will automatically free itself if the descriptor(s) are no longer required.
-	struct DescriptorAllocation
+	struct Descriptor
 	{
-		DescriptorAllocation(D3D12_CPU_DESCRIPTOR_HANDLE handle, std::shared_ptr<DescriptorPage> page);
-		DescriptorAllocation(const DescriptorAllocation& rhs) : m_Handle(rhs.m_Handle), m_Page(nullptr) {}
-		DescriptorAllocation& operator=(const DescriptorAllocation& rhs)
+		Descriptor(D3D12_CPU_DESCRIPTOR_HANDLE handle, std::shared_ptr<DescriptorPage> page);
+		Descriptor(const Descriptor& rhs) : m_Handle(rhs.m_Handle), m_Page(nullptr) {}
+		Descriptor& operator=(const Descriptor& rhs)
 		{
 			if (this != &rhs) m_Handle = rhs.m_Handle;
 			return *this;
 		}
 
-		DescriptorAllocation(DescriptorAllocation&&) = default;
-		DescriptorAllocation& operator=(DescriptorAllocation&&) = default;
-		~DescriptorAllocation();
+		Descriptor(Descriptor&&) = default;
+		Descriptor& operator=(Descriptor&&) = default;
+		~Descriptor();
 
 		// The base descriptor.
 		D3D12_CPU_DESCRIPTOR_HANDLE m_Handle;
@@ -46,8 +46,8 @@ namespace Kawaii::Graphics::backend::DX12
 	{
 	public:
 
-		std::optional<std::vector<DescriptorAllocation>> Allocate(size_t num_descriptors);
-		void DiscardDescriptor(DescriptorAllocation& descriptor);
+		std::optional<std::vector<Descriptor >> Allocate(size_t num_descriptors);
+		void DiscardDescriptor(Descriptor& descriptor);
 
 	protected:
 		DescriptorPage(ID3D12Device* device, D3D12_DESCRIPTOR_HEAP_TYPE type, size_t num_descriptors);
@@ -66,8 +66,8 @@ namespace Kawaii::Graphics::backend::DX12
 		void Initialize(ID3D12Device* device);
 
 		// Allocate a number of contiguous descriptors from a CPU visible descriptor heap.
-		DescriptorAllocation Allocate();
-		std::vector<DescriptorAllocation> Allocate(size_t numDescriptor);
+		Descriptor Allocate();
+		std::vector<Descriptor> Allocate(size_t numDescriptor);
 	private:
 		// Device
 		ID3D12Device* m_Device{};

@@ -76,7 +76,7 @@ namespace Kawaii::Graphics::backend::DX12
 		GraphicsCommandContext(DX12DriverAPI& driver)
 			: CommandContext(driver, D3D12_COMMAND_LIST_TYPE_DIRECT) {}
 	private:
-		const Graphics::PipelineState m_Pipeline;
+		const Graphics::PipelineState* m_Pipeline;
 	};
 
 	class ComputeCommandContext : public CommandContext

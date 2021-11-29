@@ -2,13 +2,13 @@
 
 namespace Kawaii::Graphics::backend::DX12
 {
-	DescriptorAllocation::DescriptorAllocation(D3D12_CPU_DESCRIPTOR_HANDLE handle, std::shared_ptr<DescriptorPage> page)
+	Descriptor::Descriptor(D3D12_CPU_DESCRIPTOR_HANDLE handle, std::shared_ptr<DescriptorPage> page)
 		: m_Handle(std::move(handle)), m_Page(std::move(page))
 	{
 
 	}
 
-	DescriptorAllocation::~DescriptorAllocation()
+	Descriptor ::~Descriptor()
 	{
 		if (m_Page)
 			m_Page->DiscardDescriptor(*this);
@@ -34,7 +34,7 @@ namespace Kawaii::Graphics::backend::DX12
 		// TODO
 	}
 
-	void DescriptorPage::DiscardDescriptor(DescriptorAllocation& descriptor)
+	void DescriptorPage::DiscardDescriptor(Descriptor& descriptor)
 	{
 		auto offset = (descriptor.m_Handle.ptr - m_Handle.ptr) / m_IncrementSize;
 		size_t size = 1;
@@ -42,9 +42,9 @@ namespace Kawaii::Graphics::backend::DX12
 		// TODO
 	}
 
-	std::optional<std::vector<DescriptorAllocation>> DescriptorPage::Allocate(size_t num_descriptors)
+	std::optional<std::vector<Descriptor>> DescriptorPage::Allocate(size_t num_descriptors)
 	{
-		std::vector<DescriptorAllocation> allocation;
+		std::vector<Descriptor> allocation;
 
 		return allocation;
 	}
@@ -62,18 +62,18 @@ namespace Kawaii::Graphics::backend::DX12
 		m_Device = device;
 	}
 
-	DescriptorAllocation DescriptorAllocator::Allocate()
+	Descriptor  DescriptorAllocator::Allocate()
 	{
 		auto ret = Allocate(1);
 		return std::move(ret[0]);
 	}
 
-	std::vector<DescriptorAllocation> DescriptorAllocator::Allocate(size_t numDescriptors)
+	std::vector<Descriptor> DescriptorAllocator::Allocate(size_t numDescriptors)
 	{
 		// if the size larget than current page size, update default page size and create large page
 		m_NumDescriptorPerPage = std::max(m_NumDescriptorPerPage, numDescriptors);
 
-		std::vector<DescriptorAllocation> allocation;
+		std::vector<Descriptor> allocation;
 
 		for (auto&& page : m_PagePool)
 		{
