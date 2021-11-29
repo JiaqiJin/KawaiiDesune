@@ -27,11 +27,6 @@ namespace Kawaii::Graphics::backend::DX12
 		}
 	}
 
-	void CommandContext::Initialize()
-	{
-		
-	}
-
 	void CommandContext::Reset()
 	{
 		// We only call Reset() on previously freed contexts.  The command list persists, but we must

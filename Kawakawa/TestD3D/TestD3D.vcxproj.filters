@@ -45,10 +45,10 @@
     <ClCompile Include="Common\MathHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Blending.cpp">
+    <ClCompile Include="1\Waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Waves.cpp">
+    <ClCompile Include="1\Stencil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,5 +89,9 @@
     <ClInclude Include="1\Waves.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\Stencil\Default.hlsl" />
+    <FxCompile Include="Shaders\Stencil\LightingUtil.hlsl" />
   </ItemGroup>
 </Project>
