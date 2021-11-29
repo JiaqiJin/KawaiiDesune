@@ -26,7 +26,7 @@ namespace Kawaii {
         operator const T* () const noexcept { return static_cast<const T*>(&data[0][0]); }
 
         friend std::ostream& operator<<(std::ostream& out, const Matrix& mat) {
-            return out << mat.data;
+            return out << mat;
         }
 
         // Matrix Operation

@@ -50,7 +50,7 @@ namespace Kawaii::Graphics::backend::DX12
 	}
 
 	// ---------------------------- Descriptor Allocator -------------------------
-	DescriptorAllocator::DescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptorsPerHeap = 1024)
+	DescriptorAllocator::DescriptorAllocator(D3D12_DESCRIPTOR_HEAP_TYPE type, uint32_t numDescriptorsPerHeap)
 		: m_Type(type), m_NumDescriptorPerPage(numDescriptorsPerHeap)
 	{
 

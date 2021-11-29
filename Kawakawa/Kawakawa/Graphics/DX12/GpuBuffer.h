@@ -62,10 +62,10 @@ namespace Kawaii::Graphics::backend::DX12
 	class DepthBuffer: public GpuResource
 	{
 	public:
-		DepthBuffer(std::string_view name, ID3D12Device* device, DescriptorAllocation&& dsv, const D3D12_RESOURCE_DESC& desc, float clear_depth, uint8_t clear_stencil);
-		const DescriptorAllocation& GetDSV() const noexcept { return m_DSV; }
+		DepthBuffer(std::string_view name, ID3D12Device* device, Descriptor&& dsv, const D3D12_RESOURCE_DESC& desc, float clear_depth, uint8_t clear_stencil);
+		const Descriptor& GetDSV() const noexcept { return m_DSV; }
 	private:
-		DescriptorAllocation m_DSV;
+		Descriptor m_DSV;
 		float m_ClearDepth;
 		uint8_t m_ClearStencil;
 	};

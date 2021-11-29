@@ -131,7 +131,7 @@ namespace Kawaii
         const T& operator[](unsigned index) const noexcept { return data[index]; }
 
         friend std::ostream& operator<<(std::ostream& out, Vector v) {
-            return out << v.data << std::flush;
+            return out << v << std::flush;
         }
 
         const Vector operator+(const Vector& rhs) const noexcept {

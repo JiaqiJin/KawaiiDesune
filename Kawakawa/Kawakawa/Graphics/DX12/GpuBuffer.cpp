@@ -18,7 +18,7 @@ namespace Kawaii::Graphics::backend::DX12
 
 	// ---------------------------- Depth -------------------------------------
 
-	DepthBuffer::DepthBuffer(std::string_view name, ID3D12Device* device, DescriptorAllocation&& dsv,
+	DepthBuffer::DepthBuffer(std::string_view name, ID3D12Device* device, Descriptor&& dsv,
 		const D3D12_RESOURCE_DESC& desc, float clear_depth, uint8_t clear_stencil)
 		: m_DSV(std::move(dsv)), m_ClearDepth(clear_depth), m_ClearStencil(clear_stencil)
 	{
