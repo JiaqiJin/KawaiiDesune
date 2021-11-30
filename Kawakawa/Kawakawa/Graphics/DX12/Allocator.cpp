@@ -1,4 +1,3 @@
-#include "D3Dpch.h"
 #include "Allocator.h"
 #include "../../Math/KawaiiMath.h"
 
@@ -82,4 +81,116 @@ namespace Kawaii::Graphics::backend::DX12
         auto ret = std::make_shared<LinearAllocationPage>(GpuResource(resource), size);
         return ret;
 	}
+
+
+    std::shared_ptr<LinearAllocationPage> PageManager::RequesetPage(ID3D12Device* device)
+    {
+        std::lock_guard lock(m_Mutex);
+        {
+            if (!m_AvailablePages.empty())
+            {
+                auto page = std::move(m_AvailablePages.front());
+                m_AvailablePages.pop();
+                return page;
+            }
+        }// unlock mutex
+
+        return CreateNewPage(device, m_PageType, m_DefaultSize);
+    }
+
+    std::shared_ptr<LinearAllocationPage> PageManager::RequesetLargePage(ID3D12Device* device, size_t size)
+    {
+        assert(size > m_DefaultSize);
+        return CreateNewPage(device, m_PageType, size);
+    }
+
+    void PageManager::DiscardPage(std::shared_ptr<LinearAllocationPage> page, uint64_t FenceID)
+    {
+        std::lock_guard lock(m_Mutex);
+        m_RetiredPages.emplace_back(std::move(page), FenceID);
+    }
+
+    void PageManager::DiscardLargePage(std::shared_ptr<LinearAllocationPage> page, uint64_t FenceID)
+    {
+        std::lock_guard lock(m_Mutex);
+        m_LargePages.emplace_back(std::move(page), FenceID);
+    }
+
+    void PageManager::Reset()
+    {
+        std::lock_guard lock(m_Mutex);
+        m_RetiredPages.clear();
+        m_AvailablePages = {};  // use a empty queue to clear
+        m_LargePages.clear();
+    }
+
+    void PageManager::UpdateAvailablePages(std::function<bool(uint64_t)>&& fence_checker)
+    {
+        std::lock_guard lock(m_Mutex);
+    
+        for (auto iter = m_RetiredPages.begin(); iter != m_RetiredPages.end();)
+        {
+            auto&& [page, fence] = *iter;
+            if (fence_checker(fence) && page->m_allocation_count == 0)
+            {
+                page->m_offset = 0;
+                m_AvailablePages.emplace(std::move(page));
+                iter = m_RetiredPages.erase(iter);
+            }
+            else
+                iter++;
+        }
+
+        for (auto iter = m_LargePages.begin(); iter != m_LargePages.end();) {
+            auto&& [page, fence] = *iter;
+            if (fence_checker(fence)) {
+                iter = m_LargePages.erase(iter);
+            }
+            else {
+                iter++;
+            }
+        }
+    }
+
+    // --------------------------- Lineal Allocator-------------------------------
+    Allocation LinearAllocator::Allocate(size_t size, size_t alignment)
+    {
+        size_t aligned_size = align(size, alignment);
+        auto& mgr = sm_PageManager[static_cast<size_t>(m_Type)];
+
+        // need large page
+        if (aligned_size > GetDefaultSize(m_Type))
+        {
+            auto& page = m_LargePages.emplace_back(mgr.RequesetLargePage(m_Device, aligned_size));
+            return { page, 0, aligned_size, page->m_CpuPtr, (*page)->GetGPUVirtualAddress() };
+        }
+
+        // use default size page
+        // requeset new page
+        if (m_CurrPage == nullptr || aligned_size > m_CurrPage->GetFreeSize())
+            m_CurrPage = m_Pages.emplace_back(mgr.RequesetPage(m_Device));
+
+        size_t offset = m_CurrPage->m_offset;
+        uint8_t* cpu_ptr = m_CurrPage->m_CpuPtr + m_CurrPage->m_offset;
+        D3D12_GPU_VIRTUAL_ADDRESS gpu_ptr = m_CurrPage->m_Resource->GetGPUVirtualAddress() + m_CurrPage->m_offset;
+
+        m_CurrPage->m_offset += size;
+        m_CurrPage->m_allocation_count++;
+
+        return { m_CurrPage, offset, size, cpu_ptr, gpu_ptr };
+    }
+
+    // Discard all page already in effect with fence value
+    void LinearAllocator::SetFence(uint64_t fence)
+    {
+        // no allocation occur, just return.
+        auto& mgr = sm_PageManager[static_cast<size_t>(m_Type)];
+        for (auto&& page : m_Pages)
+            mgr.DiscardPage(std::move(page), fence);
+        m_Pages.clear();
+
+        for (auto&& page : m_LargePages)
+            mgr.DiscardLargePage(std::move(page), fence);
+        m_LargePages.clear();
+    }
 }
