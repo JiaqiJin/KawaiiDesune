@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{344bc2c4-85cf-4e3d-abb0-3c76f9aff90b}</ProjectGuid>
-    <RootNamespace>TestD3D</RootNamespace>
+    <ProjectGuid>{3da71949-23ba-4f57-b71d-66fb00d2075d}</ProjectGuid>
+    <RootNamespace>Excalibur</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -112,20 +112,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>Default</ConformanceMode>
-      <LanguageStandard>Default</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <FxCompile>
-      <ShaderModel>5.0</ShaderModel>
-      <ShaderType>Effect</ShaderType>
-    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,44 +137,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <FxCompile>
-      <ShaderModel>5.0</ShaderModel>
-      <ShaderType>Effect</ShaderType>
-    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Comp\WaveCS.cpp" />
-    <ClCompile Include="1\Comp\GpuWaves.cpp" />
-    <ClCompile Include="1\Waves.cpp" />
-    <ClCompile Include="Common\d3dApp.cpp" />
-    <ClCompile Include="Common\d3dUtil.cpp" />
-    <ClCompile Include="Common\DDSTextureLoader.cpp" />
-    <ClCompile Include="Common\FrameResource.cpp" />
-    <ClCompile Include="Common\GameTimer.cpp" />
-    <ClCompile Include="Common\GeometryGenerator.cpp" />
-    <ClCompile Include="Common\Helpers.cpp" />
-    <ClCompile Include="Common\MathHelper.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="pch.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="1\Comp\GpuWaves.h" />
-    <ClInclude Include="1\Waves.h" />
-    <ClInclude Include="Common\d3dApp.h" />
-    <ClInclude Include="Common\d3dUtil.h" />
-    <ClInclude Include="Common\d3dx12.h" />
-    <ClInclude Include="Common\DDSTextureLoader.h" />
-    <ClInclude Include="Common\FrameResource.h" />
-    <ClInclude Include="Common\GameTimer.h" />
-    <ClInclude Include="Common\GeometryGenerator.h" />
-    <ClInclude Include="Common\Helpers.h" />
-    <ClInclude Include="Common\MathHelper.h" />
-    <ClInclude Include="Common\UploadBuffer.h" />
-    <ClInclude Include="pch.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Shaders\Stencil\Default.hlsl" />
-    <FxCompile Include="Shaders\Stencil\LightingUtil.hlsl" />
+    <None Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
