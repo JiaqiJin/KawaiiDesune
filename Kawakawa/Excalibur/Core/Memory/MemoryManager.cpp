@@ -3,9 +3,6 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-extern "C" void* malloc(size_t size);
-extern "C" void  free(void* p);
-
 namespace Excalibur
 {
 	static const  uint32_t kBlockSizes[] =
@@ -88,11 +85,11 @@ namespace Excalibur
 
 	void* MemoryManager::Allocate(size_t size) 
 	{
-		Allocator* pAlloc = LookupAllocator(size);
-		if (pAlloc)
-			return pAlloc->Allocate();
+		Allocator* allocator = LookupAllocator(size);
+		if (allocator)
+			return allocator->Allocate();
 		else
-			return malloc(size);
+			return new uint8_t[size];
 	}
 
 	void MemoryManager::Free(void* p, size_t size) 
@@ -101,7 +98,7 @@ namespace Excalibur
 		if (pAlloc)
 			pAlloc->Free(p);
 		else
-			free(p);
+			delete[] reinterpret_cast<uint8_t*>(p);
 	}
 }
 
