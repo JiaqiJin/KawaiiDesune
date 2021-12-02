@@ -11,6 +11,8 @@ namespace Excalibur
 	class MeshRenderComponent : public IComponent
 	{
 	public:
+		MeshRenderComponent() : m_Visible(true) {}
+
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
 		virtual void Render();
