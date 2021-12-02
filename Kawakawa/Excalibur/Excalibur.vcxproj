@@ -21,13 +21,24 @@
   <ItemGroup>
     <ClCompile Include="Core\Memory\Allocator.cpp" />
     <ClCompile Include="Core\Memory\MemoryManager.cpp" />
+    <ClCompile Include="Core\Object\Component\MeshRenderComponent.cpp" />
+    <ClCompile Include="Core\Object\Component\TransformComponent.cpp" />
+    <ClCompile Include="Core\Object\Entity.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
     <ClCompile Include="Platform\Window\WindowsApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Math\Common.h" />
+    <ClInclude Include="Core\Math\KawaiiMath.h" />
+    <ClInclude Include="Core\Math\Matrix.h" />
+    <ClInclude Include="Core\Math\Vector.h" />
     <ClInclude Include="Core\Memory\Allocator.h" />
     <ClInclude Include="Core\Memory\MemoryManager.h" />
+    <ClInclude Include="Core\Object\Component\MeshRenderComponent.h" />
+    <ClInclude Include="Core\Object\Component\TransformComponent.h" />
+    <ClInclude Include="Core\Object\Entity.h" />
+    <ClInclude Include="Interface\IComponent.h" />
     <ClInclude Include="Interface\IModule.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\IApplication.h" />
