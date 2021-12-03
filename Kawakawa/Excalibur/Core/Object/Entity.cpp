@@ -43,8 +43,7 @@ namespace Excalibur
 	Entity::~Entity()
 	{
 		std::cout << "destructor of entity: " << m_Guid << std::endl;
-		m_Logger = spdlog::stdout_color_mt("Entity");
-		m_Logger->info("destructor of entity : {0}", m_Guid.str());
+
 		Finalize();
 	}
 

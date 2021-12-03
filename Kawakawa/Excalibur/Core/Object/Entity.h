@@ -84,6 +84,8 @@ namespace Excalibur
 		{
 			ret = m_MeshRender;
 		}
+
+		return (T*)ret;
 	}
 
 	template<typename T>

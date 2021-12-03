@@ -41,9 +41,6 @@ namespace Excalibur
 
 	int MemoryManager::Initialize() noexcept 
 	{
-		m_Logger = spdlog::stdout_color_mt("MemoryManager");
-		m_Logger->info("Initialize...");
-
 		static bool s_bInitialized = false;
 		if (!s_bInitialized) {
 			m_pBlockSizeLookup = new size_t[kMaxBlockSize + 1];

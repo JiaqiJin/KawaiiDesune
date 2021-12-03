@@ -7,6 +7,7 @@
 namespace Excalibur
 {
 	World::World()
+		: mMeshRenderSystem(nullptr)
 	{
 
 	}
@@ -87,15 +88,42 @@ namespace Excalibur
 		}
 	}
 
+	void World::DumpEntities()
+	{
+		cout << "dump entities:" << endl;
+		for (auto pair : m_Entities) {
+			auto guid = pair.first;
+			auto entity = pair.second;
+
+			cout << "guid: " << guid << endl;
+			cout << "transform component:" << endl;
+			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
+			cout << "position: " << "(" << position.x << "," << position.y << "," << position.z << "," << endl;
+
+			auto meshRender = entity->GetComponent<MeshRenderComponent>();
+			if (meshRender) {
+				cout << "MeshRenderComponent:" << endl;
+				for (int i = 0; i < meshRender->GetRenderObjectCount(); ++i) {
+					auto robj = meshRender->GetRenderObject(i);
+					cout << "RenderObject: " << robj->GetName() << endl;
+				}
+			}
+			cout << endl;
+		}
+	}
+
 	// ---------------------- ------------------------------
 	int	World::Initialize() noexcept
 	{
-		return 1;
+		mMeshRenderSystem = new MeshRenderSystem();
+		mMeshRenderSystem->Initialize();
+
+		return 0;
 	}
 
 	void World::Tick() noexcept
 	{
-
+		mMeshRenderSystem->Tick();
 	}
 
 	void World::Finalize() noexcept
@@ -105,7 +133,7 @@ namespace Excalibur
 
 	void World::Render() noexcept
 	{
-
+		mMeshRenderSystem->Render();
 	}
 
 }

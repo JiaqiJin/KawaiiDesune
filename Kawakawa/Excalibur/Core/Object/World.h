@@ -5,6 +5,7 @@
 #include <string>
 
 #include "../../Interface/IModule.h"
+#include "System/MeshRenderSystem.h"
 #include "Entity.h"
 
 #include <crossguid/guid.hpp>
@@ -31,9 +32,13 @@ namespace Excalibur
 		size_t GetEntityCount();
 
 		void LoadScene(const std::string& scenePath);
+		void DumpEntities();
+
+		MeshRenderSystem* GetMeshRenderSystem() { return mMeshRenderSystem; }
 	private:
 		std::unordered_map<xg::Guid, std::shared_ptr<Entity>> m_Entities;
 
 		// System
+		MeshRenderSystem* mMeshRenderSystem;
 	};
 }
