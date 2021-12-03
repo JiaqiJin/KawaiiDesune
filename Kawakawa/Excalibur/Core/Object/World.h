@@ -14,31 +14,34 @@ namespace Excalibur
 {
 	class Entity;
 
-	class World : public ITickableModule
+	class Entity;
+	class World : public ITickableModule 
 	{
 	public:
-		World();
-
-		// Virtual Functions
 		virtual int		Initialize() noexcept;
 		virtual void	Finalize() noexcept;
 		virtual void	Tick() noexcept;
 		virtual void	Render() noexcept;
 
+	public:
+		World();
+
 		std::shared_ptr<Entity>	CreateEntity();
-		std::shared_ptr<Entity>	CreateEntity(const xg::Guid& guid);
-		void DeleteEntity(const xg::Guid& guid);
-		std::shared_ptr<Entity>	GetEntity(const xg::Guid& guid);
+		std::shared_ptr<Entity>	CreateEntity(const Guid& guid);
+		void	DeleteEntity(const Guid& guid);
+		std::shared_ptr<Entity>	GetEntity(const Guid& guid);
 		size_t GetEntityCount();
 
 		void LoadScene(const std::string& scenePath);
 		void DumpEntities();
 
-		MeshRenderSystem* GetMeshRenderSystem() { return mMeshRenderSystem; }
-	private:
-		std::unordered_map<xg::Guid, std::shared_ptr<Entity>> m_Entities;
+		MeshRenderSystem* GetMeshRenderSystem() { return m_MeshRenderSystem; }
 
-		// System
-		MeshRenderSystem* mMeshRenderSystem;
+	private:
+		std::unordered_map<Guid, std::shared_ptr<Entity>> m_Entities;
+
+		// systems
+		MeshRenderSystem* m_MeshRenderSystem;
 	};
+
 }
