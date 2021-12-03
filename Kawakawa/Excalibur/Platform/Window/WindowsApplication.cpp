@@ -6,10 +6,8 @@ namespace Excalibur
 	{
 		WindowsApplication* pThis;
 		pThis = reinterpret_cast<WindowsApplication*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-		switch (message) 
-		{
-		case WM_CREATE:
-		{
+		switch (message) {
+		case WM_CREATE: {
 			LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
 			SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pCreateStruct->lpCreateParams));
 			return 0;
@@ -27,30 +25,32 @@ namespace Excalibur
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
-	int WindowsApplication::Initialize() noexcept
-	{
+	int WindowsApplication::Initialize() noexcept {
 		CHECK_APPLICATION_INIT(Application::Initialize());
 		CreateMainWindow();
+
+		mMemoryMgr = new MemoryManager();
+		mMemoryMgr->Initialize();
+
+		mWorld = new World();
+		mWorld->Initialize();
 
 		return 0;
 	}
 
-	void WindowsApplication::Tick() noexcept
-	{
+	void WindowsApplication::Tick() noexcept {
 		Application::Tick();
 		MSG msg = {};
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) 
-		{
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
+		mWorld->Tick();
 		Render();
 	}
 
-	void WindowsApplication::Render() noexcept 
-	{
-	
+	void WindowsApplication::Render() noexcept {
+		mWorld->Render();
 	}
 
 	HWND WindowsApplication::GetWindowsHandler() noexcept
@@ -91,8 +91,12 @@ namespace Excalibur
 		ShowWindow(mHWND, 5);
 	}
 
-	void WindowsApplication::Finalize() noexcept 
+	void WindowsApplication::Finalize() noexcept
 	{
-		
+		mWorld->Finalize();
+
+		mMemoryMgr->Finalize();
+
 	}
+
 }

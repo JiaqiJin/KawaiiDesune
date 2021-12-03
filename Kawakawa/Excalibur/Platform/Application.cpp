@@ -8,12 +8,9 @@ namespace Excalibur
 {
 	int Application::Initialize() noexcept 
 	{
-		m_Logger = spdlog::stdout_color_mt("Application");
-#if defined(_DEBUG)
-		spdlog::set_level(spdlog::level::debug);
-#endif  // _DEBUG
-		mMemoryMgr = nullptr;
 		mQuit = false;
+		mMemoryMgr = nullptr;
+		mWorld = nullptr;
 		return 0;
 	}
 

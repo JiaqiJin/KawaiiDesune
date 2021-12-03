@@ -2,11 +2,13 @@
 
 #include "IApplication.h"
 #include "../Core/Memory/MemoryManager.h"
+#include "../Core/Object/World.h"
 
 namespace Excalibur
 {
-	class Application : public IApplication
+	class Application : public IApplication 
 	{
+
 	public:
 		virtual int Initialize() noexcept;
 		virtual void Tick() noexcept;
@@ -18,6 +20,8 @@ namespace Excalibur
 
 	public:
 		MemoryManager* mMemoryMgr;
+
+		World* mWorld;
 	private:
 		bool mQuit;
 	};

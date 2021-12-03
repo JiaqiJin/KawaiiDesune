@@ -28,7 +28,6 @@ namespace Excalibur
 
 		friend class Singleton<WindowsApplication>;
 	};
-
 	typedef Singleton<WindowsApplication> GWindowsApplication;
 
 }
