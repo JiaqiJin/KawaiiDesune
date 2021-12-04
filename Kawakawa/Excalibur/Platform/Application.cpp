@@ -10,6 +10,7 @@ namespace Excalibur
 	{
 		mQuit = false;
 		mMemoryMgr = nullptr;
+		mGraphicsManager = nullptr;
 		mWorld = nullptr;
 		return 0;
 	}

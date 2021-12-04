@@ -2,7 +2,6 @@
 
 #include "../Application.h"
 #include "../../Utils/Singleton.h"
-#include <Windows.h>
 
 namespace Excalibur
 {

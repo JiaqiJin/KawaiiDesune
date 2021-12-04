@@ -1,4 +1,5 @@
 #include "WindowsApplication.h"
+#include "../../RHI/D3D12/GraphicsMgrD12.h"
 
 namespace Excalibur
 {
@@ -31,6 +32,10 @@ namespace Excalibur
 
 		mMemoryMgr = new MemoryManager();
 		mMemoryMgr->Initialize();
+
+		mGraphicsManager = new GraphicsMgrD12();
+		auto mgr = (GraphicsMgrD12*)mGraphicsManager;
+		mgr->InitializeWithWindow(mHWND);
 
 		mWorld = new World();
 		mWorld->Initialize();
@@ -94,7 +99,7 @@ namespace Excalibur
 	void WindowsApplication::Finalize() noexcept
 	{
 		mWorld->Finalize();
-
+		mGraphicsManager->Finalize();
 		mMemoryMgr->Finalize();
 
 	}

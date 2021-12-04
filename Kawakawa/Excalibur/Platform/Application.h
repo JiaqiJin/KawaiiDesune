@@ -2,6 +2,7 @@
 
 #include "IApplication.h"
 #include "../Core/Memory/MemoryManager.h"
+#include "../RHI/GraphicsMgr.h"
 #include "../Core/Object/World.h"
 
 namespace Excalibur
@@ -20,7 +21,7 @@ namespace Excalibur
 
 	public:
 		MemoryManager* mMemoryMgr;
-
+		GraphicsManager* mGraphicsManager;
 		World* mWorld;
 	private:
 		bool mQuit;
