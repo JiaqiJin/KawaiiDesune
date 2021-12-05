@@ -35,6 +35,8 @@
     <ClCompile Include="RHI\RenderObject.cpp" />
     <ClCompile Include="RHI\TestMgr.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
+    <ClCompile Include="Vendor\Glad\src\glad.c" />
+    <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Math\Common.h" />
@@ -63,6 +65,9 @@
     <ClInclude Include="RHI\TestMgr.h" />
     <ClInclude Include="Utils\DxException.h" />
     <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
+    <ClInclude Include="Vendor\Glad\include\glad\glad_wgl.h" />
+    <ClInclude Include="Vendor\Glad\include\KHR\khrplatform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

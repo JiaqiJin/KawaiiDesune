@@ -2,6 +2,9 @@
 
 #include "../Application.h"
 #include "../../Utils/Singleton.h"
+#include <Windows.h>
+
+#include "../../Vendor/Glad/include/glad/glad_wgl.h"
 
 namespace Excalibur
 {
@@ -22,9 +25,11 @@ namespace Excalibur
 		WindowsApplication() = default;
 		void CreateMainWindow();
 
+		void LoadWGL();
+		void CreateGLContext();
 	private:
 		HWND mHWND;
-
+		HGLRC m_RenderContext;
 		friend class Singleton<WindowsApplication>;
 	};
 	typedef Singleton<WindowsApplication> GWindowsApplication;

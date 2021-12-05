@@ -1,23 +1,26 @@
 #include "GraphicsMgrGL.h"
 
 #include <iostream>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 namespace Excalibur
 {
 	int GraphicsMgrGL::Initialize() noexcept
 	{
-		GLenum err = glewInit();
-		if (GLEW_OK != err)
+		int result;
+		result = gladLoadGL();
+		if (!result)
 		{
-			/* Problem: glewInit failed, something is seriously wrong. */
-			printf("Error: %s\n", glewGetErrorString(err));
+			std::cout << "Failed to create GLFW window" << std::endl;
+			return -1;
 		}
 
 		// Enable depth testing.
 		glClearDepth(1.0f);
 		// Enable depth testing.
 		glEnable(GL_DEPTH_TEST);
+
+		std::cout << "OpenGl Version: " << GLVersion.major << "." << GLVersion.minor << " loaded" << std::endl;
 
 		return 0;
 	}
