@@ -5,6 +5,8 @@
 #include "../../Common/FrameResource.h"
 #include "GpuWaves.h"
 
+#include <memory>
+
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
@@ -73,36 +75,36 @@ private:
 	virtual void Update(const GameTimer& gt)override;
 	virtual void Draw(const GameTimer& gt)override;
 
-	virtual void OnMouseDown(WPARAM btnState, int x, int y)override;
-	virtual void OnMouseUp(WPARAM btnState, int x, int y)override;
-	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
+	//virtual void OnMouseDown(WPARAM btnState, int x, int y)override;
+	//virtual void OnMouseUp(WPARAM btnState, int x, int y)override;
+	//virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 
-	void OnKeyboardInput(const GameTimer& gt);
-	void UpdateCamera(const GameTimer& gt);
-	void AnimateMaterials(const GameTimer& gt);
-	void UpdateObjectCBs(const GameTimer& gt);
-	void UpdateMaterialCBs(const GameTimer& gt);
-	void UpdateMainPassCB(const GameTimer& gt);
-	void UpdateWavesGPU(const GameTimer& gt);
+	//void OnKeyboardInput(const GameTimer& gt);
+	//void UpdateCamera(const GameTimer& gt);
+	//void AnimateMaterials(const GameTimer& gt);
+	//void UpdateObjectCBs(const GameTimer& gt);
+	//void UpdateMaterialCBs(const GameTimer& gt);
+	//void UpdateMainPassCB(const GameTimer& gt);
+	//void UpdateWavesGPU(const GameTimer& gt);
 
-	void LoadTextures();
-	void BuildRootSignature();
-	void BuildWavesRootSignature();
-	void BuildDescriptorHeaps();
-	void BuildShadersAndInputLayout();
-	void BuildLandGeometry();
-	void BuildWavesGeometry();
-	void BuildBoxGeometry();
-	void BuildPSOs();
-	void BuildFrameResources();
-	void BuildMaterials();
-	void BuildRenderItems();
-	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
+	//void LoadTextures();
+	//void BuildRootSignature();
+	//void BuildWavesRootSignature();
+	//void BuildDescriptorHeaps();
+	//void BuildShadersAndInputLayout();
+	//void BuildLandGeometry();
+	//void BuildWavesGeometry();
+	//void BuildBoxGeometry();
+	//void BuildPSOs();
+	//void BuildFrameResources();
+	//void BuildMaterials();
+	//void BuildRenderItems();
+	//void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
-	std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
+	//std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
 
-	float GetHillsHeight(float x, float z)const;
-	XMFLOAT3 GetHillsNormal(float x, float z)const;
+	//float GetHillsHeight(float x, float z)const;
+	//XMFLOAT3 GetHillsNormal(float x, float z)const;
 
 private:
 
@@ -195,7 +197,7 @@ bool WavesCSApp::Initialize()
 		mCommandList.Get(),
 		256, 256, 0.25f, 0.03f, 2.0f, 0.2f);
 
-	LoadTextures();
+	/*LoadTextures();
 	BuildRootSignature();
 	BuildWavesRootSignature();
 	BuildDescriptorHeaps();
@@ -206,7 +208,7 @@ bool WavesCSApp::Initialize()
 	BuildMaterials();
 	BuildRenderItems();
 	BuildFrameResources();
-	BuildPSOs();
+	BuildPSOs();*/
 
 	ThrowIfFailed(mCommandList->Close());
 	ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
@@ -224,4 +226,14 @@ void WavesCSApp::OnResize()
 	// The window resized, so update the aspect ratio and recompute the projection matrix.
 	XMMATRIX P = XMMatrixPerspectiveFovLH(0.25f * MathHelper::Pi, AspectRatio(), 1.0f, 1000.0f);
 	XMStoreFloat4x4(&mProj, P);
+}
+
+void WavesCSApp::Update(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::Draw(const GameTimer& gt)
+{
+
 }

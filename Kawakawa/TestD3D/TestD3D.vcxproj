@@ -148,8 +148,8 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Comp\WaveCS.cpp" />
     <ClCompile Include="1\Comp\GpuWaves.cpp" />
+    <ClCompile Include="1\Comp\WaveCS.cpp" />
     <ClCompile Include="1\Waves.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
