@@ -1,5 +1,6 @@
 #include "WindowsApplication.h"
 #include "../../RHI/D3D12/GraphicsMgrD12.h"
+#include "../../RHI/OpenGL/GraphicsMgrGL.h"
 
 namespace Excalibur
 {
@@ -32,10 +33,19 @@ namespace Excalibur
 
 		mMemoryMgr = new MemoryManager();
 		mMemoryMgr->Initialize();
-
-		mGraphicsManager = new GraphicsMgrD12();
-		auto mgr = (GraphicsMgrD12*)mGraphicsManager;
-		mgr->InitializeWithWindow(mHWND);
+		bool openGL = true;
+		if (openGL)
+		{
+			mGraphicsManager = new GraphicsMgrGL();
+			auto mgr = (GraphicsMgrGL*)mGraphicsManager;
+			mgr->Initialize();
+		}
+		else
+		{
+			mGraphicsManager = new GraphicsMgrD12();
+			auto mgr = (GraphicsMgrD12*)mGraphicsManager;
+			mgr->InitializeWithWindow(mHWND);
+		}
 
 		mWorld = new World();
 		mWorld->Initialize();
