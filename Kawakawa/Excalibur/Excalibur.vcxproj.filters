@@ -57,9 +57,6 @@
     <ClCompile Include="RHI\D3D12\D12pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\TestMgr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +64,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\OpenGL\IndexBufferGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -143,9 +146,6 @@
     <ClInclude Include="Utils\DxException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\TestMgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RHI\OpenGL\GraphicsMgrGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -156,6 +156,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vendor\Glad\include\KHR\khrplatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\VertexBufferBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\IndexBufferBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\TexturehBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\IResourceh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\ShaderBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\OpenGL\IndexBufferGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\OpenGL\VertexBufferGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -32,8 +32,9 @@
     <ClCompile Include="RHI\D3D12\D12pch.cpp" />
     <ClCompile Include="RHI\D3D12\GraphicsMgrD12.cpp" />
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp" />
+    <ClCompile Include="RHI\OpenGL\IndexBufferGL.cpp" />
+    <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp" />
     <ClCompile Include="RHI\RenderObject.cpp" />
-    <ClCompile Include="RHI\TestMgr.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
@@ -52,6 +53,7 @@
     <ClInclude Include="Core\Object\World.h" />
     <ClInclude Include="Interface\IComponent.h" />
     <ClInclude Include="Interface\IModule.h" />
+    <ClInclude Include="Interface\IResourceh.h" />
     <ClInclude Include="Interface\ISystem.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\IApplication.h" />
@@ -60,9 +62,14 @@
     <ClInclude Include="RHI\D3D12\d3dx12.h" />
     <ClInclude Include="RHI\D3D12\GraphicsMgrD12.h" />
     <ClInclude Include="RHI\GraphicsMgr.h" />
+    <ClInclude Include="RHI\IndexBufferBase.h" />
+    <ClInclude Include="RHI\OpenGL\IndexBufferGL.h" />
+    <ClInclude Include="RHI\OpenGL\VertexBufferGL.h" />
+    <ClInclude Include="RHI\ShaderBase.h" />
+    <ClInclude Include="RHI\TexturehBase.h" />
+    <ClInclude Include="RHI\VertexBufferBase.h" />
     <ClInclude Include="RHI\OpenGL\GraphicsMgrGL.h" />
     <ClInclude Include="RHI\RenderObject.h" />
-    <ClInclude Include="RHI\TestMgr.h" />
     <ClInclude Include="Utils\DxException.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
