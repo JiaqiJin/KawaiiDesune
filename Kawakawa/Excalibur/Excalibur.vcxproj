@@ -33,6 +33,8 @@
     <ClCompile Include="RHI\D3D12\GraphicsMgrD12.cpp" />
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp" />
     <ClCompile Include="RHI\OpenGL\IndexBufferGL.cpp" />
+    <ClCompile Include="RHI\OpenGL\MeshGL.cpp" />
+    <ClCompile Include="RHI\OpenGL\ShaderGL.cpp" />
     <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp" />
     <ClCompile Include="RHI\RenderObject.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
@@ -63,7 +65,10 @@
     <ClInclude Include="RHI\D3D12\GraphicsMgrD12.h" />
     <ClInclude Include="RHI\GraphicsMgr.h" />
     <ClInclude Include="RHI\IndexBufferBase.h" />
+    <ClInclude Include="RHI\MeshBase.h" />
     <ClInclude Include="RHI\OpenGL\IndexBufferGL.h" />
+    <ClInclude Include="RHI\OpenGL\MeshGL.h" />
+    <ClInclude Include="RHI\OpenGL\ShaderGL.h" />
     <ClInclude Include="RHI\OpenGL\VertexBufferGL.h" />
     <ClInclude Include="RHI\ShaderBase.h" />
     <ClInclude Include="RHI\TexturehBase.h" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Interface/IResourceh.h"
+#include <string>
 
 namespace Excalibur
 {

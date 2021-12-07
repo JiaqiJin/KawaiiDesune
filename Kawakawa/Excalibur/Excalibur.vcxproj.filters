@@ -72,6 +72,12 @@
     <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RHI\OpenGL\ShaderGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\OpenGL\MeshGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Platform\IApplication.h">
@@ -177,6 +183,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\OpenGL\VertexBufferGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\OpenGL\ShaderGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\OpenGL\MeshGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\MeshBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
