@@ -29,8 +29,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
     <ClCompile Include="Platform\Window\WindowsApplication.cpp" />
-    <ClCompile Include="RHI\D3D12\D12pch.cpp" />
-    <ClCompile Include="RHI\D3D12\GraphicsMgrD12.cpp" />
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp" />
     <ClCompile Include="RHI\OpenGL\IndexBufferGL.cpp" />
     <ClCompile Include="RHI\OpenGL\MeshGL.cpp" />
@@ -60,9 +58,6 @@
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\IApplication.h" />
     <ClInclude Include="Platform\Window\WindowsApplication.h" />
-    <ClInclude Include="RHI\D3D12\D12pch.h" />
-    <ClInclude Include="RHI\D3D12\d3dx12.h" />
-    <ClInclude Include="RHI\D3D12\GraphicsMgrD12.h" />
     <ClInclude Include="RHI\GraphicsMgr.h" />
     <ClInclude Include="RHI\IndexBufferBase.h" />
     <ClInclude Include="RHI\MeshBase.h" />
@@ -80,6 +75,10 @@
     <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad_wgl.h" />
     <ClInclude Include="Vendor\Glad\include\KHR\khrplatform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Asset\Shaders\simple.fs" />
+    <None Include="Asset\Shaders\simple.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

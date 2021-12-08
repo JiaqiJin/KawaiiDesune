@@ -97,7 +97,7 @@ namespace Excalibur
 		return 0;
 	}
 
-	void ShaderGL::Use() noexcept
+	void ShaderGL::Use()
 	{
 		glUseProgram(mProgram);
 	}

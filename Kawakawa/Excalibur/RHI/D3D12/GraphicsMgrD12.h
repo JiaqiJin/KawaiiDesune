@@ -13,6 +13,7 @@ namespace Excalibur
 		virtual	void Finalize() noexcept;
 		virtual	void Tick() noexcept;
 
+		virtual std::shared_ptr<ShaderBase> GetShader(const std::string& name) = 0;
 	private:
 		HWND m_hwnd;
 

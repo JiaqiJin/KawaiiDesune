@@ -8,7 +8,7 @@ namespace Excalibur
 	class VertexBufferGL : public VertexBufferBase
 	{
 	public:
-		VertexBufferGL(void* data, uint32_t count, int index, VertexFormat vf);
+		VertexBufferGL(void* data, uint32_t count, VertexFormat vf, int index);
 		virtual ~VertexBufferGL();
 		virtual void Initialize(void* data, uint32_t count, VertexFormat vf) final;
 	protected:

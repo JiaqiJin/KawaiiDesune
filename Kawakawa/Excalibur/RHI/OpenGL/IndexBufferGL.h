@@ -11,7 +11,7 @@ namespace Excalibur
 		IndexBufferGL(void* data, uint32_t count);
 		virtual ~IndexBufferGL();
 		virtual void Initialize(void* data, unsigned int count) final;
-		
+
 	protected:
 		GLuint mEBO;
 	};

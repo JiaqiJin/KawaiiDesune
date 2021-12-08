@@ -11,6 +11,7 @@ namespace Excalibur
 	class WindowsApplication : public Application 
 	{
 	public:
+		WindowsApplication() {};
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
 		virtual void Tick() noexcept;
@@ -22,7 +23,7 @@ namespace Excalibur
 		static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	private:
-		WindowsApplication() = default;
+	
 		void CreateMainWindow();
 
 		void LoadWGL();

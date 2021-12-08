@@ -1,4 +1,7 @@
 #include "GraphicsMgrGL.h"
+#include "VertexBufferGL.h"
+#include "IndexBufferGL.h"
+#include "ShaderGL.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -14,11 +17,13 @@ namespace Excalibur
 			std::cout << "Failed to create GLFW window" << std::endl;
 			return -1;
 		}
-
+		glViewport(0, 0, 1024, 768);
 		// Enable depth testing.
 		glClearDepth(1.0f);
 		// Enable depth testing.
 		glEnable(GL_DEPTH_TEST);
+
+		//LoadShader();
 
 		std::cout << "OpenGl Version: " << GLVersion.major << "." << GLVersion.minor << " loaded" << std::endl;
 
@@ -34,4 +39,41 @@ namespace Excalibur
 	{
 	}
 
+	std::shared_ptr<VertexBufferBase> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf)
+	{
+		auto ret = std::make_shared<VertexBufferGL>(data, count, vf, 0);
+		return ret;
+	}
+
+	std::shared_ptr<IndexBufferBase> GraphicsMgrGL::CreateIndexBuffer(void* data, int count)
+	{
+		auto ret = std::make_shared<IndexBufferGL>(data, count);
+		return ret;
+	}
+
+	std::shared_ptr<TextureBase> GraphicsMgrGL::CreateTexture2D(const std::string& path)
+	{
+		return nullptr;
+	}
+
+	void GraphicsMgrGL::UseShader(std::shared_ptr<ShaderBase> shader)
+	{
+		if (!shader)
+			assert(false);
+
+		shader->Use();
+	}
+
+	void GraphicsMgrGL::LoadShader()
+	{
+		std::string simpleShaderVS = "Asset/Shaders/simple.vs";
+		std::string simpleShaderFS = "Asset/Shaders/simple.fs";
+		auto simpleShader = std::make_shared<ShaderGL>(simpleShaderVS, simpleShaderFS);
+		m_Shaders["simple"] = simpleShader;
+	}
+
+	std::shared_ptr<ShaderBase> GraphicsMgrGL::GetShader(const std::string& name)
+	{
+		return m_Shaders[name];
+	}
 }

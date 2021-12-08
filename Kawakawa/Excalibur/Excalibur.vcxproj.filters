@@ -48,13 +48,7 @@
     <ClCompile Include="RHI\RenderObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\D3D12\GraphicsMgrD12.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\DxException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RHI\D3D12\D12pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp">
@@ -137,16 +131,7 @@
     <ClInclude Include="RHI\RenderObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\D3D12\d3dx12.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RHI\GraphicsMgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RHI\D3D12\GraphicsMgrD12.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RHI\D3D12\D12pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\DxException.h">
@@ -194,5 +179,9 @@
     <ClInclude Include="RHI\MeshBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Asset\Shaders\simple.vs" />
+    <None Include="Asset\Shaders\simple.fs" />
   </ItemGroup>
 </Project>

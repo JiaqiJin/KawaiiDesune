@@ -26,4 +26,6 @@ namespace Excalibur
 	private:
 		bool mQuit;
 	};
+
+	extern Application* GApp;
 }

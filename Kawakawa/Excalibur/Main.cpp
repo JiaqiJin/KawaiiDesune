@@ -3,7 +3,10 @@
 
 using namespace Excalibur;
 
-extern Application* GApp = GWindowsApplication::GetInstance();
+namespace Excalibur
+{
+	extern Application* GApp = new WindowsApplication();
+}
 
 int main()
 {

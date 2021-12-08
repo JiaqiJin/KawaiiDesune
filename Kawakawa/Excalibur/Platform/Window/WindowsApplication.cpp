@@ -60,12 +60,12 @@ namespace Excalibur
 			auto mgr = (GraphicsMgrGL*)mGraphicsManager;
 			mgr->Initialize();
 		}
-		else
+		/*else
 		{
 			mGraphicsManager = new GraphicsMgrD12();
 			auto mgr = (GraphicsMgrD12*)mGraphicsManager;
 			mgr->InitializeWithWindow(mHWND);
-		}
+		}*/
 
 		mWorld = new World();
 		mWorld->Initialize();

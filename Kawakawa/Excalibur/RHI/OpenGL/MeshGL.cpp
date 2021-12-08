@@ -1,7 +1,10 @@
 #include "MeshGL.h"
+#include "GraphicsMgrGL.h"
 #include "VertexBufferGL.h"
 #include "IndexBufferGL.h"
+#include "../../Platform/Application.h"
 #include "ShaderGL.h"
+#include "../../Core/Math/Matrix.h"
 
 namespace Excalibur
 {
@@ -12,8 +15,19 @@ namespace Excalibur
 
 	MeshGL::MeshGL(aiMesh* mesh, const aiScene* world)
 	{
-
+		auto mgr = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		Initialize(mesh);
+
+		auto shader = mgr->GetShader("simple");
+	}
+
+	MeshGL::MeshGL(void* data, int count, VertexFormat vf)
+	{
+		auto mgr = (GraphicsMgrGL*)GApp->mGraphicsManager;
+		Initialize(data, count, vf);
+
+		auto shader = mgr->GetShader("debug");
+
 	}
 
 	MeshGL::~MeshGL()
@@ -52,9 +66,20 @@ namespace Excalibur
 		}
 	}
 
-	void MeshGL::Render()
+	void MeshGL::Initialize(void* data, int count, VertexFormat vf)
 	{
-		// TODO
+		auto mgrgl = (GraphicsMgrGL*)GApp->mGraphicsManager;
+		glGenVertexArrays(1, &mVAO);
+		glBindVertexArray(mVAO);
+
+		m_Position = mgrgl->CreateVertexBuffer(data, count, vf);
+	}
+
+	void MeshGL::Render(const Matrix4x4f& worldMatrix)
+	{
+		ConstantBuffer cb;
+		BuildMatrixIdentity(cb.world);
+		// TODO CAMERA
 
 		glBindVertexArray(mVAO);
 		if (m_Indexes)
