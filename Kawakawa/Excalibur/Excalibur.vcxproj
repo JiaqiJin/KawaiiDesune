@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Math\Common.h" />
+    <ClInclude Include="Core\Math\EigenMath.h" />
     <ClInclude Include="Core\Math\KawaiiMath.h" />
     <ClInclude Include="Core\Math\Matrix.h" />
     <ClInclude Include="Core\Math\Vector.h" />

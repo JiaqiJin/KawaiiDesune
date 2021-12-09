@@ -67,7 +67,7 @@ namespace Excalibur
 			mgr->InitializeWithWindow(mHWND);
 		}*/
 
-		mWorld = new World();
+		mWorld = new World(this);
 		mWorld->Initialize();
 
 		return 0;
@@ -86,6 +86,9 @@ namespace Excalibur
 
 	void WindowsApplication::Render() noexcept {
 		mWorld->Render();
+		mGraphicsManager->Present();
+		auto m_hDC = GetDC(mHWND);
+		SwapBuffers(m_hDC);
 	}
 
 	HWND WindowsApplication::GetWindowsHandler() noexcept

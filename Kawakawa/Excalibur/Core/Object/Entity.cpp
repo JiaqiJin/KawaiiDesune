@@ -21,12 +21,26 @@ namespace Excalibur
 	{
 		m_Children.clear();
 		m_Parent = nullptr;
+
+		if (m_Transform) 
+		{
+			RemoveComponent<TransformComponent>();
+		}
+		if (m_MeshRender)
+		{
+			RemoveComponent<MeshRenderComponent>();
+		}
+		if (m_Camera) 
+		{
+			RemoveComponent<CameraComponent>();
+		}
 	}
 
 	Entity::Entity()
 		: m_Parent(nullptr),
 		m_Transform(nullptr),
-		m_MeshRender(nullptr)
+		m_MeshRender(nullptr),
+		m_Camera(nullptr)
 	{
 		m_Guid = xg::newGuid();
 	}
@@ -35,6 +49,7 @@ namespace Excalibur
 		: m_Parent(nullptr),
 		m_Transform(nullptr),
 		m_MeshRender(nullptr),
+		m_Camera(nullptr),
 		m_Guid(guid)
 	{
 

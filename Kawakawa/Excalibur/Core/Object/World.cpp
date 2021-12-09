@@ -4,18 +4,24 @@
 #include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
 
+#include "../../Platform/Application.h"
+
 namespace Excalibur
 {
-	World::World()
+	World::World(Application* app)
 		: m_MeshRenderSystem(nullptr)
+		, mApp(app)
 	{
 
 	}
 
 	int World::Initialize() noexcept
 	{
-		m_MeshRenderSystem = new MeshRenderSystem();
+		m_MeshRenderSystem = new MeshRenderSystem(this);
 		m_MeshRenderSystem->Initialize();
+
+		m_CameraSystem = new CameraSystem(this);
+		m_CameraSystem->Initialize();
 
 		return 0;
 	}
@@ -23,16 +29,22 @@ namespace Excalibur
 	void World::Finalize() noexcept
 	{
 		m_Entities.clear();
+
+		m_MeshRenderSystem->Finalize();
+		m_CameraSystem->Finalize();
 	}
 
 	void World::Tick() noexcept
 	{
 		m_MeshRenderSystem->Tick();
+
 	}
 
 	void World::Render() noexcept
 	{
+		mApp->mGraphicsManager->ClearRenderTarget(0.2f, 0.4f, 0.6f, 1.0f);
 		m_MeshRenderSystem->Render();
+		mApp->mGraphicsManager->Present();
 	}
 
 	std::shared_ptr<Entity> World::CreateEntity()
@@ -90,22 +102,40 @@ namespace Excalibur
 
 		assert(scene);
 
+		// load all mesh
+		for (unsigned int j = 0; j < scene->mNumMeshes; ++j)
+		{
+			auto mesh = scene->mMeshes[j];
+			m_MeshRenderSystem->LoadMesh(mesh, scene);
+		}
+
+		auto camera = CreateEntity();
+		camera->AddComponent<CameraComponent>();
+		m_CameraSystem->SetMainCamera(camera);
+
+		// build scene graph entity
 		for (unsigned int i = 0; i < scene->mRootNode->mNumChildren; ++i) 
 		{
 			auto child = scene->mRootNode->mChildren[i];
-			if (child->mNumMeshes <= 0) {
+			if (child->mNumMeshes <= 0) 
+			{
 				continue;
 			}
 
 			auto entity = CreateEntity();
+			aiVector3D scaling, rotation, position;
+			child->mTransformation.Decompose(scaling, rotation, position);
+			auto transformation = entity->GetComponent<TransformComponent>();
+			transformation->SetPosition(Vector3f(position.x, position.y, position.z));
+			transformation->SetRotation(Vector3f(rotation.x, rotation.y, rotation.z));
+			transformation->SetScale(Vector3f(scaling.x, scaling.y, scaling.z));
+
 			auto comp = entity->AddComponent<MeshRenderComponent>();
 
 			for (unsigned int j = 0; j < child->mNumMeshes; ++j) 
 			{
 				auto midx = child->mMeshes[j];
-				auto mesh = scene->mMeshes[midx];
-				auto robj = comp->AddRenderObject();
-				robj->SetName(mesh->mName.C_Str());
+				comp->mMeshIdxes.push_back(midx);
 			}
 		}
 	}
@@ -113,7 +143,7 @@ namespace Excalibur
 	void World::DumpEntities()
 	{
 		cout << "dump entities:" << endl;
-		for (auto pair : m_Entities) 
+		for (auto pair : m_Entities)
 		{
 			auto guid = pair.first;
 			auto entity = pair.second;
@@ -121,18 +151,33 @@ namespace Excalibur
 			cout << "guid: " << guid << endl;
 			cout << "transform component:" << endl;
 			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
-			cout << "position: " << "(" << position.x << "," << position.y << "," << position.z << "," << endl;
+			cout << "position: " << "(" << position.x << "," << position.y << "," << position.z << ")" << endl;
 
 			auto meshRender = entity->GetComponent<MeshRenderComponent>();
-			if (meshRender) 
-			{
+			if (meshRender) {
 				cout << "MeshRenderComponent:" << endl;
-				for (int i = 0; i < meshRender->GetRenderObjectCount(); ++i)
+				cout << "MeshIndex:";
+				for (int i = 0; i < meshRender->mMeshIdxes.size(); ++i)
 				{
-					auto robj = meshRender->GetRenderObject(i);
-					cout << "RenderObject: " << robj->GetName() << endl;
+					cout << meshRender->mMeshIdxes[i] << " ";
 				}
+				cout << "Mesh name:";
+				for (int i = 0; i < meshRender->mMeshIdxes.size(); ++i) 
+				{
+					auto idx = meshRender->mMeshIdxes[i];
+					auto mesh = m_MeshRenderSystem->mMeshes[idx];
+				}
+				cout << endl;
 			}
+
+			auto cameraComponent = entity->GetComponent<CameraComponent>();
+			if (cameraComponent)
+			{
+				cout << "camera type: " << std::endl;
+				cout << cameraComponent->GetViewMatrix() << endl;
+				cout << cameraComponent->GetPerspectiveMatrix() << endl;
+			}
+
 			cout << endl;
 		}
 	}

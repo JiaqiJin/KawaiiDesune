@@ -6,15 +6,18 @@
 
 #include "../../Interface/IModule.h"
 #include "System/MeshRenderSystem.h"
+#include "System/CameraSystem.h"
 #include "Entity.h"
 
 #include <crossguid/guid.hpp>
+#include "../../Platform/Application.h"
+using namespace xg;
 
 namespace Excalibur
 {
 	class Entity;
+	class Application;
 
-	class Entity;
 	class World : public ITickableModule 
 	{
 	public:
@@ -24,7 +27,7 @@ namespace Excalibur
 		virtual void	Render() noexcept;
 
 	public:
-		World();
+		World(Application* app);
 
 		std::shared_ptr<Entity>	CreateEntity();
 		std::shared_ptr<Entity>	CreateEntity(const Guid& guid);
@@ -36,12 +39,17 @@ namespace Excalibur
 		void DumpEntities();
 
 		MeshRenderSystem* GetMeshRenderSystem() { return m_MeshRenderSystem; }
+		CameraSystem* GetCameraSystem() { return m_CameraSystem; }
+
+	public:
+		Application* mApp;
 
 	private:
 		std::unordered_map<Guid, std::shared_ptr<Entity>> m_Entities;
 
 		// systems
 		MeshRenderSystem* m_MeshRenderSystem;
+		CameraSystem* m_CameraSystem;
 	};
 
 }

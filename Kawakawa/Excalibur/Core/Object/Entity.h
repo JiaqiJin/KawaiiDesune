@@ -4,6 +4,7 @@
 #include "../../Core/Memory/MemoryManager.h"
 #include "Component/TransformComponent.h"
 #include "Component/MeshRenderComponent.h"
+#include "Component/CameraComponent.h"
 
 #include <crossguid/guid.hpp>
 
@@ -46,6 +47,7 @@ namespace Excalibur
 	protected:
 		TransformComponent* m_Transform;
 		MeshRenderComponent* m_MeshRender;
+		CameraComponent* m_Camera;
 	};
 
 	template<typename T>
@@ -69,6 +71,14 @@ namespace Excalibur
 			comp = m_MeshRender;
 		}
 
+		else if (std::is_same<T, CameraComponent>::value) 
+		{
+			m_Camera = new CameraComponent();
+			m_Camera->SetMaster(this);
+			m_Camera->Initialize();
+			comp = m_Camera;
+		}
+
 		return (T*)comp;
 	}
 
@@ -83,6 +93,11 @@ namespace Excalibur
 		else if (std::is_same<T, MeshRenderComponent>::value) 
 		{
 			ret = m_MeshRender;
+		}
+
+		else if (std::is_same<T, CameraComponent>::value) 
+		{
+			ret = m_Camera;
 		}
 
 		return (T*)ret;
@@ -101,6 +116,13 @@ namespace Excalibur
 		{
 			m_MeshRender->Finalize();
 			m_MeshRender = nullptr;
+		}
+
+		else if (std::is_same<T, CameraComponent>::value) 
+		{
+			m_Camera->Finalize();
+			delete m_Camera;
+			m_Camera = nullptr;
 		}
 	}
 }
