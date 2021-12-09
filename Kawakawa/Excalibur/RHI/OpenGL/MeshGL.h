@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../MeshBase.h"
+#include "../../Core/Object/World.h"
 #include <glad/glad.h>
 
 namespace Excalibur
@@ -16,7 +17,7 @@ namespace Excalibur
 		virtual void Initialize(aiMesh* mesh);
 		virtual void Initialize(void* data, int count, VertexFormat vf);
 
-		virtual void Render(const Matrix4x4f& worldMatrix);
+		virtual void Render(World* world, const Matrix4x4f& worldMatrix);
 	private:
 		GLuint mVAO;
 	};

@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="Core\Memory\Allocator.cpp" />
     <ClCompile Include="Core\Memory\MemoryManager.cpp" />
+    <ClCompile Include="Core\Object\Component\CameraComponent.cpp" />
     <ClCompile Include="Core\Object\Component\MeshRenderComponent.cpp" />
     <ClCompile Include="Core\Object\Component\TransformComponent.cpp" />
     <ClCompile Include="Core\Object\Entity.cpp" />
+    <ClCompile Include="Core\Object\System\CameraSystem.cpp" />
     <ClCompile Include="Core\Object\System\MeshRenderSystem.cpp" />
     <ClCompile Include="Core\Object\World.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -46,9 +48,11 @@
     <ClInclude Include="Core\Math\Vector.h" />
     <ClInclude Include="Core\Memory\Allocator.h" />
     <ClInclude Include="Core\Memory\MemoryManager.h" />
+    <ClInclude Include="Core\Object\Component\CameraComponent.h" />
     <ClInclude Include="Core\Object\Component\MeshRenderComponent.h" />
     <ClInclude Include="Core\Object\Component\TransformComponent.h" />
     <ClInclude Include="Core\Object\Entity.h" />
+    <ClInclude Include="Core\Object\System\CameraSystem.h" />
     <ClInclude Include="Core\Object\System\MeshRenderSystem.h" />
     <ClInclude Include="Core\Object\World.h" />
     <ClInclude Include="Interface\IComponent.h" />

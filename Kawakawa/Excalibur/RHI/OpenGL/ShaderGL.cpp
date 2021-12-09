@@ -101,4 +101,23 @@ namespace Excalibur
 	{
 		glUseProgram(mProgram);
 	}
+
+	void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer) 
+	{
+		unsigned int location;
+		location = glGetUniformLocation(mProgram, "worldMatrix");
+		if (location != -1) {
+			glUniformMatrix4fv(location, 1, true, cbuffer.world);
+		}
+
+		location = glGetUniformLocation(mProgram, "viewMatrix");
+		if (location != -1) {
+			glUniformMatrix4fv(location, 1, true, cbuffer.view);
+		}
+
+		location = glGetUniformLocation(mProgram, "projectionMatrix");
+		if (location != -1) {
+			glUniformMatrix4fv(location, 1, true, cbuffer.projection);
+		}
+	}
 }

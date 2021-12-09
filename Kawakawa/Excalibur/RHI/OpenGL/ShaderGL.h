@@ -12,7 +12,7 @@ namespace Excalibur
 		virtual ~ShaderGL();
 		virtual bool Initialize(const std::string& VS_Path, const std::string& PS_Path);
 		virtual void Use();
-
+		void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer);
 	protected:
 		GLuint mProgram;
 	};

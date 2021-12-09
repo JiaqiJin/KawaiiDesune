@@ -2,6 +2,7 @@
 #include "GraphicsMgrGL.h"
 #include "VertexBufferGL.h"
 #include "IndexBufferGL.h"
+#include "../../Core/Object/World.h"
 #include "../../Platform/Application.h"
 #include "ShaderGL.h"
 #include "../../Core/Math/Matrix.h"
@@ -17,7 +18,7 @@ namespace Excalibur
 	{
 		auto mgr = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		Initialize(mesh);
-
+		std::cout << "Createing Meshess ->>>>>>>>>>>>>>>>" << mesh->mName.C_Str() << std::endl;
 		auto shader = mgr->GetShader("simple");
 	}
 
@@ -35,6 +36,7 @@ namespace Excalibur
 		m_Position = nullptr;
 		m_Normal = nullptr;
 		m_Indexes = nullptr;
+		glDeleteVertexArrays(1, &mVAO);
 	}
 
 	void MeshGL::Initialize(aiMesh* mesh)
@@ -75,11 +77,16 @@ namespace Excalibur
 		m_Position = mgrgl->CreateVertexBuffer(data, count, vf);
 	}
 
-	void MeshGL::Render(const Matrix4x4f& worldMatrix)
+	void MeshGL::Render(World* world, const Matrix4x4f& worldMatrix)
 	{
 		ConstantBuffer cb;
-		BuildMatrixIdentity(cb.world);
-		// TODO CAMERA
+		auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
+		cb.world = worldMatrix;
+		TransposeInPlace(cb.world);
+		cb.view = camera->GetViewMatrixOrigin();
+		TransposeInPlace(cb.view);
+		cb.projection = camera->GetPerspectiveMatrix();
+		TransposeInPlace(cb.projection);
 
 		glBindVertexArray(mVAO);
 		if (m_Indexes)

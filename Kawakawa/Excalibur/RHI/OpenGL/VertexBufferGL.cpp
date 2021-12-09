@@ -7,7 +7,7 @@ namespace Excalibur
 	VertexBufferGL::VertexBufferGL(void* data, uint32_t count, VertexFormat vf, int index)
 		: m_Index(index)
 	{
-
+		Initialize(data, count, vf);
 	}
 
 	VertexBufferGL::~VertexBufferGL()

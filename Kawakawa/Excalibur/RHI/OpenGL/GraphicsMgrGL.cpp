@@ -2,6 +2,7 @@
 #include "VertexBufferGL.h"
 #include "IndexBufferGL.h"
 #include "ShaderGL.h"
+#include "MeshGL.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -12,20 +13,17 @@ namespace Excalibur
 	{
 		int result;
 		result = gladLoadGL();
-		if (!result)
-		{
-			std::cout << "Failed to create GLFW window" << std::endl;
-			return -1;
+		assert(result);
+
+		if (GLAD_GL_VERSION_3_0) {
+			// Enable depth testing.
+			glClearDepth(1.0f);
+			// Enable depth testing.
+			glEnable(GL_DEPTH_TEST);
 		}
 		glViewport(0, 0, 1024, 768);
-		// Enable depth testing.
-		glClearDepth(1.0f);
-		// Enable depth testing.
-		glEnable(GL_DEPTH_TEST);
-
-		//LoadShader();
-
-		std::cout << "OpenGl Version: " << GLVersion.major << "." << GLVersion.minor << " loaded" << std::endl;
+		std::cout << "OpenGl Version: " << GLVersion.major << "." << GLVersion.minor << " loaded";
+		LoadShader();
 
 		return 0;
 	}
@@ -37,6 +35,17 @@ namespace Excalibur
 
 	void GraphicsMgrGL::Tick() noexcept
 	{
+	}
+
+	void GraphicsMgrGL::Present()
+	{
+		glFlush();
+	}
+
+	void GraphicsMgrGL::ClearRenderTarget(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	std::shared_ptr<VertexBufferBase> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf)
@@ -54,6 +63,12 @@ namespace Excalibur
 	std::shared_ptr<TextureBase> GraphicsMgrGL::CreateTexture2D(const std::string& path)
 	{
 		return nullptr;
+	}
+
+	std::shared_ptr<MeshBase> GraphicsMgrGL::CreateRenderMesh(aiMesh* mesh, const aiScene* world)
+	{
+		auto ret = std::make_shared<MeshGL>(mesh, world);
+		return ret;
 	}
 
 	void GraphicsMgrGL::UseShader(std::shared_ptr<ShaderBase> shader)
