@@ -151,7 +151,7 @@ namespace Excalibur
 			cout << "guid: " << guid << endl;
 			cout << "transform component:" << endl;
 			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
-			cout << "position: " << "(" << position.x << "," << position.y << "," << position.z << ")" << endl;
+			cout << "position: " << "(" << position.x() << "," << position.y() << "," << position.z() << ")" << endl;
 
 			auto meshRender = entity->GetComponent<MeshRenderComponent>();
 			if (meshRender) {

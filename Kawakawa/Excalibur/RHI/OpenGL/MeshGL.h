@@ -17,7 +17,7 @@ namespace Excalibur
 		virtual void Initialize(aiMesh* mesh);
 		virtual void Initialize(void* data, int count, VertexFormat vf);
 
-		virtual void Render(World* world, const Matrix4x4f& worldMatrix);
+		virtual void Render(World* world, const Matrix4f& worldMatrix);
 	private:
 		GLuint mVAO;
 	};

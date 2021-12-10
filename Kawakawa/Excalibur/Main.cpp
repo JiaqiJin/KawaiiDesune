@@ -12,7 +12,7 @@ int main()
 {
 	GApp->Initialize();
 
-	GApp->mWorld->LoadScene("Asset/Model/aili_cycle.fbx");
+	GApp->mWorld->LoadScene("Asset/Model/DamagedHelmet.fbx");
 	GApp->mWorld->DumpEntities();
 
 	GApp->Run();

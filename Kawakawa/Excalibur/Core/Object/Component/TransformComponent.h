@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../Interface/IComponent.h"
-#include "../../../Core/Math/KawaiiMath.h"
+#include "../../../Core/Math/EigenMath.h"
 
 namespace Excalibur
 {
@@ -14,22 +14,19 @@ namespace Excalibur
 		virtual void Finalize() noexcept;
 
 		// Getters
-		Vector3f	GetPosition() noexcept { return m_Position; }
-		Quaternion	GetRotation() noexcept { return m_Rotation; }
-		Vector3f	GetScale() noexcept { return m_Scale; }
-		void		SetPosition(Vector3f position) { m_Position = position; m_WorldMatrixDirty = true; m_WorldMatrixInverseDirty = true; }
-		void		SetRotation(Quaternion rotation);
-		void		SetScale(Vector3f scale) { m_Scale = scale; m_WorldMatrixDirty = true; m_WorldMatrixInverseDirty = true; }
-		Matrix4x4f	GetWorldMatrix();
-		Matrix4x4f  GetWorldMatrixInverse();
+		Vector3f GetPosition() noexcept { return m_Position; }
+		Vector3f GetRotation() noexcept { return m_Rotation; }
+		Vector3f GetScale() noexcept { return m_Scale; }
+		void SetPosition(Vector3f position) { m_Position = position; m_WorldMatrixDirty = true; }
+		void SetRotation(Vector3f rotation) { m_Rotation = rotation; m_WorldMatrixDirty = true; }
+		void SetScale(Vector3f scale) { m_Scale = scale; m_WorldMatrixDirty = true; }
+		Matrix4f GetWorldMatrix();
 
 	private:
 		bool m_WorldMatrixDirty;
-		bool m_WorldMatrixInverseDirty;
-		Matrix4x4f	m_WorldMatrix;
-		Matrix4x4f  m_WorldMatrixInverse;
+		Matrix4f	m_WorldMatrix;
 		Vector3f m_Position;
-		Quaternion m_Rotation;
+		Vector3f m_Rotation;
 		Vector3f m_Scale;
 	};
 }

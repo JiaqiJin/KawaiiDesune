@@ -5,7 +5,7 @@
 #include "../../Core/Object/World.h"
 #include "../../Platform/Application.h"
 #include "ShaderGL.h"
-#include "../../Core/Math/Matrix.h"
+#include "../../Core/Math/EigenMath.h"
 
 namespace Excalibur
 {
@@ -16,10 +16,8 @@ namespace Excalibur
 
 	MeshGL::MeshGL(aiMesh* mesh, const aiScene* world)
 	{
-		auto mgr = (GraphicsMgrGL*)GApp->mGraphicsManager;
+		auto mgrgl = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		Initialize(mesh);
-		std::cout << "Createing Meshess ->>>>>>>>>>>>>>>>" << mesh->mName.C_Str() << std::endl;
-		auto shader = mgr->GetShader("simple");
 	}
 
 	MeshGL::MeshGL(void* data, int count, VertexFormat vf)
@@ -41,8 +39,9 @@ namespace Excalibur
 
 	void MeshGL::Initialize(aiMesh* mesh)
 	{
-		if (!mesh)
+		if (!mesh) {
 			return;
+		}
 
 		glGenVertexArrays(1, &mVAO);
 		glBindVertexArray(mVAO);
@@ -52,12 +51,14 @@ namespace Excalibur
 			m_Position = std::make_shared<VertexBufferGL>(mesh->mVertices, count, VertexFormat::VF_3F, 0);
 		}
 
-		if (mesh->HasFaces())
-		{
+		if (mesh->HasNormals()) {
+			m_Normal = std::make_shared<VertexBufferGL>(mesh->mNormals, count, VertexFormat::VF_3F, 1);
+		}
+
+		if (mesh->HasFaces()) {
 			unsigned int count = 3 * mesh->mNumFaces;
 			unsigned int* idata = new unsigned int[count];
-			for (int i = 0; i < mesh->mNumFaces; ++i)
-			{
+			for (int i = 0; i < mesh->mNumFaces; ++i) {
 				auto face = mesh->mFaces[i];
 				idata[i * 3] = face.mIndices[0];
 				idata[i * 3 + 1] = face.mIndices[1];
@@ -77,16 +78,13 @@ namespace Excalibur
 		m_Position = mgrgl->CreateVertexBuffer(data, count, vf);
 	}
 
-	void MeshGL::Render(World* world, const Matrix4x4f& worldMatrix)
+	void MeshGL::Render(World* world, const Matrix4f& worldMatrix)
 	{
 		ConstantBuffer cb;
 		auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
-		cb.world = worldMatrix;
-		TransposeInPlace(cb.world);
-		cb.view = camera->GetViewMatrixOrigin();
-		TransposeInPlace(cb.view);
-		cb.projection = camera->GetPerspectiveMatrix();
-		TransposeInPlace(cb.projection);
+		cb.world = worldMatrix.transpose();
+		cb.view = camera->GetViewMatrix().transpose();
+		cb.projection = camera->GetPerspectiveMatrix().transpose();
 
 		glBindVertexArray(mVAO);
 		if (m_Indexes)

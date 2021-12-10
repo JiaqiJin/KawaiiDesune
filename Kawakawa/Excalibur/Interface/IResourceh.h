@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/Math/KawaiiMath.h"
+#include "../Core/Math/EigenMath.h"
 
 #include <stdint.h>
 
@@ -14,8 +14,8 @@ namespace Excalibur
 
 	struct ConstantBuffer
 	{
-		Matrix4x4f world;
-		Matrix4x4f view;
-		Matrix4x4f projection;
+		Matrix4f world;
+		Matrix4f view;
+		Matrix4f projection;
 	};
 }

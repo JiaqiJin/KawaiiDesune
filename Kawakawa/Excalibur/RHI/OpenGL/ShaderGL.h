@@ -10,10 +10,11 @@ namespace Excalibur
 	public:
 		ShaderGL(const std::string& vsPath, const std::string& psPath);
 		virtual ~ShaderGL();
-		virtual bool Initialize(const std::string& VS_Path, const std::string& PS_Path);
-		virtual void Use();
-		void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer);
-	protected:
+	public:
+		virtual	bool InitializeFromFile(const std::string& vsPath, const std::string& psPath);
+		virtual	void Use();
+		virtual void SetConstantBuffer(const ConstantBuffer& cbuffer);
+	public:
 		GLuint mProgram;
 	};
 }

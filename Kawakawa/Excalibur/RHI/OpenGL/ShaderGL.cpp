@@ -9,7 +9,7 @@ namespace Excalibur
 {
 	ShaderGL::ShaderGL(const std::string& vsPath, const std::string& psPath)
 	{
-		Initialize(vsPath, psPath);
+		InitializeFromFile(vsPath, psPath);
 	}
 
 	ShaderGL::~ShaderGL()
@@ -17,7 +17,7 @@ namespace Excalibur
 		glDeleteProgram(mProgram);
 	}
 
-	bool ShaderGL::Initialize(const std::string& vsPath, const std::string& psPath)
+	bool ShaderGL::InitializeFromFile(const std::string& vsPath, const std::string& psPath)
 	{
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -45,8 +45,7 @@ namespace Excalibur
 		}
 		catch (std::ifstream::failure e)
 		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
-			assert(false);
+			std::cout << "create shader fail";
 		}
 		const char* vShaderCode = vertexCode.c_str();
 		const char* fShaderCode = fragmentCode.c_str();
@@ -65,7 +64,7 @@ namespace Excalibur
 		if (!success)
 		{
 			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-			std::cout << "ERROR : " << infoLog << vsPath;
+			std::cout << infoLog << vsPath;
 		};
 
 		// similiar for Fragment Shader
@@ -76,7 +75,7 @@ namespace Excalibur
 		if (!success)
 		{
 			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-			std::cout << "ERROR : " << infoLog << psPath;
+			std::cout << infoLog << psPath;
 		};
 
 		// shader Program
@@ -89,7 +88,7 @@ namespace Excalibur
 		if (!success)
 		{
 			glGetProgramInfoLog(mProgram, 512, NULL, infoLog);
-			std::cout << "ERROR : " << infoLog;
+			assert(false);
 		}
 
 		glDeleteShader(vertex);
@@ -107,17 +106,17 @@ namespace Excalibur
 		unsigned int location;
 		location = glGetUniformLocation(mProgram, "worldMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.world);
+			glUniformMatrix4fv(location, 1, true, cbuffer.world.data());
 		}
 
 		location = glGetUniformLocation(mProgram, "viewMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.view);
+			glUniformMatrix4fv(location, 1, true, cbuffer.view.data());
 		}
 
 		location = glGetUniformLocation(mProgram, "projectionMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.projection);
+			glUniformMatrix4fv(location, 1, true, cbuffer.projection.data());
 		}
 	}
 }

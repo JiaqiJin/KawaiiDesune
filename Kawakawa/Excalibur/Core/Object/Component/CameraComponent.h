@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../Interface/IComponent.h"
-#include "../../../Core/Math/KawaiiMath.h"
+#include "../../../Core/Math/EigenMath.h"
 
 namespace Excalibur
 {
@@ -18,14 +18,14 @@ namespace Excalibur
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
 
-		const Matrix4x4f GetViewMatrix();
-		const Matrix4x4f GetPerspectiveMatrix();
-		const Matrix4x4f GetViewMatrixOrigin();
+		const Matrix4f GetViewMatrix();
+		const Matrix4f GetPerspectiveMatrix();
+
 	private:
 		CameraType m_CameraType;
 
 		bool m_ViewDirty;
-		Matrix4x4f m_ViewMatrix;
+		Matrix4f m_ViewMatrix;
 		Vector3f m_Position;
 		Vector3f m_LookUp;
 		Vector3f m_LookAt;
@@ -35,6 +35,6 @@ namespace Excalibur
 		float m_FarClip;
 		float m_Fov;
 
-		Matrix4x4f	m_ProjectionMatrix;
+		Matrix4f m_ProjectionMatrix;
 	};
 }

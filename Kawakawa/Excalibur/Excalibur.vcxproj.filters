@@ -45,9 +45,6 @@
     <ClCompile Include="Core\Object\System\MeshRenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\RenderObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\DxException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -116,15 +113,6 @@
     <ClInclude Include="Core\Object\Component\MeshRenderComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Math\Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Math\Vector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Math\Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Object\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,9 +120,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Interface\ISystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RHI\RenderObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\GraphicsMgr.h">

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Eigen/Core>
+#include <Eigen/Eigen>
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
 

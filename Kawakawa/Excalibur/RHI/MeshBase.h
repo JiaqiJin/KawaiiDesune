@@ -3,7 +3,7 @@
 #include "../Interface/IResourceh.h"
 #include "VertexBufferBase.h"
 #include "IndexBufferBase.h"
-#include "../Core/Math/KawaiiMath.h"
+#include "../Core/Math/EigenMath.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>     
@@ -22,7 +22,7 @@ namespace Excalibur
 		MeshBase() : m_Position(nullptr), m_Indexes(nullptr), m_Normal(nullptr) {}
 		virtual void Initialize(aiMesh* mesh) = 0;
 		virtual void Initialize(void* data, int count, VertexFormat vf) = 0;
-		virtual void Render(World* world, const Matrix4x4f& worldMatrix) = 0;
+		virtual void Render(World* world, const Matrix4f& worldMatrix) = 0;
 		
 	protected:
 		std::shared_ptr<VertexBufferBase> m_Position;
