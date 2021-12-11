@@ -2,6 +2,7 @@
 #include "GraphicsMgrGL.h"
 #include "VertexBufferGL.h"
 #include "IndexBufferGL.h"
+#include "MaterialGL.h"
 #include "../../Core/Object/World.h"
 #include "../../Platform/Application.h"
 #include "ShaderGL.h"
@@ -18,6 +19,16 @@ namespace Excalibur
 	{
 		auto mgrgl = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		Initialize(mesh);
+
+		auto material = world->mMaterials[mesh->mMaterialIndex];
+		aiString name;
+		aiGetMaterialString(material, AI_MATKEY_NAME, &name);
+		m_Material = std::make_shared<MaterialGL>();
+		aiColor4D diffuse;
+		aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &diffuse);
+		auto shader = mgrgl->GetShader("simple");
+		m_Material->SetShader(shader);
+		m_Material->SetShaderParamter("color", Vector4f(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
 	}
 
 	MeshGL::MeshGL(void* data, int count, VertexFormat vf)
@@ -55,6 +66,17 @@ namespace Excalibur
 			m_Normal = std::make_shared<VertexBufferGL>(mesh->mNormals, count, VertexFormat::VF_3F, 1);
 		}
 
+		if (mesh->HasTextureCoords(0)) 
+		{
+			float* texCoords = (float*)malloc(sizeof(float) * 2 * mesh->mNumVertices);
+			for (unsigned int k = 0; k < mesh->mNumVertices; ++k) {
+				texCoords[k * 2] = mesh->mTextureCoords[0][k].x;
+				texCoords[k * 2 + 1] = mesh->mTextureCoords[0][k].y;
+			}
+			m_TexCoord = std::make_shared<VertexBufferGL>(texCoords, count, VertexFormat::VF_2F, 2);
+			free(texCoords);
+		}
+
 		if (mesh->HasFaces()) {
 			unsigned int count = 3 * mesh->mNumFaces;
 			unsigned int* idata = new unsigned int[count];
@@ -85,6 +107,7 @@ namespace Excalibur
 		cb.world = worldMatrix.transpose();
 		cb.view = camera->GetViewMatrix().transpose();
 		cb.projection = camera->GetPerspectiveMatrix().transpose();
+		//m_Material->Apply(cb);
 
 		glBindVertexArray(mVAO);
 		if (m_Indexes)

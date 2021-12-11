@@ -8,5 +8,8 @@ out vec4 FragColor;
 
 void main ()
 {
-	FragColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	vec3 lightDir = normalize(vec3(0, 1, -1));
+	vec3 norm = normalize(Normal);
+	float diff = max(dot(norm, lightDir), 0.0);
+    FragColor = Color * diff;
 }

@@ -10,10 +10,11 @@ out vec4 Color;
 uniform mat4 worldMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
+uniform vec4 inputColor;
 
 void main () {
 	gl_Position = projectionMatrix * viewMatrix * worldMatrix * vec4(inputPosition, 1.0f);
 	WPosition = vec3( worldMatrix * vec4(inputPosition, 1.0f));
 	Normal = mat3(transpose(inverse(worldMatrix))) * inputNormal;
-	Color = vec4(0.9f, 0.3f, 0.5f, 1.0f);
+	Color = inputColor;
 }

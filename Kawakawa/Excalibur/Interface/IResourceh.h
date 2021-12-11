@@ -17,5 +17,6 @@ namespace Excalibur
 		Matrix4f world;
 		Matrix4f view;
 		Matrix4f projection;
+		Vector4f debugColor;
 	};
 }

@@ -13,7 +13,7 @@ namespace Excalibur
 	public:
 		virtual	bool InitializeFromFile(const std::string& vsPath, const std::string& psPath);
 		virtual	void Use();
-		virtual void SetConstantBuffer(const ConstantBuffer& cbuffer);
+		virtual void SetConstantBuffer(const ConstantBuffer cbuffer);
 	public:
 		GLuint mProgram;
 	};

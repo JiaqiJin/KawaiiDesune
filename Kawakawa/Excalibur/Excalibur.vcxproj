@@ -33,6 +33,7 @@
     <ClCompile Include="Platform\Window\WindowsApplication.cpp" />
     <ClCompile Include="RHI\OpenGL\GraphicsMgrGL.cpp" />
     <ClCompile Include="RHI\OpenGL\IndexBufferGL.cpp" />
+    <ClCompile Include="RHI\OpenGL\MaterialGL.cpp" />
     <ClCompile Include="RHI\OpenGL\MeshGL.cpp" />
     <ClCompile Include="RHI\OpenGL\ShaderGL.cpp" />
     <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp" />
@@ -61,8 +62,10 @@
     <ClInclude Include="Platform\Window\WindowsApplication.h" />
     <ClInclude Include="RHI\GraphicsMgr.h" />
     <ClInclude Include="RHI\IndexBufferBase.h" />
+    <ClInclude Include="RHI\MaterialBase.h" />
     <ClInclude Include="RHI\MeshBase.h" />
     <ClInclude Include="RHI\OpenGL\IndexBufferGL.h" />
+    <ClInclude Include="RHI\OpenGL\MaterialGL.h" />
     <ClInclude Include="RHI\OpenGL\MeshGL.h" />
     <ClInclude Include="RHI\OpenGL\ShaderGL.h" />
     <ClInclude Include="RHI\OpenGL\VertexBufferGL.h" />
