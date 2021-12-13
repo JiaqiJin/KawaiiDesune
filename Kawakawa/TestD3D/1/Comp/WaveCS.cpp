@@ -75,36 +75,36 @@ private:
 	virtual void Update(const GameTimer& gt)override;
 	virtual void Draw(const GameTimer& gt)override;
 
-	//virtual void OnMouseDown(WPARAM btnState, int x, int y)override;
-	//virtual void OnMouseUp(WPARAM btnState, int x, int y)override;
-	//virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
+	virtual void OnMouseDown(WPARAM btnState, int x, int y)override;
+	virtual void OnMouseUp(WPARAM btnState, int x, int y)override;
+	virtual void OnMouseMove(WPARAM btnState, int x, int y)override;
 
-	//void OnKeyboardInput(const GameTimer& gt);
-	//void UpdateCamera(const GameTimer& gt);
-	//void AnimateMaterials(const GameTimer& gt);
-	//void UpdateObjectCBs(const GameTimer& gt);
-	//void UpdateMaterialCBs(const GameTimer& gt);
-	//void UpdateMainPassCB(const GameTimer& gt);
-	//void UpdateWavesGPU(const GameTimer& gt);
+	void OnKeyboardInput(const GameTimer& gt);
+	void UpdateCamera(const GameTimer& gt);
+	void AnimateMaterials(const GameTimer& gt);
+	void UpdateObjectCBs(const GameTimer& gt);
+	void UpdateMaterialCBs(const GameTimer& gt);
+	void UpdateMainPassCB(const GameTimer& gt);
+	void UpdateWavesGPU(const GameTimer& gt);
 
-	//void LoadTextures();
-	//void BuildRootSignature();
-	//void BuildWavesRootSignature();
-	//void BuildDescriptorHeaps();
-	//void BuildShadersAndInputLayout();
-	//void BuildLandGeometry();
-	//void BuildWavesGeometry();
-	//void BuildBoxGeometry();
-	//void BuildPSOs();
-	//void BuildFrameResources();
-	//void BuildMaterials();
-	//void BuildRenderItems();
-	//void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
+	void LoadTextures();
+	void BuildRootSignature();
+	void BuildWavesRootSignature();
+	void BuildDescriptorHeaps();
+	void BuildShadersAndInputLayout();
+	void BuildLandGeometry();
+	void BuildWavesGeometry();
+	void BuildBoxGeometry();
+	void BuildPSOs();
+	void BuildFrameResources();
+	void BuildMaterials();
+	void BuildRenderItems();
+	void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
-	//std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
+	std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers();
 
-	//float GetHillsHeight(float x, float z)const;
-	//XMFLOAT3 GetHillsNormal(float x, float z)const;
+	float GetHillsHeight(float x, float z)const;
+	XMFLOAT3 GetHillsNormal(float x, float z)const;
 
 private:
 
@@ -197,7 +197,7 @@ bool WavesCSApp::Initialize()
 		mCommandList.Get(),
 		256, 256, 0.25f, 0.03f, 2.0f, 0.2f);
 
-	/*LoadTextures();
+	LoadTextures();
 	BuildRootSignature();
 	BuildWavesRootSignature();
 	BuildDescriptorHeaps();
@@ -208,7 +208,7 @@ bool WavesCSApp::Initialize()
 	BuildMaterials();
 	BuildRenderItems();
 	BuildFrameResources();
-	BuildPSOs();*/
+	BuildPSOs();
 
 	ThrowIfFailed(mCommandList->Close());
 	ID3D12CommandList* cmdsLists[] = { mCommandList.Get() };
@@ -230,10 +230,134 @@ void WavesCSApp::OnResize()
 
 void WavesCSApp::Update(const GameTimer& gt)
 {
+	OnKeyboardInput(gt);
+	UpdateCamera(gt);
+
 
 }
 
 void WavesCSApp::Draw(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::OnMouseDown(WPARAM btnState, int x, int y)
+{
+
+}
+
+void WavesCSApp::OnMouseUp(WPARAM btnState, int x, int y)
+{
+
+}
+
+void WavesCSApp::OnMouseMove(WPARAM btnState, int x, int y)
+{
+
+}
+
+void WavesCSApp::OnKeyboardInput(const GameTimer& gt)
+{
+
+}
+void WavesCSApp::UpdateCamera(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::AnimateMaterials(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::UpdateObjectCBs(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::UpdateMaterialCBs(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::UpdateMainPassCB(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::UpdateWavesGPU(const GameTimer& gt)
+{
+
+}
+
+void WavesCSApp::LoadTextures()
+{
+
+}
+
+void WavesCSApp::BuildRootSignature()
+{
+
+}
+
+void WavesCSApp::BuildWavesRootSignature()
+{
+
+}
+void WavesCSApp::BuildDescriptorHeaps()
+{
+
+}
+void WavesCSApp::BuildShadersAndInputLayout()
+{
+
+}
+
+void WavesCSApp::BuildLandGeometry()
+{
+
+}
+void WavesCSApp::BuildWavesGeometry()
+{
+
+}
+void WavesCSApp::BuildBoxGeometry()
+{
+
+}
+void WavesCSApp::BuildPSOs()
+{
+
+}
+void WavesCSApp::BuildFrameResources()
+{
+
+}
+void WavesCSApp::BuildMaterials()
+{
+
+}
+void WavesCSApp::BuildRenderItems()
+{
+
+}
+
+void WavesCSApp::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems)
+{
+
+}
+
+std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> WavesCSApp::GetStaticSamplers()
+{
+
+}
+
+float WavesCSApp::GetHillsHeight(float x, float z)const
+{
+
+}
+
+XMFLOAT3 WavesCSApp::GetHillsNormal(float x, float z)const
 {
 
 }

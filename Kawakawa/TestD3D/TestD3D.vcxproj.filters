@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,10 +45,10 @@
     <ClCompile Include="1\Waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Comp\WaveCS.cpp">
+    <ClCompile Include="1\Comp\GpuWaves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Comp\GpuWaves.cpp">
+    <ClCompile Include="1\Comp\WaveCS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
