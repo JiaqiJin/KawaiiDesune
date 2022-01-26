@@ -28,8 +28,8 @@ namespace Excalibur
 		m_szDataSize = dataSize;
 		m_szPageSize = pageSize;
 		size_t minBlockSize = (sizeof(PageHeader) > m_szDataSize) ? sizeof(PageHeader) : m_szDataSize;
-#if defined(SCARLETT_DEBUG)
-		SCARLETT_ASSERT(alignment > 0 && ((alignment & (alignment - 1))) == 0);
+#if defined(Excalibur_DEBUG)
+		Excalibur_ASSERT(alignment > 0 && ((alignment & (alignment - 1))) == 0);
 #endif
 		m_szBlockSize = ALIGN(minBlockSize, alignment);
 		m_szAlignmentSize = m_szBlockSize - minBlockSize;
