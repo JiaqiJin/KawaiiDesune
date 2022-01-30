@@ -23,10 +23,11 @@ namespace Excalibur
 		}
 		glViewport(0, 0, 1024, 768);
 		std::cout << "OpenGl Version: " << GLVersion.major << "." << GLVersion.minor << " loaded";
-		LoadShader();
+		LoadShaders();
 
 		return 0;
 	}
+
 
 	void GraphicsMgrGL::Finalize() noexcept
 	{
@@ -37,58 +38,97 @@ namespace Excalibur
 	{
 	}
 
-	void GraphicsMgrGL::Present()
+	void GraphicsMgrGL::Present() noexcept
 	{
 		glFlush();
 	}
 
-	void GraphicsMgrGL::ClearRenderTarget(float r, float g, float b, float a)
+	void GraphicsMgrGL::ClearRenderTarget(float r, float g, float b, float a) noexcept
 	{
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	std::shared_ptr<VertexBufferBase> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf)
+	std::shared_ptr<IVertexBuffer> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf) noexcept
 	{
-		auto ret = std::make_shared<VertexBufferGL>(data, count, vf, 0);
-		return ret;
+		auto ptr = std::make_shared<VertexBufferGL>(data, count, vf, 0);
+		return ptr;
 	}
 
-	std::shared_ptr<IndexBufferBase> GraphicsMgrGL::CreateIndexBuffer(void* data, int count)
-	{
-		auto ret = std::make_shared<IndexBufferGL>(data, count);
-		return ret;
-	}
-
-	std::shared_ptr<TextureBase> GraphicsMgrGL::CreateTexture2D(const std::string& path)
+	std::shared_ptr<IIndexBuffer> GraphicsMgrGL::CreateIndexBuffer(void* data, int count, IndexFormat iformat) noexcept
 	{
 		return nullptr;
 	}
 
-	std::shared_ptr<MeshBase> GraphicsMgrGL::CreateRenderMesh(aiMesh* mesh, const aiScene* world)
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMesh() noexcept
 	{
-		auto ret = std::make_shared<MeshGL>(mesh, world);
-		return ret;
+		return std::shared_ptr<MeshGL>();
 	}
 
-	void GraphicsMgrGL::UseShader(std::shared_ptr<ShaderBase> shader)
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMesh(aiMesh* mesh, const aiScene* world) noexcept
 	{
-		if (!shader)
-			assert(false);
+		auto ptr = std::make_shared<MeshGL>(mesh, world);
+		return ptr;
+	}
 
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMeshDebug(void* data, int count, VertexFormat vf) noexcept
+	{
+		auto ptr = std::make_shared<MeshGL>(data, count, vf);
+		return ptr;
+	}
+
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMeshUI() noexcept
+	{
+		return std::shared_ptr<MeshGL>();
+	}
+
+	std::shared_ptr<ITexture> GraphicsMgrGL::CreateTexture2D(const std::string& path) noexcept
+	{
+		return std::shared_ptr<ITexture>();
+	}
+
+	std::shared_ptr<ITexture> GraphicsMgrGL::CreateTexture2D(int width, int height, unsigned char* data) noexcept
+	{
+		return std::shared_ptr<ITexture>();
+	}
+
+	std::shared_ptr<ITexture> GraphicsMgrGL::CreateTextureCubemap(const std::string& path) noexcept
+	{
+		return std::shared_ptr<ITexture>();
+	}
+
+	void GraphicsMgrGL::LoadShaders() noexcept
+	{
+		std::string pbrShaderVS = "Asset/Shaders/simple.vs";
+		std::string pbrShaderPS = "Asset/Shaders/simple.fs";
+		auto pbrShader = std::make_shared<ShaderGL>(pbrShaderVS, pbrShaderPS);
+		mShaders["pbr"] = pbrShader;
+
+		/*std::string debugShaderVS = "Asset/Shaders/gl_debug.vs";
+		std::string debugShaderPS = "Asset/Shaders/gl_debug.ps";
+		auto debugShader = std::make_shared<ShaderGL>(debugShaderVS, debugShaderPS);
+		mShaders["debug"] = debugShader;*/
+	}
+
+
+	void GraphicsMgrGL::UseShader(std::shared_ptr<IShader> shader) noexcept
+	{
+		if (!shader) {
+			assert(false);
+		}
 		shader->Use();
 	}
 
-	void GraphicsMgrGL::LoadShader()
+	std::shared_ptr<IShader> GraphicsMgrGL::GetShader(const std::string& shaderName) noexcept
 	{
-		std::string simpleShaderVS = "Asset/Shaders/simple.vs";
-		std::string simpleShaderFS = "Asset/Shaders/simple.fs";
-		auto simpleShader = std::make_shared<ShaderGL>(simpleShaderVS, simpleShaderFS);
-		m_Shaders["simple"] = simpleShader;
+		return mShaders[shaderName];
 	}
 
-	std::shared_ptr<ShaderBase> GraphicsMgrGL::GetShader(const std::string& name)
+	void GraphicsMgrGL::Draw(unsigned int vcount, unsigned int start) noexcept
 	{
-		return m_Shaders[name];
+	}
+
+	void GraphicsMgrGL::DrawIndexed(unsigned int icount, unsigned int start, int baseLoc) noexcept
+	{
 	}
 }

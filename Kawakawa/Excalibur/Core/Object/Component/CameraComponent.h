@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../Interface/IComponent.h"
-#include "../../../Core/Math/EigenMath.h"
+#include "../../../Core/Math/KawaiiMath.h"
 
 namespace Excalibur
 {
@@ -11,30 +11,53 @@ namespace Excalibur
 		Perspective = 2
 	};
 
-	class CameraComponent : public IComponent
-	{
+	class CameraComponent : public IComponent {
 	public:
 		CameraComponent();
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
 
-		const Matrix4f GetViewMatrix();
-		const Matrix4f GetPerspectiveMatrix();
+		const Matrix4x4f	GetViewMatrix();
+		const Matrix4x4f	GetViewMatrixOrigin();
+		const Matrix4x4f	GetPerspectiveMatrix();
+
+		CameraType	GetType() { return mCameraType; }
+		void		SetType(CameraType type) { mCameraType = type; mViewDirty = true; mProjectionDirty = true; }
+
+		Vector3f	GetPosition() { return mPosition; }
+		Vector3f	GetLookat() { return mLookat; }
+		Vector3f	GetUp() { return mUp; }
+		void		SetPosition(const Vector3f& position) { mPosition = position; mViewDirty = true; }
+		void		SetLook(const Vector3f& lookat) { mLookat = lookat; mViewDirty = true; }
+		void		SetUp(const Vector3f& up) { mUp = up; mViewDirty = true; }
+
+		float		GetNearClip() { return mNearClip; }
+		float		GetFarClip() { return mFarClip; }
+		float		GetFov() { return mFov; }
+		void		SetNearClip(float n) { mProjectionDirty = true; mNearClip = n; }
+		void		SetFarClip(float f) { mProjectionDirty = true; mFarClip = f; }
+		void		SetFov(float fov) { mFov = fov; mProjectionDirty = true; }
+
+		void		Forward();
+		void		Backward();
+		void		MoveLeft();
+		void		MoveRight();
 
 	private:
-		CameraType m_CameraType;
+		CameraType	mCameraType;
 
-		bool m_ViewDirty;
-		Matrix4f m_ViewMatrix;
-		Vector3f m_Position;
-		Vector3f m_LookUp;
-		Vector3f m_LookAt;
-		Vector3f m_Up;
-	
-		float m_NearClip;
-		float m_FarClip;
-		float m_Fov;
+		bool		mViewDirty;
+		Matrix4x4f	mViewMatrix;
+		Vector3f	mPosition;
+		Vector3f	mLookat;
+		Vector3f	mUp;
 
-		Matrix4f m_ProjectionMatrix;
+		bool		mProjectionDirty;
+		Matrix4x4f	mProjectionMatrix;
+		float		mNearClip;
+		float		mFarClip;
+		float		mFov;
+
+		float		mSpeed;
 	};
 }

@@ -131,12 +131,9 @@ namespace Excalibur
 			transformation->SetScale(Vector3f(scaling.x, scaling.y, scaling.z));
 
 			auto comp = entity->AddComponent<MeshRenderComponent>();
-
-			for (unsigned int j = 0; j < child->mNumMeshes; ++j) 
-			{
-				auto midx = child->mMeshes[j];
-				comp->mMeshIdxes.push_back(midx);
-			}
+			auto mesh = scene->mMeshes[child->mMeshes[0]];
+			auto IMesh = GApp->mGraphicsManager->CreateRenderMesh(mesh, scene);
+			comp->mMeshes.push_back(IMesh);
 		}
 	}
 
@@ -151,13 +148,13 @@ namespace Excalibur
 			cout << "guid: " << guid << endl;
 			cout << "transform component:" << endl;
 			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
-			cout << "position: " << "(" << position.x() << "," << position.y() << "," << position.z() << ")" << endl;
+			//cout << "position: " << "(" << position.x() << "," << position.y() << "," << position.z() << ")" << endl;
 
 			auto meshRender = entity->GetComponent<MeshRenderComponent>();
 			if (meshRender) {
 				cout << "MeshRenderComponent:" << endl;
 				cout << "MeshIndex:";
-				for (int i = 0; i < meshRender->mMeshIdxes.size(); ++i)
+				/*for (int i = 0; i < meshRender->mMeshIdxes.size(); ++i)
 				{
 					cout << meshRender->mMeshIdxes[i] << " ";
 				}
@@ -166,7 +163,7 @@ namespace Excalibur
 				{
 					auto idx = meshRender->mMeshIdxes[i];
 					auto mesh = m_MeshRenderSystem->mMeshes[idx];
-				}
+				}*/
 				cout << endl;
 			}
 

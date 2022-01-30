@@ -1,32 +1,39 @@
 #pragma once
 
 #include "../../../Interface/IComponent.h"
-#include "../../../Core/Math/EigenMath.h"
+#include "../../../Core/Math/KawaiiMath.h"
 
 namespace Excalibur
 {
 	class TransformComponent : public IComponent
 	{
 	public:
-		TransformComponent();
-
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
 
-		// Getters
-		Vector3f GetPosition() noexcept { return m_Position; }
-		Vector3f GetRotation() noexcept { return m_Rotation; }
-		Vector3f GetScale() noexcept { return m_Scale; }
-		void SetPosition(Vector3f position) { m_Position = position; m_WorldMatrixDirty = true; }
-		void SetRotation(Vector3f rotation) { m_Rotation = rotation; m_WorldMatrixDirty = true; }
-		void SetScale(Vector3f scale) { m_Scale = scale; m_WorldMatrixDirty = true; }
-		Matrix4f GetWorldMatrix();
+	public:
+		TransformComponent();
+		Vector3f	GetPosition() noexcept { return mPosition; }
+		Quaternion	GetRotation() noexcept { return mRotation; }
+		Vector3f	GetScale() noexcept { return mScale; }
+		void		SetPosition(Vector3f position) { mPosition = position; mWorldMatrixDirty = true; mWorldMatrixInverseDirty = true; }
+		void		SetRotation(Quaternion rotation);
+		void		SetScale(Vector3f scale) { mScale = scale; mWorldMatrixDirty = true; mWorldMatrixInverseDirty = true; }
+		Matrix4x4f	GetWorldMatrix();
+		Matrix4x4f  GetWorldMatrixInverse();
+
+		Vector3f	GlobalVectorToLocalVector(Vector3f globalVector);
+		Vector3f	LocalPointToGlobalPoint(Vector3f localPoint);
+		Matrix3x3f	GetRatationMatrixGlobal2Local33();
 
 	private:
-		bool m_WorldMatrixDirty;
-		Matrix4f	m_WorldMatrix;
-		Vector3f m_Position;
-		Vector3f m_Rotation;
-		Vector3f m_Scale;
+		bool		mWorldMatrixDirty;
+		bool		mWorldMatrixInverseDirty;
+		Matrix4x4f	mWorldMatrix;
+		Matrix4x4f  mWorldMatrixInverse;
+		Vector3f	mPosition;
+		Quaternion	mRotation;
+		Vector3f	mScale;
+
 	};
 }

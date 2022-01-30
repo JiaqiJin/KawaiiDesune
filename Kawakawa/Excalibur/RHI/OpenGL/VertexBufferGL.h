@@ -5,14 +5,18 @@
 
 namespace Excalibur
 {
-	class VertexBufferGL : public VertexBufferBase
+	class VertexBufferGL : public IVertexBuffer
 	{
 	public:
-		VertexBufferGL(void* data, uint32_t count, VertexFormat vf, int index);
+		virtual void Initialize(void* data, unsigned int count, VertexFormat vf) noexcept;
+
+	public:
+		VertexBufferGL(void* data, unsigned int count, VertexFormat vf, int index);
 		virtual ~VertexBufferGL();
-		virtual void Initialize(void* data, unsigned int count, VertexFormat vf);
-	protected:
-		int m_Index;
+
+	public:
+		int mIndex;
 		GLuint mVBO;
+
 	};
 }

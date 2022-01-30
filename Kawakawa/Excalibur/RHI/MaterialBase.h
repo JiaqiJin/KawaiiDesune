@@ -2,20 +2,34 @@
 
 #include "../Interface/IResourceh.h"
 #include "ShaderBase.h"
+#include "TexturehBase.h"
+
+#include <unordered_map>
 
 namespace Excalibur
 {
-	class MaterialBase : public IResouceBase
+	class IMaterial : public IResouceBase
 	{
 	public:
-		virtual void Initialize() = 0;
-		virtual void Finalize() = 0;
-		virtual void Apply(ConstantBuffer cb) = 0;
-		virtual void SetShaderParamter(std::string name, Vector4f value) { m_Parameters[name] = value; };
-		virtual std::shared_ptr<ShaderBase> GetShader() { return m_Shader; }
-		virtual void SetShader(std::shared_ptr<ShaderBase> shader) { m_Shader = shader; }
+		virtual void		Apply(ConstantBuffer cb) noexcept = 0;
+		virtual void		ApplyLight(ConstantBufferLighting cb) noexcept = 0;
+
+		void SetName(std::string name) { mName = name; }
+		std::string GetName() { return mName; }
+
+		void SetShaderParamter(std::string name, Vector4f value) { mParameters[name] = value; }
+		Vector4f getShaderParamter(std::string name) { return mParameters[name]; }
+
+		void SetTexture(std::string name, std::shared_ptr<ITexture> tex) { mTextures[name] = tex; }
+		std::shared_ptr<ITexture> getTexture(std::string name) { return mTextures[name]; }
+
+		void SetShader(std::shared_ptr<IShader> shader) { mShader = shader; }
+		std::shared_ptr<IShader>		GetShader() { return mShader; }
+
 	protected:
-		std::shared_ptr<ShaderBase> m_Shader;
-		std::unordered_map<std::string, Vector4f> m_Parameters;
+		std::string															mName;
+		std::shared_ptr<IShader>											mShader;
+		std::unordered_map<std::string, std::shared_ptr<ITexture>>		mTextures;
+		std::unordered_map<std::string, Vector4f>						mParameters;
 	};
 }

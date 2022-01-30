@@ -12,7 +12,6 @@ namespace Excalibur
 {
 	MeshGL::MeshGL()
 	{
-
 	}
 
 	MeshGL::MeshGL(aiMesh* mesh, const aiScene* world)
@@ -23,32 +22,34 @@ namespace Excalibur
 		auto material = world->mMaterials[mesh->mMaterialIndex];
 		aiString name;
 		aiGetMaterialString(material, AI_MATKEY_NAME, &name);
-		m_Material = std::make_shared<MaterialGL>();
+		mMaterial = std::make_shared<MaterialGL>();
 		aiColor4D diffuse;
 		aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &diffuse);
-		auto shader = mgrgl->GetShader("simple");
-		m_Material->SetShader(shader);
-		m_Material->SetShaderParamter("color", Vector4f(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+		auto shader = mgrgl->GetShader("pbr");
+		mMaterial->SetShader(shader);
+		mMaterial->SetShaderParamter("color", Vector4f(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
 	}
 
 	MeshGL::MeshGL(void* data, int count, VertexFormat vf)
 	{
-		auto mgr = (GraphicsMgrGL*)GApp->mGraphicsManager;
+		auto mgrgl = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		Initialize(data, count, vf);
-
-		auto shader = mgr->GetShader("debug");
-
+		mMaterial = std::make_shared<MaterialGL>();
+		auto shader = mgrgl->GetShader("debug");
+		mMaterial->SetShader(shader);
 	}
 
 	MeshGL::~MeshGL()
 	{
-		m_Position = nullptr;
-		m_Normal = nullptr;
-		m_Indexes = nullptr;
+		mPositions = nullptr;
+		mNormals = nullptr;
+		mTexCoords = nullptr;
+		mIndexes = nullptr;
 		glDeleteVertexArrays(1, &mVAO);
 	}
 
-	void MeshGL::Initialize(aiMesh* mesh)
+
+	void MeshGL::Initialize(aiMesh* mesh) noexcept
 	{
 		if (!mesh) {
 			return;
@@ -59,21 +60,20 @@ namespace Excalibur
 
 		auto count = mesh->mNumVertices;
 		if (mesh->HasPositions()) {
-			m_Position = std::make_shared<VertexBufferGL>(mesh->mVertices, count, VertexFormat::VF_3F, 0);
+			mPositions = std::make_shared<VertexBufferGL>(mesh->mVertices, count, VertexFormat::VF_P3F, 0);
 		}
 
 		if (mesh->HasNormals()) {
-			m_Normal = std::make_shared<VertexBufferGL>(mesh->mNormals, count, VertexFormat::VF_3F, 1);
+			mNormals = std::make_shared<VertexBufferGL>(mesh->mNormals, count, VertexFormat::VF_N3F, 1);
 		}
 
-		if (mesh->HasTextureCoords(0)) 
-		{
+		if (mesh->HasTextureCoords(0)) {
 			float* texCoords = (float*)malloc(sizeof(float) * 2 * mesh->mNumVertices);
 			for (unsigned int k = 0; k < mesh->mNumVertices; ++k) {
 				texCoords[k * 2] = mesh->mTextureCoords[0][k].x;
 				texCoords[k * 2 + 1] = mesh->mTextureCoords[0][k].y;
 			}
-			m_TexCoord = std::make_shared<VertexBufferGL>(texCoords, count, VertexFormat::VF_2F, 2);
+			mTexCoords = std::make_shared<VertexBufferGL>(texCoords, count, VertexFormat::VF_T2F, 2);
 			free(texCoords);
 		}
 
@@ -86,37 +86,108 @@ namespace Excalibur
 				idata[i * 3 + 1] = face.mIndices[1];
 				idata[i * 3 + 2] = face.mIndices[2];
 			}
-			m_Indexes = std::make_shared<IndexBufferGL>(idata, count);
+			mIndexes = std::make_shared<IndexBufferGL>(idata, count, IndexFormat::IF_UINT32);
 			free(idata);
+		}
+
+		if (mesh->mPrimitiveTypes == aiPrimitiveType::aiPrimitiveType_POINT) {
+			mPrimitiveType = PrimitiveType::PT_POINT;
+		}
+		else if (mesh->mPrimitiveTypes == aiPrimitiveType::aiPrimitiveType_LINE) {
+			mPrimitiveType = PrimitiveType::PT_LINE;
+		}
+		else if (mesh->mPrimitiveTypes == aiPrimitiveType::aiPrimitiveType_TRIANGLE) {
+			mPrimitiveType = PrimitiveType::PT_TRIANGLE;
+		}
+		else {
+			assert(false);
 		}
 	}
 
-	void MeshGL::Initialize(void* data, int count, VertexFormat vf)
+	void MeshGL::Initialize(void* data, int count, VertexFormat vf) noexcept
 	{
 		auto mgrgl = (GraphicsMgrGL*)GApp->mGraphicsManager;
 		glGenVertexArrays(1, &mVAO);
 		glBindVertexArray(mVAO);
 
-		m_Position = mgrgl->CreateVertexBuffer(data, count, vf);
+		mPositions = mgrgl->CreateVertexBuffer(data, count, vf);
+		mPrimitiveType = PrimitiveType::PT_LINE;
 	}
 
-	void MeshGL::Render(World* world, const Matrix4f& worldMatrix)
+	void MeshGL::InitializeUI() noexcept
+	{
+	}
+
+	void MeshGL::InitializeTerrain() noexcept
+	{
+	}
+
+	void MeshGL::Render(Entity* self) noexcept
 	{
 		ConstantBuffer cb;
-		auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
-		cb.world = worldMatrix.transpose();
-		cb.view = camera->GetViewMatrix().transpose();
-		cb.projection = camera->GetPerspectiveMatrix().transpose();
-		//m_Material->Apply(cb);
+
+		if (mMeshType == MT_Skybox) {
+			BuildMatrixIdentity(cb.world);
+			auto world = self->GetWorld();
+			auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
+			cb.view = camera->GetViewMatrixOrigin();
+			TransposeInPlace(cb.view);
+			cb.projection = camera->GetPerspectiveMatrix();
+			TransposeInPlace(cb.projection);
+		}
+		else if (mMeshType == MT_Model) {
+			cb.world = self->GetComponent<TransformComponent>()->GetWorldMatrix();
+			TransposeInPlace(cb.world);
+			auto world = self->GetWorld();
+			auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
+			cb.view = camera->GetViewMatrix();
+			TransposeInPlace(cb.view);
+			cb.projection = camera->GetPerspectiveMatrix();
+			TransposeInPlace(cb.projection);
+		}
+
+		mMaterial->Apply(cb);
 
 		glBindVertexArray(mVAO);
-		if (m_Indexes)
-		{
-			glDrawElements(GL_TRIANGLES, m_Indexes->GetIndexCount(), GL_UNSIGNED_INT, 0x00);
+		if (mIndexes) {
+			glDrawElements(GetMode(), mIndexes->GetIndexCount(), GL_UNSIGNED_INT, 0x00);
 		}
-		else
+		else {
+			glDrawArrays(GetMode(), 0x00, mPositions->GetVertextCount());
+		}
+	}
+
+	void MeshGL::Render(const Matrix4x4f& world, const Matrix4x4f& view, const Matrix4x4f& projection) noexcept
+	{
+		ConstantBuffer cb;
+		cb.world = world;
+		cb.view = view;
+		cb.projection = projection;
+
+		mMaterial->Apply(cb);
+
+		glBindVertexArray(mVAO);
+		if (mIndexes) {
+			glDrawElements(GetMode(), mIndexes->GetIndexCount(), GL_UNSIGNED_INT, 0x00);
+		}
+		else {
+			glDrawArrays(GetMode(), 0x00, mPositions->GetVertextCount());
+		}
+	}
+
+	GLenum MeshGL::GetMode()
+	{
+		switch (mPrimitiveType)
 		{
-			glDrawArrays(GL_TRIANGLES, 0x00, m_Position->GetVertextCount());
+		case PT_POINT:
+			return GL_POINTS;
+		case PT_LINE:
+			return GL_LINES;
+		case PT_TRIANGLE:
+			return GL_TRIANGLES;
+		default:
+			assert(false);
+			return 0;
 		}
 	}
 }

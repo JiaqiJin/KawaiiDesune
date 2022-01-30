@@ -6,20 +6,23 @@
 #include <memory>
 #include <string>
 
+#include "../../../RHI/MeshBase.h"
+
 namespace Excalibur
 {
-	class MeshRenderComponent : public IComponent
+	class MeshRenderComponent : public IComponent 
 	{
 	public:
-		MeshRenderComponent() : m_Visible(true) {}
+		MeshRenderComponent() : mVisible(true) {}
 
 		virtual int Initialize() noexcept;
 		virtual void Finalize() noexcept;
-
-		void SetVisible(bool v) { m_Visible = v; }
-		bool IsVisible() { return m_Visible; }
 	public:
-		bool m_Visible;
-		std::vector<int> mMeshIdxes;
+		void SetVisible(bool v) { mVisible = v; }
+		bool IsVisible() { return mVisible; }
+
+	public:
+		std::vector<std::shared_ptr<IMesh>> mMeshes;;
+		bool mVisible;
 	};
 }

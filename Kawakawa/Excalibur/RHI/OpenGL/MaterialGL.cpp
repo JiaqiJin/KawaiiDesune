@@ -3,25 +3,19 @@
 
 namespace Excalibur
 {
-	void MaterialGL::Initialize()
+	void MaterialGL::Apply(ConstantBuffer cb) noexcept
 	{
+		mShader->Use();
 
-	}
-
-	void MaterialGL::Finalize()
-	{
-
-	}
-
-	void MaterialGL::Apply(ConstantBuffer cb)
-	{
-		m_Shader->Use();
-		for (auto pair : m_Parameters) {
+		for (auto pair : mParameters) {
 			if (pair.first == "color") {
 				cb.debugColor = pair.second;
 			}
 		}
+		mShader->SetConstantBuffer(cb);
+	}
 
-		m_Shader->SetConstantBuffer(cb);
+	void MaterialGL::ApplyLight(ConstantBufferLighting cb) noexcept
+	{
 	}
 }

@@ -33,7 +33,7 @@ namespace Excalibur
 		void LoadMesh(aiMesh* mesh, const aiScene* world);
 
 	public:
-		std::vector<shared_ptr<MeshBase>> mMeshes;
+		std::vector<shared_ptr<IMesh>> mMeshes;
 
 	private:
 		GraphicsManager* mGraphicsManager;

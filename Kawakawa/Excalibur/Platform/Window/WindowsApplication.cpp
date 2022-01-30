@@ -1,5 +1,4 @@
 #include "WindowsApplication.h"
-#include "../../RHI/D3D12/GraphicsMgrD12.h"
 #include "../../RHI/OpenGL/GraphicsMgrGL.h"
 
 #include "../../Vendor/Glad/include/glad/glad_wgl.h"

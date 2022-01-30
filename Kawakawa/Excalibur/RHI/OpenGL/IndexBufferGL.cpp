@@ -2,21 +2,23 @@
 
 namespace Excalibur
 {
-	IndexBufferGL::IndexBufferGL(void* data, uint32_t count)
+	IndexBufferGL::IndexBufferGL(void* data, unsigned int count, IndexFormat iformat)
 	{
-		m_IndexCount = count;
-		Initialize(data, count);
+		mIndexCount = count;
+		mIndexFormat = iformat;
+		Initialize(data, count, iformat);
 	}
 
 	IndexBufferGL::~IndexBufferGL()
 	{
-		glDeleteBuffers(1, &mEBO);
+		glDeleteBuffers(1, &mVEO);
 	}
 
-	void IndexBufferGL::Initialize(void* data, unsigned int count)
+	void IndexBufferGL::Initialize(void* data, unsigned int count, IndexFormat iformat) noexcept
 	{
-		glGenBuffers(1, &mEBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mEBO);
+		glGenBuffers(1, &mVEO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mVEO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * 4, data, GL_STATIC_DRAW);	// count * 4 == datasize
+
 	}
 }

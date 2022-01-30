@@ -17,7 +17,7 @@ namespace Excalibur
 		glDeleteProgram(mProgram);
 	}
 
-	bool ShaderGL::InitializeFromFile(const std::string& vsPath, const std::string& psPath)
+	bool ShaderGL::InitializeFromFile(const std::string& vsPath, const std::string& psPath) noexcept
 	{
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -46,6 +46,7 @@ namespace Excalibur
 		catch (std::ifstream::failure e)
 		{
 			std::cout << "create shader fail";
+			assert(false);
 		}
 		const char* vShaderCode = vertexCode.c_str();
 		const char* fShaderCode = fragmentCode.c_str();
@@ -65,6 +66,7 @@ namespace Excalibur
 		{
 			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
 			std::cout << infoLog << vsPath;
+			assert(false);
 		};
 
 		// similiar for Fragment Shader
@@ -76,6 +78,7 @@ namespace Excalibur
 		{
 			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
 			std::cout << infoLog << psPath;
+			assert(false);
 		};
 
 		// shader Program
@@ -88,6 +91,7 @@ namespace Excalibur
 		if (!success)
 		{
 			glGetProgramInfoLog(mProgram, 512, NULL, infoLog);
+			std::cout << infoLog;
 			assert(false);
 		}
 
@@ -96,32 +100,37 @@ namespace Excalibur
 		return 0;
 	}
 
-	void ShaderGL::Use()
+	void ShaderGL::Use() noexcept
 	{
 		glUseProgram(mProgram);
 	}
 
-	void ShaderGL::SetConstantBuffer(const ConstantBuffer cbuffer) 
+
+	void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer) noexcept
 	{
 		unsigned int location;
 		location = glGetUniformLocation(mProgram, "worldMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.world.data());
+			glUniformMatrix4fv(location, 1, true, cbuffer.world);
 		}
 
 		location = glGetUniformLocation(mProgram, "viewMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.view.data());
+			glUniformMatrix4fv(location, 1, true, cbuffer.view);
 		}
 
 		location = glGetUniformLocation(mProgram, "projectionMatrix");
 		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.projection.data());
+			glUniformMatrix4fv(location, 1, true, cbuffer.projection);
 		}
 
 		location = glGetUniformLocation(mProgram, "inputColor");
 		if (location != -1) {
-			glUniform4fv(location, 1, cbuffer.debugColor.data());
+			glUniform4fv(location, 1, cbuffer.debugColor);
 		}
+	}
+
+	void ShaderGL::SetConstantBufferLight(const ConstantBufferLighting& cbuffer) noexcept
+	{
 	}
 }

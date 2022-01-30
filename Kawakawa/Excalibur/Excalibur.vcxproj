@@ -38,12 +38,16 @@
     <ClCompile Include="RHI\OpenGL\ShaderGL.cpp" />
     <ClCompile Include="RHI\OpenGL\VertexBufferGL.cpp" />
     <ClCompile Include="Utils\DxException.cpp" />
+    <ClCompile Include="Utils\ImageParser.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Math\Common.h" />
     <ClInclude Include="Core\Math\EigenMath.h" />
     <ClInclude Include="Core\Math\KawaiiMath.h" />
+    <ClInclude Include="Core\Math\Matrix.h" />
+    <ClInclude Include="Core\Math\Vector.h" />
     <ClInclude Include="Core\Memory\Allocator.h" />
     <ClInclude Include="Core\Memory\MemoryManager.h" />
     <ClInclude Include="Core\Object\Component\CameraComponent.h" />
@@ -60,6 +64,7 @@
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\IApplication.h" />
     <ClInclude Include="Platform\Window\WindowsApplication.h" />
+    <ClInclude Include="RHI\DepthStencilState.h" />
     <ClInclude Include="RHI\GraphicsMgr.h" />
     <ClInclude Include="RHI\IndexBufferBase.h" />
     <ClInclude Include="RHI\MaterialBase.h" />
@@ -69,11 +74,13 @@
     <ClInclude Include="RHI\OpenGL\MeshGL.h" />
     <ClInclude Include="RHI\OpenGL\ShaderGL.h" />
     <ClInclude Include="RHI\OpenGL\VertexBufferGL.h" />
+    <ClInclude Include="RHI\SamplerState.h" />
     <ClInclude Include="RHI\ShaderBase.h" />
     <ClInclude Include="RHI\TexturehBase.h" />
     <ClInclude Include="RHI\VertexBufferBase.h" />
     <ClInclude Include="RHI\OpenGL\GraphicsMgrGL.h" />
     <ClInclude Include="Utils\DxException.h" />
+    <ClInclude Include="Utils\ImageParser.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad_wgl.h" />

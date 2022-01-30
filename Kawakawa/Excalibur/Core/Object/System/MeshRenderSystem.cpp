@@ -43,18 +43,14 @@ void Excalibur::MeshRenderSystem::LoadMesh(aiMesh* mesh, const aiScene* world)
 
 void Excalibur::MeshRenderSystem::Render()
 {
-	if (!IsActive())
-		return;
 
 	for (auto comp : mComponents) {
 		if (comp->IsVisible()) {
-			auto transform = comp->GetMaster()->GetComponent<TransformComponent>();
 
-			for (auto mid : comp->mMeshIdxes)
-			{
-				auto mesh = mMeshes[mid];
-				if (mesh)
-					mesh->Render(mWorld, transform->GetWorldMatrix());
+			auto transform = comp->GetMaster()->GetComponent<TransformComponent>();
+			for (auto mesh : comp->mMeshes) {
+				auto entity = comp->GetMaster();
+				mesh->Render(entity);
 			}
 		}
 	}

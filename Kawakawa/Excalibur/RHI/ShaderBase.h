@@ -5,11 +5,12 @@
 
 namespace Excalibur
 {
-	class ShaderBase : public IResouceBase
+	class IShader : public IResouceBase 
 	{
 	public:
-		virtual bool InitializeFromFile(const std::string& VS_Path, const std::string& PS_Path) = 0;
-		virtual void Use() = 0;
-		virtual void SetConstantBuffer(const ConstantBuffer cb) = 0;
+		virtual	bool	InitializeFromFile(const std::string& vsPath, const std::string& psPath) noexcept = 0;
+		virtual	void	Use() noexcept = 0;
+		virtual void	SetConstantBuffer(const ConstantBuffer& cbuffer) noexcept = 0;
+		virtual void	SetConstantBufferLight(const ConstantBufferLighting& cbuffer) noexcept = 0;
 	};
 }
