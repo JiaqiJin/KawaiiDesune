@@ -10,14 +10,6 @@ namespace Excalibur
 	class CameraSystem : public IModule
 	{
 	public:
-		CameraSystem(World* world);
-		virtual	int	Initialize() noexcept;
-		virtual	void Finalize() noexcept;
-
-		std::shared_ptr<Entity>		GetMainCamera();
-		void SetMainCamera(std::shared_ptr<Entity> camera);
-	private:
-		World* mWorld;
-		std::shared_ptr<Entity>	m_MainCamera;
+	
 	};
 }

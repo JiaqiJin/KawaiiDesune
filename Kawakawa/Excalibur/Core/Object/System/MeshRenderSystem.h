@@ -19,25 +19,6 @@ namespace Excalibur
 	class MeshRenderSystem : public ITickableSystem {
 
 	public:
-		MeshRenderSystem(World* world);
-
-		virtual int Initialize() noexcept;
-		virtual void Finalize() noexcept;
-		virtual void Tick() noexcept;
-
-	public:
-		virtual void AddComponent(MeshRenderComponent* comp);
-		virtual void DeleteComponent(MeshRenderComponent* comp);
-		virtual void Render();
-		
-		void LoadMesh(aiMesh* mesh, const aiScene* world);
-
-	public:
-		std::vector<shared_ptr<IMesh>> mMeshes;
-
-	private:
-		GraphicsManager* mGraphicsManager;
-		World* mWorld;
-		std::set<MeshRenderComponent*> mComponents;
+	
 	};
 }

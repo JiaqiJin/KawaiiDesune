@@ -66,8 +66,8 @@ namespace Excalibur
 			mgr->InitializeWithWindow(mHWND);
 		}*/
 
-		mWorld = new World(this);
-		mWorld->Initialize();
+		/*mWorld = new World(this);
+		mWorld->Initialize();*/
 
 		return 0;
 	}
@@ -79,12 +79,12 @@ namespace Excalibur
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		mWorld->Tick();
+		//mWorld->Tick();
 		Render();
 	}
 
 	void WindowsApplication::Render() noexcept {
-		mWorld->Render();
+		//mWorld->Render();
 		mGraphicsManager->Present();
 		auto m_hDC = GetDC(mHWND);
 		SwapBuffers(m_hDC);
@@ -130,7 +130,7 @@ namespace Excalibur
 
 	void WindowsApplication::Finalize() noexcept
 	{
-		mWorld->Finalize();
+		//mWorld->Finalize();
 		mGraphicsManager->Finalize();
 		mMemoryMgr->Finalize();
 	}

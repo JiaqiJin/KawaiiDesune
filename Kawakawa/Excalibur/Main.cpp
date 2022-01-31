@@ -12,8 +12,8 @@ int main()
 {
 	GApp->Initialize();
 
-	GApp->mWorld->LoadScene("Asset/Model/DamagedHelmet.fbx");
-	GApp->mWorld->DumpEntities();
+	/*GApp->mWorld->LoadScene("Asset/Model/DamagedHelmet.fbx");
+	GApp->mWorld->DumpEntities();*/
 
 	GApp->Run();
 	GApp->Finalize();
