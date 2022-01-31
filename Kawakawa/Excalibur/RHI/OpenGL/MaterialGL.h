@@ -4,9 +4,9 @@
 
 namespace Excalibur
 {
-	class MaterialGL : public IMaterial {
+	class MaterialGL : public IMaterial
+	{
 	public:
-		virtual void		Apply(ConstantBuffer cb) noexcept;
-		virtual void		ApplyLight(ConstantBufferLighting cb) noexcept;
+		virtual void Apply(ConstantBuffer cb);
 	};
 }

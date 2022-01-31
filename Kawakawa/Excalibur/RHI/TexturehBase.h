@@ -4,19 +4,12 @@
 
 namespace Excalibur
 {
-	enum TextureType {
-		Default = 1,
-		Cubemap = 2,
-	};
-
 	class ITexture : public IResouceBase
 	{
 	public:
-		ITexture(TextureType type) : mType(type) {}
-		virtual void	InitializeDefault(const std::string& filepath) noexcept = 0;
-		virtual void	InitializeCubemap(const std::string& filepath) noexcept = 0;
-	protected:
-		TextureType mType;
+		virtual void Initialize(const std::string& filepath) = 0;
+		virtual void Finialize() = 0;
+
 	};
 
 }

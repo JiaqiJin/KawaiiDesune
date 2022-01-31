@@ -11,13 +11,13 @@ namespace Excalibur
 
 	VertexBufferGL::~VertexBufferGL()
 	{
-		glDeleteBuffers(1, &mVBO);
+		Finialize();
 	}
 
-	void VertexBufferGL::Initialize(void* data, unsigned int count, VertexFormat vf) noexcept
+	void VertexBufferGL::Initialize(void* data, unsigned int count, VertexFormat vf)
 	{
-		mVertexCount = count;
-		mVertexFormat = vf;
+		IVertexBuffer::Initialize(data, count, vf);
+
 		size_t dataSize = GetVertexSize(vf) * count;
 		glGenBuffers(1, &mVBO);
 		glBindBuffer(GL_ARRAY_BUFFER, mVBO);
@@ -44,4 +44,10 @@ namespace Excalibur
 			assert(false);
 		}
 	}
+
+	void VertexBufferGL::Finialize()
+	{
+		glDeleteBuffers(1, &mVBO);
+	}
+
 }

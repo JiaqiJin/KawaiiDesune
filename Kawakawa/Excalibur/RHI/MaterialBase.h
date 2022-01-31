@@ -3,7 +3,9 @@
 #include "../Interface/IResourceh.h"
 #include "ShaderBase.h"
 #include "TexturehBase.h"
+#include "SamplerState.h"
 
+#include <memory>
 #include <unordered_map>
 
 namespace Excalibur
@@ -11,25 +13,21 @@ namespace Excalibur
 	class IMaterial : public IResouceBase
 	{
 	public:
-		virtual void		Apply(ConstantBuffer cb) noexcept = 0;
-		virtual void		ApplyLight(ConstantBufferLighting cb) noexcept = 0;
+		virtual void Initialize() = 0;
+		virtual void Finialize() = 0;
+	
+		virtual void Apply(ConstantBuffer cb) = 0;
 
-		void SetName(std::string name) { mName = name; }
-		std::string GetName() { return mName; }
-
-		void SetShaderParamter(std::string name, Vector4f value) { mParameters[name] = value; }
-		Vector4f getShaderParamter(std::string name) { return mParameters[name]; }
-
-		void SetTexture(std::string name, std::shared_ptr<ITexture> tex) { mTextures[name] = tex; }
-		std::shared_ptr<ITexture> getTexture(std::string name) { return mTextures[name]; }
-
-		void SetShader(std::shared_ptr<IShader> shader) { mShader = shader; }
-		std::shared_ptr<IShader>		GetShader() { return mShader; }
+		virtual std::shared_ptr<IShader> GetShader() { return mShader; }
+		virtual	void SetShader(std::shared_ptr<IShader> shader) { mShader = shader; }
+		virtual void SetShaderParamter(std::string name, Vector4f value) { mParameters[name] = value; }
+		virtual void SetTexture(std::string name, std::shared_ptr<ITexture> tex) { mTextures[name] = tex; }
+		virtual void SerSamplerState(std::string name, std::shared_ptr<SamplerState> sampler) { mSamplerState[name] = sampler; }
 
 	protected:
-		std::string															mName;
-		std::shared_ptr<IShader>											mShader;
-		std::unordered_map<std::string, std::shared_ptr<ITexture>>		mTextures;
-		std::unordered_map<std::string, Vector4f>						mParameters;
+		std::shared_ptr<IShader> mShader;
+		std::unordered_map<std::string, Vector4f> mParameters;
+		std::unordered_map<std::string, std::shared_ptr<ITexture>> mTextures;
+		std::unordered_map<std::string, std::shared_ptr<SamplerState>> mSamplerState;
 	};
 }

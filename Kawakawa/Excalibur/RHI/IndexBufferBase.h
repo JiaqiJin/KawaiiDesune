@@ -4,22 +4,21 @@
 
 namespace Excalibur
 {
-	enum IndexFormat {
-		IF_None = 0,
-		IF_UINT16,
-		IF_UINT32,
-	};
-
 	class IIndexBuffer : public IResouceBase
 	{
 	public:
-		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat) noexcept = 0;
+		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat)
+		{
+			mCount = count;
+			mIndexFormat = iformat;
+		}
 
-		IIndexBuffer() : mIndexCount(0), mIndexFormat(IndexFormat::IF_None) {}
-		unsigned int GetIndexCount() { return mIndexCount; }
+		virtual void Finialize() = 0;
 
+		unsigned int GetCount() { return mCount; }
+		IndexFormat	GetIndexFormat() { return mIndexFormat; }
 	protected:
-		unsigned int	mIndexCount;
+		unsigned int	mCount;
 		IndexFormat		mIndexFormat;
 	};
 

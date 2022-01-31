@@ -30,4 +30,30 @@ namespace Excalibur
 		Vector4f	PointLightDir[4];
 		Vector4f	PointLightColor[4];
 	};
+
+	// Enum
+	enum PrimitiveType
+	{
+		PT_POINT = 1,
+		PT_LINE,
+		PT_TRIANGLE,
+	};
+
+	enum VertexFormat
+	{
+		VF_None = 0,
+		VF_P3F,
+		VF_T2F,
+		VF_N3F,
+		VF_C4B,
+		VF_BONE_IDX_4I,
+		VF_BONE_WEIGHT_4F,
+	};
+
+	enum IndexFormat
+	{
+		IF_None = 0,
+		IF_UINT16,
+		IF_UINT32,
+	};
 }

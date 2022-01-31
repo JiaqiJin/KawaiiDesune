@@ -14,10 +14,10 @@ namespace Excalibur
 
 	ShaderGL::~ShaderGL()
 	{
-		glDeleteProgram(mProgram);
+		Finialize();
 	}
 
-	bool ShaderGL::InitializeFromFile(const std::string& vsPath, const std::string& psPath) noexcept
+	bool ShaderGL::InitializeFromFile(const std::string& vsPath, const std::string& psPath)
 	{
 		// 1. retrieve the vertex/fragment source code from filePath
 		std::string vertexCode;
@@ -100,37 +100,19 @@ namespace Excalibur
 		return 0;
 	}
 
-	void ShaderGL::Use() noexcept
+	void ShaderGL::Use()
 	{
 		glUseProgram(mProgram);
 	}
 
 
-	void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer) noexcept
+	void ShaderGL::SetConstantBuffer(const ConstantBuffer& cbuffer)
 	{
-		unsigned int location;
-		location = glGetUniformLocation(mProgram, "worldMatrix");
-		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.world);
-		}
-
-		location = glGetUniformLocation(mProgram, "viewMatrix");
-		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.view);
-		}
-
-		location = glGetUniformLocation(mProgram, "projectionMatrix");
-		if (location != -1) {
-			glUniformMatrix4fv(location, 1, true, cbuffer.projection);
-		}
-
-		location = glGetUniformLocation(mProgram, "inputColor");
-		if (location != -1) {
-			glUniform4fv(location, 1, cbuffer.debugColor);
-		}
+		
 	}
 
-	void ShaderGL::SetConstantBufferLight(const ConstantBufferLighting& cbuffer) noexcept
+	void ShaderGL::Finialize()
 	{
+		glDeleteProgram(mProgram);
 	}
 }
