@@ -16,6 +16,6 @@ namespace Excalibur
 		virtual void Finialize();
 		virtual void SetConstantBuffer(const ConstantBuffer& cbuffer);
 	public:
-		GLuint mProgram;
+		GLuint m_Program;
 	};
 }

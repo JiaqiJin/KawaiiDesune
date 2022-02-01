@@ -41,7 +41,7 @@ namespace Excalibur
 		virtual	void DrawIndexed(unsigned int icount, unsigned int start, int baseLoc) = 0;
 
 	protected:
-		std::unordered_map<std::string, std::shared_ptr<IShader>> mShaders;
-		std::unordered_map<std::string, std::shared_ptr<ITexture>> mTextures;
+		std::unordered_map<std::string, std::shared_ptr<IShader>> m_Shaders;
+		std::unordered_map<std::string, std::shared_ptr<ITexture>> m_Textures;
 	};
 }

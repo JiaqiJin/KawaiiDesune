@@ -89,15 +89,15 @@ namespace Excalibur
 
 	void GraphicsMgrGL::LoadShaders()
 	{
-		std::string pbrShaderVS = "Asset/Shaders/simple.vs";
-		std::string pbrShaderPS = "Asset/Shaders/simple.fs";
-		auto pbrShader = std::make_shared<ShaderGL>(pbrShaderVS, pbrShaderPS);
-		mShaders["pbr"] = pbrShader;
+		std::string simpleShaderVS = "Asset/Shaders/simple.vs";
+		std::string simpleShaderPS = "Asset/Shaders/simple.fs";
+		auto simpleShader = std::make_shared<ShaderGL>(simpleShaderVS, simpleShaderPS);
+		m_Shaders["simple"] = simpleShader;
 
 		std::string debugShaderVS = "Asset/Shaders/simple.vs";
 		std::string debugShaderPS = "Asset/Shaders/simple.fs";
 		auto debugShader = std::make_shared<ShaderGL>(debugShaderVS, debugShaderPS);
-		mShaders["debug"] = debugShader;
+		m_Shaders["debug"] = debugShader;
 	}
 
 	void GraphicsMgrGL::UseShader(std::shared_ptr<IShader> shader)
@@ -110,7 +110,7 @@ namespace Excalibur
 
 	std::shared_ptr<IShader> GraphicsMgrGL::GetShader(const std::string& shaderName)
 	{
-		return mShaders[shaderName];
+		return m_Shaders[shaderName];
 	}
 
 	void GraphicsMgrGL::Draw(unsigned int vcount, unsigned int start)

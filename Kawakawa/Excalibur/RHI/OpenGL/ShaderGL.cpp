@@ -82,15 +82,15 @@ namespace Excalibur
 		};
 
 		// shader Program
-		mProgram = glCreateProgram();
-		glAttachShader(mProgram, vertex);
-		glAttachShader(mProgram, fragment);
-		glLinkProgram(mProgram);
+		m_Program = glCreateProgram();
+		glAttachShader(m_Program, vertex);
+		glAttachShader(m_Program, fragment);
+		glLinkProgram(m_Program);
 		// print linking errors if any
-		glGetProgramiv(mProgram, GL_LINK_STATUS, &success);
+		glGetProgramiv(m_Program, GL_LINK_STATUS, &success);
 		if (!success)
 		{
-			glGetProgramInfoLog(mProgram, 512, NULL, infoLog);
+			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			std::cout << infoLog;
 			assert(false);
 		}
@@ -102,7 +102,7 @@ namespace Excalibur
 
 	void ShaderGL::Use()
 	{
-		glUseProgram(mProgram);
+		glUseProgram(m_Program);
 	}
 
 
@@ -113,6 +113,6 @@ namespace Excalibur
 
 	void ShaderGL::Finialize()
 	{
-		glDeleteProgram(mProgram);
+		glDeleteProgram(m_Program);
 	}
 }

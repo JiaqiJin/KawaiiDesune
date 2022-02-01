@@ -16,13 +16,16 @@ namespace Excalibur
 		virtual	void Present();
 		virtual	void ClearRenderTarget(float r, float g, float b, float a);
 
+		// Vertex Buffer Create
 		virtual	std::shared_ptr<IVertexBuffer> CreateVertexBuffer(void* data, int count, VertexFormat vf);
-
+		// Index Buffer Create
 		virtual	std::shared_ptr<IIndexBuffer> CreateIndexBuffer(void* data, int count, IndexFormat iformat);
 
+		// Mesh Create
 		virtual	std::shared_ptr<IMesh> CreateRenderMesh(aiMesh* mesh, const aiScene* world);
 		virtual	std::shared_ptr<IMesh> CreateRenderMeshDebug(void* data, int count, VertexFormat vf);
 
+		// Texture Create
 		virtual	std::shared_ptr<ITexture> CreateTexture2D(const std::string& path);
 		virtual	std::shared_ptr<SamplerState> CreateSamplerState();
 

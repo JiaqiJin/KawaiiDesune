@@ -28,13 +28,13 @@ namespace Excalibur
 		virtual void Render(World* world, const Matrix4f& worldMatrix) = 0;
 		virtual void Finialize() = 0;
 
-		virtual std::shared_ptr<IMaterial> GetMaterial() { return mMaterial; }
+		virtual std::shared_ptr<IMaterial> GetMaterial() { return m_Material; }
 	public:
-		std::shared_ptr<IVertexBuffer>	mPositions;
-		std::shared_ptr<IVertexBuffer>	mNormals;
-		std::shared_ptr<IVertexBuffer>	mTexCoords;
-		std::shared_ptr<IIndexBuffer>	mIndexes;
-		PrimitiveType				mType;
-		std::shared_ptr<IMaterial>		mMaterial;
+		std::shared_ptr<IVertexBuffer>	m_Positions;
+		std::shared_ptr<IVertexBuffer>	m_Normals;
+		std::shared_ptr<IVertexBuffer>	m_TexCoords;
+		std::shared_ptr<IIndexBuffer>	m_Indexes;
+		PrimitiveType				m_Type;
+		std::shared_ptr<IMaterial>		m_Material;
 	};
 }

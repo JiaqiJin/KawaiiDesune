@@ -1,6 +1,6 @@
 #include "WindowsApplication.h"
 #include "../../RHI/OpenGL/GraphicsMgrGL.h"
-
+#include "../../Utils/Constant.h"
 #include "../../Vendor/Glad/include/glad/glad_wgl.h"
 #include <windowsx.h>
 
@@ -107,7 +107,7 @@ namespace Excalibur
 		windowClass.lpszClassName = L"Excalibur";
 		RegisterClassEx(&windowClass);
 
-		RECT windowRect = { 0, 0, 1024, 768 };
+		RECT windowRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 		AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, FALSE);
 
 		// Create the window and store a handle to it.

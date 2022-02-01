@@ -9,17 +9,17 @@ namespace Excalibur
 	public:
 		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat)
 		{
-			mCount = count;
-			mIndexFormat = iformat;
+			m_Count = count;
+			m_IndexFormat = iformat;
 		}
 
 		virtual void Finialize() = 0;
 
-		unsigned int GetCount() { return mCount; }
-		IndexFormat	GetIndexFormat() { return mIndexFormat; }
+		unsigned int GetCount() { return m_Count; }
+		IndexFormat	GetIndexFormat() { return m_IndexFormat; }
 	protected:
-		unsigned int	mCount;
-		IndexFormat		mIndexFormat;
+		unsigned int	m_Count;
+		IndexFormat		m_IndexFormat;
 	};
 
 }

@@ -12,7 +12,9 @@ namespace Excalibur
 		virtual ~IndexBufferGL();
 		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat);
 		virtual void Finialize();
-	public:
-		GLuint mVEO;
+
+		GLuint GetVEO() { return m_VEO; }
+	protected:
+		GLuint m_VEO;
 	};
 }

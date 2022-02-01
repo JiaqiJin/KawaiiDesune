@@ -13,8 +13,10 @@ namespace Excalibur
 		virtual void Initialize(void* data, unsigned int count, VertexFormat vf);
 		virtual void Finialize();
 
-	public:
-		int mIndex;
-		GLuint mVBO;
+		int GetIndex() { return m_Index; }
+		GLuint GetVBO() { return m_VBO; }
+	protected:
+		int m_Index;
+		GLuint m_VBO;
 	};
 }

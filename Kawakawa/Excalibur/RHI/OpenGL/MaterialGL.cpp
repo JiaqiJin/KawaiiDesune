@@ -5,13 +5,13 @@ namespace Excalibur
 {
 	void MaterialGL::Apply(ConstantBuffer cb)
 	{
-		mShader->Use();
+		m_Shader->Use();
 
-		for (auto pair : mParameters)
+		for (auto pair : m_Parameters)
 		{
 			if (pair.first == "color") 
 				cb.debugColor = pair.second;
 		}
-		mShader->SetConstantBuffer(cb);
+		m_Shader->SetConstantBuffer(cb);
 	}
 }

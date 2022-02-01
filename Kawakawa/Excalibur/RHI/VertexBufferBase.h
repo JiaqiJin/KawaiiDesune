@@ -9,8 +9,8 @@ namespace Excalibur
 	public:
 		virtual void Initialize(void* data, unsigned int count, VertexFormat vf)
 		{
-			mCount = count;
-			mVertexFormat = vf;
+			m_Count = count;
+			m_VertexFormat = vf;
 		}
 
 		virtual void Finialize() = 0;
@@ -31,11 +31,11 @@ namespace Excalibur
 			}
 		}
 
-		unsigned int GetCount() { return mCount; }
-		VertexFormat GetVertexFormat() { return mVertexFormat; }
+		unsigned int GetCount() { return m_Count; }
+		VertexFormat GetVertexFormat() { return m_VertexFormat; }
 	protected:
-		unsigned int mCount;
-		VertexFormat mVertexFormat;
+		unsigned int m_Count;
+		VertexFormat m_VertexFormat;
 	};
 
 }

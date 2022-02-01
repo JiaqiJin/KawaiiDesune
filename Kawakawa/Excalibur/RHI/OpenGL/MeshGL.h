@@ -21,6 +21,6 @@ namespace Excalibur
 	private:
 		GLenum GetMode();
 
-		GLuint mVAO;
+		GLuint m_VAO;
 	};
 }

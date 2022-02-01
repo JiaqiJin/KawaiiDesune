@@ -79,6 +79,7 @@
     <ClInclude Include="RHI\TexturehBase.h" />
     <ClInclude Include="RHI\VertexBufferBase.h" />
     <ClInclude Include="RHI\OpenGL\GraphicsMgrGL.h" />
+    <ClInclude Include="Utils\Constant.h" />
     <ClInclude Include="Utils\DxException.h" />
     <ClInclude Include="Utils\ImageParser.h" />
     <ClInclude Include="Utils\Singleton.h" />
