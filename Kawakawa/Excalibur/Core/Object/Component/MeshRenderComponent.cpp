@@ -4,5 +4,13 @@
 
 namespace Excalibur
 {
-	
+	int MeshRenderComponent::Initialize() noexcept
+	{
+		
+	}
+
+	void MeshRenderComponent::Finalize() noexcept
+	{
+		
+	}
 }

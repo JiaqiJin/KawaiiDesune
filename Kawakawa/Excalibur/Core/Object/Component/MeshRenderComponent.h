@@ -10,5 +10,15 @@
 
 namespace Excalibur
 {
-	
+	class MeshRenderComponent : public IComponent
+	{
+	public:
+		MeshRenderComponent() {}
+
+		virtual int Initialize() noexcept;
+		virtual void Finalize() noexcept;
+
+	private:
+		std::vector<int> m_MeshIndex;
+	};
 }
