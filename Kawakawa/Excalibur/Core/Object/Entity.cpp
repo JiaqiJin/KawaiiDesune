@@ -35,6 +35,8 @@ namespace Excalibur
 	{
 		m_World = world;
 
+		AddComponent<TransformComponent>();
+
 		return 0;
 	}
 

@@ -16,9 +16,17 @@ namespace Excalibur
 {
 	class World;
 
-	class MeshRenderSystem : public ITickableSystem {
-
+	class MeshRenderSystem : public ITickableSystem 
+	{
 	public:
-	
+		MeshRenderSystem(World* world);
+
+		virtual int Initialize() noexcept;
+		virtual void Finalize() noexcept;
+		virtual void Tick() noexcept;
+
+		void Render();
+	private:
+		World* m_World;
 	};
 }

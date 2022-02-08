@@ -66,7 +66,7 @@ namespace Excalibur
 			m_MeshRender = new MeshRenderComponent();
 			m_MeshRender->SetMaster(this);
 			m_MeshRender->Initialize();
-			comp = mMeshRender;
+			Comp = m_MeshRender;
 		}
 
 		if (std::is_same<T, CameraComponent>::value)
@@ -74,7 +74,7 @@ namespace Excalibur
 			m_Camera = new CameraComponent();
 			m_Camera->SetMaster(this);
 			m_Camera->Initialize();
-			comp = mCamera;
+			Comp = m_Camera;
 		}
 		return (T*)Comp;
 	}
