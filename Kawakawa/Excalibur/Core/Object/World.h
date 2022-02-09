@@ -31,6 +31,11 @@ namespace Excalibur
 		void DeleteEntity(const xg::Guid& guid);
 		std::shared_ptr<Entity>	GetEntity(const xg::Guid& guid);
 		size_t GetEntityCount();
+
+		void LoadScene(const std::string& scenePath);
+
+		MeshRenderSystem* GetMeshRenderSystem() { return m_MeshRenderSystem; }
+		CameraSystem* GetCameraSystem() { return m_CameraSystem; }
 	public:
 		Application* m_App;
 

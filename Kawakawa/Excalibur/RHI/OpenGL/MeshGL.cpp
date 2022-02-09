@@ -12,7 +12,7 @@ namespace Excalibur
 {
 	MeshGL::MeshGL(aiMesh* mesh, const aiScene* world)
 	{
-
+		// TODO
 	}
 
 	MeshGL::MeshGL(void* data, int count, VertexFormat vf)

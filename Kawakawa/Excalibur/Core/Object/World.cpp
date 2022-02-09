@@ -36,7 +36,7 @@ namespace Excalibur
 
 	void World::Tick() noexcept
 	{
-
+		m_MeshRenderSystem->Tick();
 	}
 
 	void World::Render()
@@ -87,5 +87,23 @@ namespace Excalibur
 	size_t World::GetEntityCount()
 	{
 		return m_Entities.size();
+	}
+
+	void World::LoadScene(const std::string& scenePath)
+	{
+		Assimp::Importer importer2;
+		const aiScene* scene = importer2.ReadFile(scenePath,
+			aiProcess_CalcTangentSpace |
+			aiProcess_Triangulate |
+			aiProcess_JoinIdenticalVertices |
+			aiProcess_SortByPType);
+		assert(scene);
+
+		// Load all mesh
+		for (unsigned int j = 0; j < scene->mNumMeshes; ++j)
+		{
+			auto mesh = scene->mMeshes[j];
+			m_MeshRenderSystem->LoadMesh(mesh, scene);
+		}
 	}
 }

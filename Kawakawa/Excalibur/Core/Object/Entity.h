@@ -32,6 +32,8 @@ namespace Excalibur
 		bool IsChild(std::shared_ptr<Entity> child);
 		size_t GetChildrenCount();
 
+		World* GetWorld() { return m_World; }
+
 		template<typename T>T* AddComponent();
 		template<typename T>T* GetComponent();
 		template<typename T>void RemoveComponent();

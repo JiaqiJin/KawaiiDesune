@@ -26,7 +26,15 @@ namespace Excalibur
 		virtual void Tick() noexcept;
 
 		void Render();
+		void LoadMesh(aiMesh* mesh, const aiScene* scene);
+
+		void AddComponent(MeshRenderComponent* comp);
+		void DeleteComponent(MeshRenderComponent* comp);
+	public:
+		std::vector<std::shared_ptr<IMesh>> m_Meshes;
 	private:
 		World* m_World;
+		GraphicsManager* m_GraphicsManager;
+		std::set<MeshRenderComponent*> m_Components;
 	};
 }
