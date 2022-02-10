@@ -21,9 +21,10 @@ namespace Excalibur
 		bool IsVisible() { return m_Visible; }
 		void SetVisible(bool value) { m_Visible = value; }
 
-		std::vector<int> GetMeshIndex() { return m_MeshIndex; }
-	private:
+	public:
 		std::vector<int> m_MeshIndex;
+
+	private:
 		bool m_Visible;
 	};
 }

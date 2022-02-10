@@ -47,7 +47,7 @@ namespace Excalibur
 
 				auto transform = comp->GetMaster()->GetComponent<TransformComponent>();
 
-				for (auto mid : comp->GetMeshIndex()) {
+				for (auto mid : comp->m_MeshIndex) {
 					auto mesh = m_Meshes[mid];
 					if (mesh) {
 						mesh->Render(m_World, transform->GetWorldMatrix());

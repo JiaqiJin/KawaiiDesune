@@ -105,5 +105,35 @@ namespace Excalibur
 			auto mesh = scene->mMeshes[j];
 			m_MeshRenderSystem->LoadMesh(mesh, scene);
 		}
+
+		// build main camera
+		auto camera = CreateEntity();
+		camera->AddComponent<CameraComponent>();
+		m_CameraSystem->SetMainCamera(camera);
+
+		// build scene graph entity
+		for (unsigned int i = 0; i < scene->mRootNode->mNumChildren; i++)
+		{
+			auto child = scene->mRootNode->mChildren[i];
+			if (child->mNumMeshes <= 0)
+				continue;
+
+			auto entity = CreateEntity();
+
+			aiVector3D scaling, rotation, position;
+			child->mTransformation.Decompose(scaling, rotation, position);
+			auto transformation = entity->GetComponent<TransformComponent>();
+			transformation->SetPosition(Vector3f(position.x, position.y, position.z));
+			transformation->SetRotation(Vector3f(rotation.x, rotation.y, rotation.z));
+			transformation->SetScale(Vector3f(scaling.x, scaling.y, scaling.z));
+
+			auto comp = entity->AddComponent<MeshRenderComponent>();
+			for (unsigned int j = 0; j < child->mNumMeshes; ++j) 
+			{
+				auto midx = child->mMeshes[j];
+				comp->m_MeshIndex.push_back(midx);
+			}
+		}
+
 	}
 }
