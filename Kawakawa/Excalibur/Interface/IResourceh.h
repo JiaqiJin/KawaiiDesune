@@ -14,12 +14,10 @@ namespace Excalibur
 
 	struct ConstantBuffer
 	{
-		Matrix4x4f	world;
-		Matrix4x4f	view;
-		Matrix4x4f	projection;
-		Vector4f	debugColor;
-		Vector4f	pbrParameter;
-		Vector4f	camPos;
+		Matrix4f world;
+		Matrix4f view;
+		Matrix4f projection;
+		Vector4f debugColor;
 	};
 
 	struct ConstantBufferLighting 
@@ -32,7 +30,7 @@ namespace Excalibur
 	};
 
 	// Enum
-	enum PrimitiveType
+	enum PrimitiveType 
 	{
 		PT_POINT = 1,
 		PT_LINE,
@@ -46,8 +44,6 @@ namespace Excalibur
 		VF_T2F,
 		VF_N3F,
 		VF_C4B,
-		VF_BONE_IDX_4I,
-		VF_BONE_WEIGHT_4F,
 	};
 
 	enum IndexFormat

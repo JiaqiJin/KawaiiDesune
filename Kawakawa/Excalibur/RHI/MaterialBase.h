@@ -4,6 +4,7 @@
 #include "ShaderBase.h"
 #include "TexturehBase.h"
 #include "SamplerState.h"
+#include "../Core/Math/EigenMath.h"
 
 #include <memory>
 #include <unordered_map>
