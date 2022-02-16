@@ -23,8 +23,6 @@ namespace Excalibur
 
 	public:
 		std::vector<int> m_MeshIndex;
-
-	private:
 		bool m_Visible;
 	};
 }

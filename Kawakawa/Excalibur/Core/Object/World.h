@@ -33,6 +33,7 @@ namespace Excalibur
 		size_t GetEntityCount();
 
 		void LoadScene(const std::string& scenePath);
+		void DumpEntities();
 
 		MeshRenderSystem* GetMeshRenderSystem() { return m_MeshRenderSystem; }
 		CameraSystem* GetCameraSystem() { return m_CameraSystem; }

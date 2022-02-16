@@ -136,4 +136,18 @@ namespace Excalibur
 		}
 
 	}
+
+	void World::DumpEntities()
+	{
+		cout << "dump entities:" << endl;
+		for (auto pair : m_Entities) {
+			auto guid = pair.first;
+			auto entity = pair.second;
+
+			cout << "guid: " << guid << endl;
+			cout << "transform component:" << endl;
+			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
+			cout << "position: " << "(" << position.x() << "," << position.y() << "," << position.z() << ")" << endl;
+		}
+	}
 }

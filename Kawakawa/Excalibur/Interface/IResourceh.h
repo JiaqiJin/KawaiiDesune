@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/Math/KawaiiMath.h"
+#include "../Core/Math/EigenMath.h"
 
 #include <stdint.h>
 
@@ -18,15 +18,6 @@ namespace Excalibur
 		Matrix4f view;
 		Matrix4f projection;
 		Vector4f debugColor;
-	};
-
-	struct ConstantBufferLighting 
-	{
-		Vector4f	SunLightDir;
-		Vector4f	SunLightColor;
-
-		Vector4f	PointLightDir[4];
-		Vector4f	PointLightColor[4];
 	};
 
 	// Enum
