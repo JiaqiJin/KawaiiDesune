@@ -8,7 +8,7 @@ namespace Excalibur
 {
 	CameraComponent::CameraComponent()
 		: m_CameraType(CameraType::Perspective),
-		m_Position(CAMERA_POSITION),
+		m_Position(0.0f, 0.0f, 3.0f),
 		m_Lookat(Vector3f(0, 1, 0)),
 		m_Up(Vector3f(0, 1, 0)),
 		m_NearClip(0.01f),
@@ -43,8 +43,8 @@ namespace Excalibur
 
 	const Matrix4f& CameraComponent::GetPerspectiveMatrix()
 	{
-		float width = WINDOW_WIDTH;
-		float height = WINDOW_HEIGHT;
+		float width = 1024.0f;
+		float height = 768.0f;
 
 		if (m_ProjectionDirty)
 		{

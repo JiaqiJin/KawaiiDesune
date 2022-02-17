@@ -1,21 +1,13 @@
 #include <iostream>
-#include "Platform/Window/WindowsApplication.h"
-
-using namespace Excalibur;
-
-namespace Excalibur
-{
-	extern Application* GApp = new WindowsApplication();
-}
-
 int main()
 {
-	GApp->Initialize();
 
-	GApp->mWorld->LoadScene("Asset/Model/DamagedHelmet.fbx");
+	/*CHECK_APPLICATION_INIT(GApp->Initialize());
+	GApp->mWorld->LoadScene("Asset/Model/robot-v2.fbx");
 	GApp->mWorld->DumpEntities();
 
 	GApp->Run();
-	GApp->Finalize();
-	return 0;
+	GApp->Finalize();*/
+
+	std::cout << "Hi" << std::endl;
 }

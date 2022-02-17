@@ -99,9 +99,8 @@ namespace Excalibur
 			aiProcess_SortByPType);
 		assert(scene);
 
-		// Load all mesh
-		for (unsigned int j = 0; j < scene->mNumMeshes; ++j)
-		{
+		// load all mesh
+		for (unsigned int j = 0; j < scene->mNumMeshes; ++j) {
 			auto mesh = scene->mMeshes[j];
 			m_MeshRenderSystem->LoadMesh(mesh, scene);
 		}
@@ -112,14 +111,13 @@ namespace Excalibur
 		m_CameraSystem->SetMainCamera(camera);
 
 		// build scene graph entity
-		for (unsigned int i = 0; i < scene->mRootNode->mNumChildren; i++)
-		{
+		for (unsigned int i = 0; i < scene->mRootNode->mNumChildren; ++i) {
 			auto child = scene->mRootNode->mChildren[i];
-			if (child->mNumMeshes <= 0)
+			if (child->mNumMeshes <= 0) {
 				continue;
+			}
 
 			auto entity = CreateEntity();
-
 			aiVector3D scaling, rotation, position;
 			child->mTransformation.Decompose(scaling, rotation, position);
 			auto transformation = entity->GetComponent<TransformComponent>();
@@ -128,13 +126,12 @@ namespace Excalibur
 			transformation->SetScale(Vector3f(scaling.x, scaling.y, scaling.z));
 
 			auto comp = entity->AddComponent<MeshRenderComponent>();
-			for (unsigned int j = 0; j < child->mNumMeshes; ++j) 
-			{
+
+			for (unsigned int j = 0; j < child->mNumMeshes; ++j) {
 				auto midx = child->mMeshes[j];
 				comp->m_MeshIndex.push_back(midx);
 			}
 		}
-
 	}
 
 	void World::DumpEntities()
@@ -148,6 +145,31 @@ namespace Excalibur
 			cout << "transform component:" << endl;
 			auto position = entity->GetComponent<TransformComponent>()->GetPosition();
 			cout << "position: " << "(" << position.x() << "," << position.y() << "," << position.z() << ")" << endl;
+
+			auto meshRender = entity->GetComponent<MeshRenderComponent>();
+			if (meshRender) {
+				cout << "MeshRenderComponent:" << endl;
+				cout << "MeshIndex:";
+				for (int i = 0; i < meshRender->m_MeshIndex.size(); ++i) {
+					cout << meshRender->m_MeshIndex[i] << " ";
+				}
+				cout << "Mesh name:";
+				for (int i = 0; i < meshRender->m_MeshIndex.size(); ++i) {
+					auto idx = meshRender->m_MeshIndex[i];
+					auto mesh = m_MeshRenderSystem->m_Meshes[idx];
+				}
+				cout << endl;
+			}
+
+			auto cameraComponent = entity->GetComponent<CameraComponent>();
+			if (cameraComponent)
+			{
+				cout << "camera type: " << cameraComponent->GetType() << endl;
+				cout << cameraComponent->GetViewMatrix() << endl;
+				cout << cameraComponent->GetPerspectiveMatrix() << endl;
+			}
+
+			cout << endl;
 		}
 	}
 }

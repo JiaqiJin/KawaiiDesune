@@ -17,3 +17,4 @@ void main () {
 	Normal = mat3(transpose(inverse(worldMatrix))) * inputNormal;
 	Color = inputColor;
 }
+

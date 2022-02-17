@@ -58,22 +58,21 @@ namespace Excalibur
 
 	void Entity::AddChild(std::shared_ptr<Entity> child)
 	{
-		if (IsChild(child))
+		if (IsChild(child)) {
 			return;
-
+		}
 		m_Children.push_back(child);
 		child->SetParent(this);
 	}
 
 	void Entity::RemoveChild(std::shared_ptr<Entity> child)
 	{
-		if (IsChild(child))
+		if (!IsChild(child)) {
 			return;
-
-		for (auto iter = m_Children.begin(); iter != m_Children.end(); iter++)
-		{
-			if ((*iter) == child)
-			{
+		}
+		auto iter = m_Children.begin();
+		for (; iter != m_Children.end(); ++iter) {
+			if ((*iter) == child) {
 				m_Children.erase(iter);
 				child->SetParent(nullptr);
 				return;
