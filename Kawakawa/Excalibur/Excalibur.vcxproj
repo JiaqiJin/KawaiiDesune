@@ -19,16 +19,78 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Application\Application.cpp" />
+    <ClCompile Include="Core\Application\WindowsApplication.cpp" />
+    <ClCompile Include="Core\Memory\Allocator.cpp" />
+    <ClCompile Include="Core\Memory\MemoryManager.cpp" />
+    <ClCompile Include="Core\Object\Components\CameraComponent.cpp" />
+    <ClCompile Include="Core\Object\Components\MeshRenderComponent.cpp" />
+    <ClCompile Include="Core\Object\Components\TransformComponent.cpp" />
+    <ClCompile Include="Core\Object\Entity.cpp" />
+    <ClCompile Include="Core\Object\System\CameraSystem.cpp" />
+    <ClCompile Include="Core\Object\System\MeshRenderSystem.cpp" />
+    <ClCompile Include="Core\Object\World.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RHI\IndexBuffer.cpp" />
+    <ClCompile Include="RHI\Material.cpp" />
+    <ClCompile Include="RHI\opengl\GraphicsMgrGL.cpp" />
+    <ClCompile Include="RHI\opengl\IndexBufferGL.cpp" />
+    <ClCompile Include="RHI\opengl\MaterialGL.cpp" />
+    <ClCompile Include="RHI\opengl\RenderMeshGL.cpp" />
+    <ClCompile Include="RHI\opengl\SamplerStateGL.cpp" />
+    <ClCompile Include="RHI\opengl\ShaderGL.cpp" />
+    <ClCompile Include="RHI\opengl\TextureGL.cpp" />
+    <ClCompile Include="RHI\opengl\VertexBufferGL.cpp" />
+    <ClCompile Include="RHI\RenderMesh.cpp" />
+    <ClCompile Include="RHI\Texture.cpp" />
+    <ClCompile Include="RHI\VertexBuffer.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Application\Application.h" />
+    <ClInclude Include="Core\Application\IApplication.h" />
+    <ClInclude Include="Core\Application\WindowsApplication.h" />
+    <ClInclude Include="Core\Math\KawaiiMath.h" />
+    <ClInclude Include="Core\Memory\Allocator.h" />
+    <ClInclude Include="Core\Memory\MemoryManager.h" />
+    <ClInclude Include="Core\Object\Components\CameraComponent.h" />
+    <ClInclude Include="Core\Object\Components\MeshRenderComponent.h" />
+    <ClInclude Include="Core\Object\Components\TransformComponent.h" />
+    <ClInclude Include="Core\Object\Entity.h" />
+    <ClInclude Include="Core\Object\System\CameraSystem.h" />
+    <ClInclude Include="Core\Object\System\MeshRenderSystem.h" />
+    <ClInclude Include="Core\Object\World.h" />
+    <ClInclude Include="Interface\IComponent.h" />
+    <ClInclude Include="Interface\IModule.h" />
+    <ClInclude Include="Interface\IResource.h" />
+    <ClInclude Include="Interface\ISystem.h" />
+    <ClInclude Include="RHI\GraphicsMgr.h" />
+    <ClInclude Include="RHI\IndexBuffer.h" />
+    <ClInclude Include="RHI\Material.h" />
+    <ClInclude Include="RHI\opengl\GraphicsMgrGL.h" />
+    <ClInclude Include="RHI\opengl\IndexBufferGL.h" />
+    <ClInclude Include="RHI\opengl\MaterialGL.h" />
+    <ClInclude Include="RHI\opengl\RenderMeshGL.h" />
+    <ClInclude Include="RHI\opengl\SamplerStateGL.h" />
+    <ClInclude Include="RHI\opengl\ShaderGL.h" />
+    <ClInclude Include="RHI\opengl\TextureGL.h" />
+    <ClInclude Include="RHI\opengl\VertexBufferGL.h" />
+    <ClInclude Include="RHI\RenderMesh.h" />
+    <ClInclude Include="RHI\SamplerState.h" />
+    <ClInclude Include="RHI\Shader.h" />
+    <ClInclude Include="RHI\Texture.h" />
+    <ClInclude Include="RHI\VertexBuffer.h" />
+    <ClInclude Include="Utils\ImageParser.h" />
+    <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\stb_image.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad_wgl.h" />
     <ClInclude Include="Vendor\Glad\include\KHR\khrplatform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Asset\Shaders\gl_debug.fs" />
+    <None Include="Asset\Shaders\gl_debug.vs" />
     <None Include="Asset\Shaders\simple.fs" />
     <None Include="Asset\Shaders\simple.vs" />
   </ItemGroup>
