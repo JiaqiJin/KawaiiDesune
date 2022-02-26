@@ -3,9 +3,12 @@
 
 namespace Excalibur 
 {
-	class MaterialGL : public Material
+	class MaterialGL : public IMaterial
 	{
 	public:
+		virtual void Initialize() {}
+		virtual void Finialize() {}
+
 		virtual void Apply(ConstantBuffer cb);
 	};
 }

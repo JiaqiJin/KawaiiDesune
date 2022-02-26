@@ -10,23 +10,27 @@
 namespace Excalibur 
 {
 	
-	class Material : IRenderResource
+	class IMaterial : IRenderResource
 	{
 	public:
-		virtual void Initialize();
-		virtual void Finialize();
-		virtual	void SetShader(std::shared_ptr<Shader>);
-		virtual std::shared_ptr<Shader>	GetShader();
-		virtual void Apply(ConstantBuffer cb);
-		virtual void SetShaderParamter(std::string name, Vector4f value);
-		virtual void SetTexture(std::string name, std::shared_ptr<Texture> tex);
-		virtual void SerSamplerState(std::string name, std::shared_ptr<SamplerState>);
+
+		virtual void Initialize() = 0;
+		virtual void Finialize() = 0;
+
+		virtual void Apply(ConstantBuffer cb) = 0;
+
+		virtual	void SetShader(std::shared_ptr<IShader> shader) { m_Shader = shader; }
+		virtual std::shared_ptr<IShader> GetShader() { return m_Shader; }
+
+		virtual void SetShaderParamter(std::string name, Vector4f value) { m_Parameters[name] = value; }
+		virtual void SetTexture(std::string name, std::shared_ptr<ITexture> tex) { m_Textures[name] = tex; }
+		virtual void SerSamplerState(std::string name, std::shared_ptr<ISamplerState> sampleState) { m_SamplerState[name] = sampleState; }
 
 	protected:
-		std::shared_ptr<Shader>	m_Shader;
+		std::shared_ptr<IShader> m_Shader;
 		std::unordered_map<std::string, Vector4f> m_Parameters;
-		std::unordered_map<std::string, std::shared_ptr<Texture>> m_Textures;
-		std::unordered_map<std::string, std::shared_ptr<SamplerState>> m_SamplerState;
+		std::unordered_map<std::string, std::shared_ptr<ITexture>> m_Textures;
+		std::unordered_map<std::string, std::shared_ptr<ISamplerState>> m_SamplerState;
 	};
 
 }

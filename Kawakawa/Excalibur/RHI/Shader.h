@@ -4,9 +4,9 @@
 
 using namespace std;
 
-namespace Excalibur {
-
-	class Shader : public IRenderResource
+namespace Excalibur
+{
+	class IShader : public IRenderResource
 	{
 	public:
 		virtual	bool InitializeFromFile(const string& vsPath, const string& psPath) = 0;

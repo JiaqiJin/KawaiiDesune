@@ -29,6 +29,7 @@
     <ClCompile Include="Core\Object\Entity.cpp" />
     <ClCompile Include="Core\Object\System\CameraSystem.cpp" />
     <ClCompile Include="Core\Object\System\MeshRenderSystem.cpp" />
+    <ClCompile Include="Core\Object\System\PhysicsSystem.cpp" />
     <ClCompile Include="Core\Object\World.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RHI\IndexBuffer.cpp" />
@@ -36,13 +37,12 @@
     <ClCompile Include="RHI\opengl\GraphicsMgrGL.cpp" />
     <ClCompile Include="RHI\opengl\IndexBufferGL.cpp" />
     <ClCompile Include="RHI\opengl\MaterialGL.cpp" />
-    <ClCompile Include="RHI\opengl\RenderMeshGL.cpp" />
+    <ClCompile Include="RHI\opengl\MeshGL.cpp" />
     <ClCompile Include="RHI\opengl\SamplerStateGL.cpp" />
     <ClCompile Include="RHI\opengl\ShaderGL.cpp" />
     <ClCompile Include="RHI\opengl\TextureGL.cpp" />
     <ClCompile Include="RHI\opengl\VertexBufferGL.cpp" />
-    <ClCompile Include="RHI\RenderMesh.cpp" />
-    <ClCompile Include="RHI\Texture.cpp" />
+    <ClCompile Include="RHI\Mesh.cpp" />
     <ClCompile Include="RHI\VertexBuffer.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
@@ -60,6 +60,7 @@
     <ClInclude Include="Core\Object\Entity.h" />
     <ClInclude Include="Core\Object\System\CameraSystem.h" />
     <ClInclude Include="Core\Object\System\MeshRenderSystem.h" />
+    <ClInclude Include="Core\Object\System\PhysicsSystem.h" />
     <ClInclude Include="Core\Object\World.h" />
     <ClInclude Include="Interface\IComponent.h" />
     <ClInclude Include="Interface\IModule.h" />
@@ -71,12 +72,12 @@
     <ClInclude Include="RHI\opengl\GraphicsMgrGL.h" />
     <ClInclude Include="RHI\opengl\IndexBufferGL.h" />
     <ClInclude Include="RHI\opengl\MaterialGL.h" />
-    <ClInclude Include="RHI\opengl\RenderMeshGL.h" />
+    <ClInclude Include="RHI\opengl\MeshGL.h" />
     <ClInclude Include="RHI\opengl\SamplerStateGL.h" />
     <ClInclude Include="RHI\opengl\ShaderGL.h" />
     <ClInclude Include="RHI\opengl\TextureGL.h" />
     <ClInclude Include="RHI\opengl\VertexBufferGL.h" />
-    <ClInclude Include="RHI\RenderMesh.h" />
+    <ClInclude Include="RHI\Mesh.h" />
     <ClInclude Include="RHI\SamplerState.h" />
     <ClInclude Include="RHI\Shader.h" />
     <ClInclude Include="RHI\Texture.h" />

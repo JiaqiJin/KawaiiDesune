@@ -3,14 +3,17 @@
 
 namespace Excalibur {
 
-	class IndexBuffer : public IRenderResource
+	class IIndexBuffer : public IRenderResource
 	{
 	public:
-		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat);
-		virtual void Finialize();
+		IIndexBuffer() : m_IndexCount(0), m_IndexFormat(IndexFormat::IF_None) {}
+		unsigned int GetIndexCount() { return m_IndexCount; }
 
-	public:
-		unsigned int m_Count;
+		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat) = 0;
+		virtual void Finialize() = 0;
+
+	protected :
+		unsigned int m_IndexCount;
 		IndexFormat	m_IndexFormat;
 	};
 

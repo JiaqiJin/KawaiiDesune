@@ -7,7 +7,7 @@ using namespace std;
 
 namespace Excalibur 
 {
-	class ShaderGL : public Shader
+	class ShaderGL : public IShader
 	{
 	public:
 		ShaderGL(const string & vsPath, const string & psPath);
@@ -18,7 +18,7 @@ namespace Excalibur
 		virtual void Finialize();
 		virtual void SetConstantBuffer(const ConstantBuffer& cbuffer);
 
-	public:
+	private:
 		GLuint mProgram;
 	};
 

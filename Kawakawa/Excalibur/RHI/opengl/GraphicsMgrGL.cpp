@@ -1,6 +1,6 @@
 #include "GraphicsMgrGL.h"
 #include "../../Vendor/Glad/include/glad/glad_wgl.h"
-#include "RenderMeshGL.h"
+#include "MeshGL.h"
 #include "VertexBufferGL.h"
 #include "ShaderGL.h"
 
@@ -50,37 +50,37 @@ namespace Excalibur
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	std::shared_ptr<VertexBuffer> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf)
+	std::shared_ptr<IVertexBuffer> GraphicsMgrGL::CreateVertexBuffer(void* data, int count, VertexFormat vf)
 	{
 		auto ptr = std::make_shared<VertexBufferGL>(data, count, vf, 0);
 		return ptr;
 	}
 
-	std::shared_ptr<IndexBuffer> GraphicsMgrGL::CreateIndexBuffer(void* data, int count, IndexFormat iformat)
+	std::shared_ptr<IIndexBuffer> GraphicsMgrGL::CreateIndexBuffer(void* data, int count, IndexFormat iformat)
 	{
 		return nullptr;
 	}
 
-	std::shared_ptr<RenderMesh> GraphicsMgrGL::CreateRenderMesh(aiMesh* mesh, const aiScene* world)
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMesh(aiMesh* mesh, const aiScene* world)
 	{
-		auto ptr = std::make_shared<RenderMeshGL>(mesh, world);
+		auto ptr = std::make_shared<MeshGL>(mesh, world);
 		return ptr;
 	}
 
-	std::shared_ptr<RenderMesh> GraphicsMgrGL::CreateRenderMeshDebug(void* data, int count, VertexFormat vf)
+	std::shared_ptr<IMesh> GraphicsMgrGL::CreateRenderMeshDebug(void* data, int count, VertexFormat vf)
 	{
-		auto ptr = std::make_shared<RenderMeshGL>(data, count, vf);
+		auto ptr = std::make_shared<MeshGL>(data, count, vf);
 		return ptr;
 	}
 
-	std::shared_ptr<Texture> GraphicsMgrGL::CreateTexture2D(const std::string& path)
+	std::shared_ptr<ITexture> GraphicsMgrGL::CreateTexture2D(const std::string& path)
 	{
-		return std::shared_ptr<Texture>();
+		return std::shared_ptr<ITexture>();
 	}
 
-	std::shared_ptr<SamplerState> GraphicsMgrGL::CreateSamplerState()
+	std::shared_ptr<ISamplerState> GraphicsMgrGL::CreateSamplerState()
 	{
-		return std::shared_ptr<SamplerState>();
+		return std::shared_ptr<ISamplerState>();
 	}
 
 	void GraphicsMgrGL::LoadShaders()
@@ -91,7 +91,7 @@ namespace Excalibur
 		m_Shaders["simple"] = pbrShader;
 	}
 
-	void GraphicsMgrGL::UseShader(std::shared_ptr<Shader> shader)
+	void GraphicsMgrGL::UseShader(std::shared_ptr<IShader> shader)
 	{
 		if (!shader) {
 			assert(false);
@@ -99,7 +99,7 @@ namespace Excalibur
 		shader->Use();
 	}
 
-	std::shared_ptr<Shader> GraphicsMgrGL::GetShader(const std::string& shaderName)
+	std::shared_ptr<IShader> GraphicsMgrGL::GetShader(const std::string& shaderName)
 	{
 		return m_Shaders[shaderName];
 	}

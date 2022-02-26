@@ -4,7 +4,7 @@
 
 namespace Excalibur 
 {
-	class SamplerState : public IRenderResource
+	class ISamplerState : public IRenderResource
 	{
 	public:
 		virtual void Initialize() = 0;

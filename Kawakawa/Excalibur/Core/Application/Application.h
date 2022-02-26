@@ -20,7 +20,7 @@ namespace Excalibur
 
 	public:
 		MemoryManager*		m_MemoryMgr;
-		GraphicsManager*	m_GraphicsManager;
+		IGraphicsManager*	m_GraphicsManager;
 		World*				m_World;
 
 	private:

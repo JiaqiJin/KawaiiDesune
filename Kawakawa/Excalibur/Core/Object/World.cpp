@@ -27,6 +27,9 @@ namespace Excalibur
 		m_CameraSystem = new CameraSystem(this);
 		m_CameraSystem->Initialize();
 
+		m_PhysicsSystem = new PhysicsSystem(this);
+		m_PhysicsSystem->Initialize();
+
 		return 0;
 	}
 
@@ -41,6 +44,7 @@ namespace Excalibur
 	void World::Tick()
 	{
 		m_MeshRenderSystem->Tick();
+		m_PhysicsSystem->Tick();
 	}
 
 	void World::Render()

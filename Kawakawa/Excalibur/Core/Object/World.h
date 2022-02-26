@@ -9,6 +9,7 @@
 #include "Entity.h"
 #include "System/MeshRenderSystem.h"
 #include "System/CameraSystem.h"
+#include "System/PhysicsSystem.h"
 
 #include <crossguid/guid.hpp>
 
@@ -41,7 +42,7 @@ namespace Excalibur
 	public:
 		MeshRenderSystem* GetMeshRenderSystem() { return m_MeshRenderSystem; }
 		CameraSystem* GetCameraSystem() { return m_CameraSystem; }
-
+		PhysicsSystem* GetPhysicsSystem() { return m_PhysicsSystem; }
 	public:
 		Application* mApp;
 
@@ -51,6 +52,7 @@ namespace Excalibur
 		// systems
 		MeshRenderSystem*	m_MeshRenderSystem;
 		CameraSystem* m_CameraSystem;
+		PhysicsSystem* m_PhysicsSystem;
 	};
 
 }

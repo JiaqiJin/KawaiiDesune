@@ -4,11 +4,11 @@
 
 namespace Excalibur
 {
-	class Texture : public IRenderResource
+	class ITexture : public IRenderResource
 	{
 	public:
-		virtual void Initialize(const std::string& filepath);
-		virtual void Finialize();
+		virtual void Initialize(const std::string& filepath) = 0;
+		virtual void Finialize() = 0;
 	};
 
 }

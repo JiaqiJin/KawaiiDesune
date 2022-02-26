@@ -63,10 +63,7 @@
     <ClCompile Include="RHI\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\RenderMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RHI\Texture.cpp">
+    <ClCompile Include="RHI\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RHI\VertexBuffer.cpp">
@@ -81,7 +78,7 @@
     <ClCompile Include="RHI\opengl\MaterialGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\opengl\RenderMeshGL.cpp">
+    <ClCompile Include="RHI\opengl\MeshGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RHI\opengl\SamplerStateGL.cpp">
@@ -94,6 +91,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RHI\opengl\VertexBufferGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Object\System\PhysicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="RHI\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\RenderMesh.h">
+    <ClInclude Include="RHI\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\SamplerState.h">
@@ -200,7 +200,7 @@
     <ClInclude Include="RHI\opengl\MaterialGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\opengl\RenderMeshGL.h">
+    <ClInclude Include="RHI\opengl\MeshGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\opengl\SamplerStateGL.h">
@@ -213,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RHI\opengl\VertexBufferGL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Object\System\PhysicsSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

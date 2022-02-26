@@ -3,7 +3,7 @@
 
 #include "../../../Interface/ISystem.h"
 #include "../../../RHI/GraphicsMgr.h"
-#include "../../../RHI/RenderMesh.h"
+#include "../../../RHI/Mesh.h"
 
 #include "../Components/MeshRenderComponent.h"
 
@@ -30,10 +30,10 @@ namespace Excalibur {
 		virtual void LoadMesh(aiMesh* mesh, const aiScene* world);
 
 	public:
-		std::vector<shared_ptr<RenderMesh>>	m_Meshes;
+		std::vector<shared_ptr<IMesh>>	m_Meshes;
 	private:
 		World* m_World;
-		GraphicsManager* m_GraphicsManager;
+		IGraphicsManager* m_GraphicsManager;
 		std::set<MeshRenderComponent*> m_Components;
 
 		

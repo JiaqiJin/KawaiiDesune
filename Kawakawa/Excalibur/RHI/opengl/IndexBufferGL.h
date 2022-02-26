@@ -4,14 +4,14 @@
 
 namespace Excalibur
 {
-	class IndexBufferGL : public IndexBuffer 
+	class IndexBufferGL : public IIndexBuffer 
 	{
 	public:
 		IndexBufferGL(void* data, unsigned int count, IndexFormat iformat);
 		virtual ~IndexBufferGL();
 		virtual void Initialize(void* data, unsigned int count, IndexFormat iformat);
 		virtual void Finialize();
-	public:
-		GLuint mVEO;
+	private:
+		GLuint m_VEO;
 	};
 }

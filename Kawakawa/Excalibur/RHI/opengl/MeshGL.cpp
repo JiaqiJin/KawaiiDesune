@@ -1,4 +1,4 @@
-#include "RenderMeshGL.h"
+#include "MeshGL.h"
 #include "VertexBufferGL.h"
 #include "IndexBufferGL.h"
 #include "MaterialGL.h"
@@ -7,7 +7,7 @@
 
 namespace Excalibur
 {
-	RenderMeshGL::RenderMeshGL(aiMesh* mesh, const aiScene* world)
+	MeshGL::MeshGL(aiMesh* mesh, const aiScene* world)
 	{
 		auto mgrgl = (GraphicsMgrGL*)GApp->m_GraphicsManager;
 		Initialize(mesh);
@@ -23,7 +23,7 @@ namespace Excalibur
 		m_Material->SetShaderParamter("color", Vector4f(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
 	}
 
-	RenderMeshGL::RenderMeshGL(void* data, int count, VertexFormat vf)
+	MeshGL::MeshGL(void* data, int count, VertexFormat vf)
 	{
 		auto mgrgl = (GraphicsMgrGL*)GApp->m_GraphicsManager;
 		Initialize(data, count, vf);
@@ -32,12 +32,12 @@ namespace Excalibur
 		m_Material->SetShader(shader);
 	}
 
-	RenderMeshGL::~RenderMeshGL()
+	MeshGL::~MeshGL()
 	{
 		Finialize();
 	}
 
-	void RenderMeshGL::Initialize(aiMesh* mesh)
+	void MeshGL::Initialize(aiMesh* mesh)
 	{
 		if (!mesh) {
 			return;
@@ -92,7 +92,7 @@ namespace Excalibur
 		}
 	}
 
-	void RenderMeshGL::Initialize(void* data, int count, VertexFormat vf)
+	void MeshGL::Initialize(void* data, int count, VertexFormat vf)
 	{
 		auto mgrgl = (GraphicsMgrGL*)GApp->m_GraphicsManager;
 		glGenVertexArrays(1, &mVAO);
@@ -102,7 +102,7 @@ namespace Excalibur
 		m_Type = PrimitiveType::PT_LINE;
 	}
 
-	void RenderMeshGL::Render(World* world, const Matrix4f& worldMatrix)
+	void MeshGL::Render(World* world, const Matrix4f& worldMatrix)
 	{
 		ConstantBuffer cb;
 		auto camera = world->GetCameraSystem()->GetMainCamera()->GetComponent<CameraComponent>();
@@ -113,14 +113,14 @@ namespace Excalibur
 
 		glBindVertexArray(mVAO);
 		if (m_Indexes) {
-			glDrawElements(GetMode(), m_Indexes->m_Count, GL_UNSIGNED_INT, 0x00);
+			glDrawElements(GetMode(), m_Indexes->GetIndexCount(), GL_UNSIGNED_INT, 0x00);
 		}
 		else {
-			glDrawArrays(GetMode(), 0x00, m_Positions->m_Count);
+			glDrawArrays(GetMode(), 0x00, m_Positions->GetVertexCount());
 		}
 	}
 
-	void RenderMeshGL::Finialize()
+	void MeshGL::Finialize()
 	{
 		m_Positions = nullptr;
 		m_Normals = nullptr;
@@ -129,7 +129,7 @@ namespace Excalibur
 		glDeleteVertexArrays(1, &mVAO);
 	}
 
-	GLenum RenderMeshGL::GetMode()
+	GLenum MeshGL::GetMode()
 	{
 		switch (m_Type)
 		{
