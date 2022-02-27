@@ -1,4 +1,4 @@
-#include "PrecompiledHeader.h"
+#include "../PrecompiledHeader.h"
 #include "Application.h"
 
 Application::Application(const char* appName, int width, int height, int fps) 

@@ -14,7 +14,7 @@ namespace Excalibur {
 int main()
 {
 	CHECK_APPLICATION_INIT(GApp->Initialize());
-	GApp->m_World->LoadScene("Asset/Model/Drum/NAMDrum01.obj");
+	GApp->m_World->LoadScene("Asset/Model/robot-v2.fbx");
 	GApp->m_World->DumpEntities();
 
 	GApp->Run();

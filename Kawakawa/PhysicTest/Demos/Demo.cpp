@@ -1,4 +1,4 @@
-#include "../Render/PrecompiledHeader.h"
+#include "../PrecompiledHeader.h"
 #include "Demo.h"
 
 Demo::Demo(const char* appName, int width, int height) : 

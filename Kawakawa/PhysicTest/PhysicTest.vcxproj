@@ -149,6 +149,8 @@
   <ItemGroup>
     <ClCompile Include="Demos\Demo.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Physic\Entities\Body.cpp" />
+    <ClCompile Include="Physic\Entities\Particle.cpp" />
     <ClCompile Include="Render\Application.cpp" />
     <ClCompile Include="Render\Window.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
@@ -156,8 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demos\Demo.h" />
+    <ClInclude Include="Physic\Entities\Body.h" />
+    <ClInclude Include="Physic\Entities\IIntegratable.h" />
+    <ClInclude Include="Physic\Entities\Particle.h" />
     <ClInclude Include="Render\Application.h" />
-    <ClInclude Include="Render\PrecompiledHeader.h" />
+    <ClInclude Include="PrecompiledHeader.h" />
     <ClInclude Include="Render\Window.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad.h" />
     <ClInclude Include="Vendor\Glad\include\glad\glad_wgl.h" />

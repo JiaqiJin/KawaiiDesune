@@ -33,6 +33,12 @@
     <ClCompile Include="Demos\Demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physic\Entities\Body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physic\Entities\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vendor\Glad\include\glad\glad.h">
@@ -47,13 +53,22 @@
     <ClInclude Include="Render\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Render\PrecompiledHeader.h">
+    <ClInclude Include="PrecompiledHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Render\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Demos\Demo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\Entities\Body.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\Entities\IIntegratable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\Entities\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

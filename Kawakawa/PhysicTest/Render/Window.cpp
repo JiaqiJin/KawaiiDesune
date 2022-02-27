@@ -1,4 +1,4 @@
-#include "PrecompiledHeader.h"
+#include "../PrecompiledHeader.h"
 #include "Window.h"
 
 Window::Window(const char* windowName, int width, int height, int fps, bool vsync) : width(width), height(height), fps(fps), vsync(vsync)
