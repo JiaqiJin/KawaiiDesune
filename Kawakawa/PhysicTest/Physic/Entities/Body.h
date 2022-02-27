@@ -11,6 +11,9 @@ namespace Physic
 	public:
 		Body();
 		~Body();
+
+		// Add force 
+		inline void AddForce(const glm::vec3& force) { accumForces += force; }
 		// Implementation of the physics engine update
 		virtual void Integrate(float deltaTime) = 0;
 		// Clear all the accumulators

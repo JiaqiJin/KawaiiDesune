@@ -39,6 +39,9 @@
     <ClCompile Include="Physic\Entities\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\ForceGenerationRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vendor\Glad\include\glad\glad.h">
@@ -69,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physic\Entities\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\IParticleForceGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\ForceGenerationRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
