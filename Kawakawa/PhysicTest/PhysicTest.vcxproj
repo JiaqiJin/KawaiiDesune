@@ -149,21 +149,35 @@
   <ItemGroup>
     <ClCompile Include="Demos\Demo.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Math\Transform.cpp" />
     <ClCompile Include="Physic\Entities\Body.cpp" />
     <ClCompile Include="Physic\Entities\Particle.cpp" />
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\AnchoredSpringForceGenerator.cpp" />
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\BungeeSpringForceGenerator.cpp" />
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.cpp" />
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\DragForceGenerator.cpp" />
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\ForceGenerationRegistry.cpp" />
+    <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\SpringForceGenerator.cpp" />
+    <ClCompile Include="PrecompilerHeader.cpp" />
     <ClCompile Include="Render\Application.cpp" />
     <ClCompile Include="Render\Window.cpp" />
     <ClCompile Include="Vendor\Glad\src\glad.c" />
     <ClCompile Include="Vendor\Glad\src\glad_wgl.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="Demos\Demo.h" />
+    <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Physic\Entities\Body.h" />
     <ClInclude Include="Physic\Entities\IIntegratable.h" />
     <ClInclude Include="Physic\Entities\Particle.h" />
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\AnchoredSpringForceGenerator.h" />
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\BungeeSpringForceGenerator.h" />
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.h" />
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\DragForceGenerator.h" />
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\ForceGenerationRegistry.h" />
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\IParticleForceGenerator.h" />
+    <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\SpringForceGenerator.h" />
     <ClInclude Include="Render\Application.h" />
     <ClInclude Include="PrecompiledHeader.h" />
     <ClInclude Include="Render\Window.h" />
