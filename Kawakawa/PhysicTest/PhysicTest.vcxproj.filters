@@ -63,6 +63,9 @@
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physic\ParticleCollision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vendor\Glad\include\glad\glad.h">
@@ -120,6 +123,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\ParticleCollisionGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\ParticleCollision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
