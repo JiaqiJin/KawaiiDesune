@@ -160,6 +160,7 @@
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\SpringForceGenerator.cpp" />
     <ClCompile Include="Physic\ParticleCollision.cpp" />
     <ClCompile Include="Physic\ParticleCollisionResolver.cpp" />
+    <ClCompile Include="Physic\ParticleLink.cpp" />
     <ClCompile Include="PrecompilerHeader.cpp" />
     <ClCompile Include="Render\Application.cpp" />
     <ClCompile Include="Render\Window.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Physic\ParticleCollision.h" />
     <ClInclude Include="Physic\ParticleCollisionGenerator.h" />
     <ClInclude Include="Physic\ParticleCollisionResolver.h" />
+    <ClInclude Include="Physic\ParticleLink.h" />
     <ClInclude Include="Render\Application.h" />
     <ClInclude Include="PrecompiledHeader.h" />
     <ClInclude Include="Render\Window.h" />

@@ -72,6 +72,9 @@
     <ClCompile Include="Physic\ParticleCollisionResolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physic\ParticleLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vendor\Glad\include\glad\glad.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physic\ParticleCollisionResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physic\ParticleLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
