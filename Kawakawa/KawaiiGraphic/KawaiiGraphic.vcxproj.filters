@@ -18,37 +18,76 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\Vulkan\Device.cpp">
+    <ClCompile Include="Common\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vendor\vma\vk_mem_alloc.cpp">
+    <ClCompile Include="Math\Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\GlobalDevice.cpp">
+    <ClCompile Include="Math\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\Vulkan\VulkanContext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RHI\Vulkan\VulkanUtil.cpp">
+    <ClCompile Include="Core\Utility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RHI\Vulkan\Device.h">
+    <ClInclude Include="Common\d3dx12.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vendor\vma\vk_mem_alloc.h">
+    <ClInclude Include="Common\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\GlobalDevice.h">
+    <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\Vulkan\VulkanContext.h">
+    <ClInclude Include="Math\BoundingPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\Vulkan\VulkanUtil.h">
+    <ClInclude Include="Math\BoundingSphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Math\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Frustum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\GLMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Quaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Scalar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\VectorMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Math\Functions.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
