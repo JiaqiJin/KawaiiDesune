@@ -148,8 +148,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Comp\GpuWaves.cpp" />
-    <ClCompile Include="1\Comp\WaveCS.cpp" />
+    <ClCompile Include="1\Light.cpp" />
     <ClCompile Include="1\Waves.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
@@ -162,7 +161,6 @@
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="1\Comp\GpuWaves.h" />
     <ClInclude Include="1\Waves.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />

@@ -45,10 +45,7 @@
     <ClCompile Include="1\Waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Comp\GpuWaves.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="1\Comp\WaveCS.cpp">
+    <ClCompile Include="1\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,9 +84,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="1\Waves.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="1\Comp\GpuWaves.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
