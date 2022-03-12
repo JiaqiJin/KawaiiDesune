@@ -152,6 +152,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Frustum.cpp" />
     <ClCompile Include="Math\Random.cpp" />
+    <ClCompile Include="RHI\CommandAllocatorPool.cpp" />
+    <ClCompile Include="RHI\CommandContext.cpp" />
+    <ClCompile Include="RHI\CommandListManager.cpp" />
+    <ClCompile Include="RHI\CommandQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
@@ -171,6 +175,10 @@
     <ClInclude Include="Math\Scalar.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="RHI\CommandAllocatorPool.h" />
+    <ClInclude Include="RHI\CommandContext.h" />
+    <ClInclude Include="RHI\CommandListManager.h" />
+    <ClInclude Include="RHI\CommandQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />

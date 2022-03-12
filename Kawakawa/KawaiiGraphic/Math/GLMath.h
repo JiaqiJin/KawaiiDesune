@@ -80,7 +80,7 @@ namespace MFalcor
 
 		BoundingBox(const Vector3 &minVal, const Vector3 &maxVal)
 		{
-			ASSERT(minVal.x <= maxVal.x && minVal.y <= maxVal.y && minVal.z <= maxVal.z);
+			assert(minVal.x <= maxVal.x && minVal.y <= maxVal.y && minVal.z <= maxVal.z);
 
 			vMin = minVal;
 			vMax = maxVal;			

@@ -64,6 +64,8 @@
 #include <cwctype>
 #include <map>
 #include <memory>
+#include <queue>
+#include <mutex>
 #include <algorithm>
 #include <functional>
 #include <exception>
