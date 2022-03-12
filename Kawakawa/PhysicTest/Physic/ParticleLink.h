@@ -17,7 +17,7 @@ namespace Physic
 		Particle* particles[2]; // Holds the pair of particles that are connected by this link.
 
 		inline float GetCurrentLengthSqr() const { return glm::length2(particles[0]->GetPosition() - particles[1]->GetPosition()); }
-		virtual void GenerateContact(ParticleCollision* collisions, unsigned int limit) = 0;
+		virtual void GenerateContact(std::list<ParticleCollision>& collisions, unsigned int limit) = 0;
 	};
 
 	/**
@@ -36,7 +36,7 @@ namespace Physic
 		// Holds the restitution (bounciness) of the cable.
 		float restitution;
 
-		virtual void GenerateContact(ParticleCollision* collisions, unsigned int limit);
+		virtual void GenerateContact(std::list<ParticleCollision>& collisions, unsigned int limit);
 	};
 
 	// Rods link a pair of particles, generating a contact if they
@@ -49,6 +49,6 @@ namespace Physic
 
 		float lengthSqr; // Length of the rod
 
-		virtual void GenerateContact(ParticleCollision* collisions, unsigned int limit);
+		virtual void GenerateContact(std::list<ParticleCollision>& collisions, unsigned int limit);
 	};
 }
