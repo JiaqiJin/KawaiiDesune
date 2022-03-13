@@ -11,7 +11,7 @@ namespace RHI
 
 	CommandAllocatorPool::~CommandAllocatorPool()
 	{
-		ShutDown();
+		Shutdown();
 	}
 
 	void CommandAllocatorPool::Create(ID3D12Device* pDevice)
@@ -19,7 +19,7 @@ namespace RHI
 		m_Device = pDevice;
 	}
 
-	void CommandAllocatorPool::ShutDown()
+	void CommandAllocatorPool::Shutdown()
 	{
 		for (size_t i = 0; i < m_AllocatorPool.size(); ++i)
 			m_AllocatorPool[i]->Release();

@@ -15,7 +15,7 @@ namespace RHI
 
 		void Create(ID3D12Device* pDevice);
 
-		void ShutDown();
+		void Shutdown();
 		// Check the front Allocator in the Pool, if the current GPU has completed the Allocator command,
 		// it can be reused, otherwise create a new one.
 		ID3D12CommandAllocator* RequestAllocator(uint64_t completedFenceValue);

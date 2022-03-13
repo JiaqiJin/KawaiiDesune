@@ -156,6 +156,7 @@
     <ClCompile Include="RHI\CommandContext.cpp" />
     <ClCompile Include="RHI\CommandListManager.cpp" />
     <ClCompile Include="RHI\CommandQueue.cpp" />
+    <ClCompile Include="RHI\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="RHI\CommandContext.h" />
     <ClInclude Include="RHI\CommandListManager.h" />
     <ClInclude Include="RHI\CommandQueue.h" />
+    <ClInclude Include="RHI\Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />

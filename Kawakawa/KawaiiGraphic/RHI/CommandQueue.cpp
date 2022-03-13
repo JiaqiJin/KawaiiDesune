@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "CommandQueue.h"
-#include "CommandAllocatorPool.h"
 
 namespace RHI
 {
@@ -48,6 +47,74 @@ namespace RHI
 
 	void CommandQueue::ShutDown()
 	{
+		if (m_CommandQueue == nullptr)
+			return;
+
+		m_AllocatorPool.Shutdown();
+
 		CloseHandle(m_FenceEventHandle);
+
+		m_pFence->Release();
+		m_pFence = nullptr;
+
+		m_CommandQueue->Release();
+		m_CommandQueue = nullptr;
+	}
+
+	uint64_t CommandQueue::IncrementFence()
+	{
+		std::lock_guard<std::mutex> lockGuard(m_FenceMutex);
+
+		m_CommandQueue->Signal(m_pFence, m_NextFenceValue);
+		return m_NextFenceValue++;
+	}
+
+	bool CommandQueue::IsFenceComplete(uint64_t fenceValue)
+	{
+		if (fenceValue > m_LastCompletedFenceValue)
+			m_LastCompletedFenceValue = std::max(m_LastCompletedFenceValue, m_pFence->GetCompletedValue());
+
+		return fenceValue <= m_LastCompletedFenceValue;
+	}
+
+	void CommandQueue::WaitForFence(uint64_t fenceValue)
+	{
+		if (IsFenceComplete(fenceValue))
+			return;
+
+		{
+			std::lock_guard<std::mutex> lockGuard(m_EventMutex);
+
+			m_pFence->SetEventOnCompletion(fenceValue, m_FenceEventHandle);
+			WaitForSingleObject(m_FenceEventHandle, INFINITE);
+			m_LastCompletedFenceValue = fenceValue;
+		}
+	}
+
+	uint64_t CommandQueue::ExecuteCommandList(ID3D12CommandList* list)
+	{
+		std::lock_guard<std::mutex> lockGuard(m_FenceMutex);
+
+		ASSERT_SUCCEEDED(((ID3D12GraphicsCommandList*)list)->Close());
+
+		// kickoff the command list
+		m_CommandQueue->ExecuteCommandLists(1, &list);
+
+		// signal the next fence value (with the GPU)
+		m_CommandQueue->Signal(m_pFence, m_NextFenceValue);
+
+		// and increment the fence value
+		return m_NextFenceValue++;
+	}
+
+	ID3D12CommandAllocator* CommandQueue::RequestAllocator()
+	{
+		uint64_t fenceValue = m_pFence->GetCompletedValue();
+		return m_AllocatorPool.RequestAllocator(fenceValue);
+	}
+
+	void CommandQueue::DiscardAllocator(uint64_t fenceValueForReset, ID3D12CommandAllocator* allocator)
+	{
+		m_AllocatorPool.DiscardAllocator(fenceValueForReset, allocator);
 	}
 }
