@@ -45,7 +45,7 @@
     <ClCompile Include="1\Waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1\Light.cpp">
+    <ClCompile Include="1\Instancing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

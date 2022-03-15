@@ -4,6 +4,7 @@
 namespace Physic
 {
 	Particle::Particle(const glm::vec3& position, const float inverseMass)
+		: Body(position, glm::quat(), glm::vec3(1, 1, 1), inverseMass)
 	{
 
 	}
