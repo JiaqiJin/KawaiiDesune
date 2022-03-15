@@ -33,7 +33,19 @@ namespace RHI
 		CommandContext(const CommandContext&) = delete;
 		CommandContext& operator=(const CommandContext&) = delete;
 
+		// Prepare to render by reserving a command list and command allocator
 		void Initialize(ID3D12Device* pDevice);
+
+		GraphicsContext& GetGraphicsContext()
+		{
+			ASSERT(m_Type != D3D12_COMMAND_LIST_TYPE_COMPUTE, "Cannot convert async compute context to graphics");
+			return reinterpret_cast<GraphicsContext&>(*this);
+		}
+
+		ComputeContext& GetComputeContext()
+		{
+			return reinterpret_cast<ComputeContext&>(*this);
+		}
 	private:
 		CommandContext(D3D12_COMMAND_LIST_TYPE type);
 		void Reset();
@@ -41,5 +53,15 @@ namespace RHI
 		ID3D12Device* m_Device;
 
 		D3D12_COMMAND_LIST_TYPE m_Type;
+	};
+
+	class GraphicsContext : public CommandContext
+	{
+
+	};
+
+	class ComputeContext : public CommandContext
+	{
+
 	};
 }
