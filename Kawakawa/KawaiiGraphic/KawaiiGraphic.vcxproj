@@ -147,23 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Common\Window.cpp" />
-    <ClCompile Include="Core\Utility.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Frustum.cpp" />
     <ClCompile Include="Math\Random.cpp" />
-    <ClCompile Include="RHI\CommandAllocatorPool.cpp" />
-    <ClCompile Include="RHI\CommandContext.cpp" />
-    <ClCompile Include="RHI\CommandListManager.cpp" />
-    <ClCompile Include="RHI\CommandQueue.cpp" />
-    <ClCompile Include="RHI\Graphics.cpp" />
+    <ClCompile Include="RHI\D3D12CommandContext.cpp" />
+    <ClCompile Include="RHI\D3D12Device.cpp" />
+    <ClCompile Include="RHI\D3D12GraphicRHI.cpp" />
+    <ClCompile Include="RHI\D3D12Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
-    <ClInclude Include="Core\Utility.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Common\Window.h" />
-    <ClInclude Include="Core\VectorMath.h" />
     <ClInclude Include="Math\BoundingPlane.h" />
     <ClInclude Include="Math\BoundingSphere.h" />
     <ClInclude Include="Math\Common.h" />
@@ -176,11 +170,10 @@
     <ClInclude Include="Math\Scalar.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector.h" />
-    <ClInclude Include="RHI\CommandAllocatorPool.h" />
-    <ClInclude Include="RHI\CommandContext.h" />
-    <ClInclude Include="RHI\CommandListManager.h" />
-    <ClInclude Include="RHI\CommandQueue.h" />
-    <ClInclude Include="RHI\Graphics.h" />
+    <ClInclude Include="RHI\D3D12CommandContext.h" />
+    <ClInclude Include="RHI\D3D12Device.h" />
+    <ClInclude Include="RHI\D3D12GraphicRHI.h" />
+    <ClInclude Include="RHI\D3D12Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />

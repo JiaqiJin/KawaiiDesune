@@ -99,3 +99,4 @@
 #include <x3daudio.h>
 #include <xapofx.h>
 
+#include "Math/FMathLib.h"
