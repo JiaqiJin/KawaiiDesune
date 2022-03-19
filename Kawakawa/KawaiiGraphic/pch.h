@@ -10,6 +10,11 @@
 #pragma warning(disable:4239)	// a non-const reference may only be bound to an lvalue; assignment operator takes a reference to non-const
 #pragma warning(disable:4324)	// structure was padded due to __declspec(align())
 
+#pragma comment(lib, "d3d12.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxguid.lib")
+
 #include <winsdkver.h>
 #define _WIN32_WINNT 0x0A00
 #include <sdkddkver.h>
@@ -80,3 +85,5 @@
 #ifdef _DEBUG
 #include <dxgidebug.h>
 #endif
+
+#include "RHI/D3D12Utils.h"

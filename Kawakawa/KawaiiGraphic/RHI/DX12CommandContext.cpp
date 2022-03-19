@@ -1,22 +1,22 @@
 #include "pch.h"
-#include "D3D12CommandContext.h"
-#include "D3D12Device.h"
+#include "DX12CommandContext.h"
+#include "DX12Device.h"
 #include "D3D12Utils.h"
 
 namespace RHI
 {
-	D3D12CommandContext::D3D12CommandContext(RenderDevice* device)
+	DX12CommandContext::DX12CommandContext(RenderDevice* device)
 		: m_Device(device)
 	{
 		CreateCommandContext();
 	}
 
-	D3D12CommandContext::~D3D12CommandContext()
+	DX12CommandContext::~DX12CommandContext()
 	{
 		DestroyCommandContext();
 	}
 
-	void D3D12CommandContext::CreateCommandContext()
+	void DX12CommandContext::CreateCommandContext()
 	{
 		//Create fence
 		ThrowIfFailed(m_Device->GetD3DDevice()->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&Fence)));
@@ -41,22 +41,22 @@ namespace RHI
 		ThrowIfFailed(CommandList->Close());
 	}
 
-	void D3D12CommandContext::DestroyCommandContext()
+	void DX12CommandContext::DestroyCommandContext()
 	{
 
 	}
 
-	void D3D12CommandContext::ResetCommandAllocator()
+	void DX12CommandContext::ResetCommandAllocator()
 	{
 		ThrowIfFailed(CommandListAlloc->Reset());
 	}
 
-	void D3D12CommandContext::ResetCommandList()
+	void DX12CommandContext::ResetCommandList()
 	{
 		ThrowIfFailed(CommandList->Reset(CommandListAlloc.Get(), nullptr));
 	}
 
-	void D3D12CommandContext::ExecuteCommandLists()
+	void DX12CommandContext::ExecuteCommandLists()
 	{
 		// Done recording commands.
 		ThrowIfFailed(CommandList->Close());
@@ -66,7 +66,7 @@ namespace RHI
 		CommandQueue->ExecuteCommandLists(_countof(cmdsLists), cmdsLists);
 	}
 
-	void D3D12CommandContext::FlushCommandQueue()
+	void DX12CommandContext::FlushCommandQueue()
 	{
 		// Advance the fence value to mark commands up to this fence point.
 		CurrentFenceValue++;

@@ -4,11 +4,11 @@ namespace RHI
 {
 	class RenderDevice;
 
-	class D3D12CommandContext
+	class DX12CommandContext
 	{
 	public:
-		D3D12CommandContext(RenderDevice* device);
-		~D3D12CommandContext();
+		DX12CommandContext(RenderDevice* device);
+		~DX12CommandContext();
 
 		void ResetCommandAllocator();
 		void ResetCommandList();

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "D3D12Device.h"
-
 namespace RHI
 {
-	class D3D12GraphicRHI
+	class RenderDevice;
+
+	class DX12GraphicRHI
 	{
 	public:
-		D3D12GraphicRHI();
-		~D3D12GraphicRHI();
+		DX12GraphicRHI();
+		~DX12GraphicRHI();
 
 		void Initialize(HWND WindowHandle, int WindowWidth, int WindowHeight);
 	private:

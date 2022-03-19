@@ -1,6 +1,5 @@
 #include "pch.h"
-#include "D3D12Device.h"
-#include "D3D12Utils.h"
+#include "DX12Device.h"
 
 using Microsoft::WRL::ComPtr;
 

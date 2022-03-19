@@ -148,8 +148,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1\Light.cpp" />
-    <ClCompile Include="1\Waves.cpp" />
+    <ClCompile Include="Common\Camera.cpp" />
+    <ClCompile Include="Example\InstancingAndCullingApp.cpp" />
+    <ClCompile Include="Example\Waves.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
     <ClCompile Include="Common\DDSTextureLoader.cpp" />
@@ -161,7 +162,8 @@
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="1\Waves.h" />
+    <ClInclude Include="Common\Camera.h" />
+    <ClInclude Include="Example\Waves.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
     <ClInclude Include="Common\d3dx12.h" />
