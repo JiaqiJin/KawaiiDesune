@@ -149,10 +149,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Random.cpp" />
+    <ClCompile Include="RHI\DX12Buffer.cpp" />
     <ClCompile Include="RHI\DX12CommandContext.cpp" />
+    <ClCompile Include="RHI\DX12DescriptorCache.cpp" />
     <ClCompile Include="RHI\DX12Device.cpp" />
     <ClCompile Include="RHI\DX12GraphicRHI.cpp" />
     <ClCompile Include="RHI\D3D12Utils.cpp" />
+    <ClCompile Include="RHI\DX12HeapAllocator.cpp" />
     <ClCompile Include="RHI\DX12MemoryAllocator.cpp" />
     <ClCompile Include="RHI\DX12Resource.cpp" />
   </ItemGroup>
@@ -168,10 +171,13 @@
     <ClInclude Include="Math\Scalar.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="RHI\DX12Buffer.h" />
     <ClInclude Include="RHI\DX12CommandContext.h" />
+    <ClInclude Include="RHI\DX12DescriptorCache.h" />
     <ClInclude Include="RHI\DX12Device.h" />
     <ClInclude Include="RHI\DX12GraphicRHI.h" />
     <ClInclude Include="RHI\D3D12Utils.h" />
+    <ClInclude Include="RHI\DX12HeapAllocator.h" />
     <ClInclude Include="RHI\DX12MemoryAllocator.h" />
     <ClInclude Include="RHI\DX12Resource.h" />
   </ItemGroup>

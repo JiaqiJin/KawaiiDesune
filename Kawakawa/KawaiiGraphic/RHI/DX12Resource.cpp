@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "DX12Resource.h"
 
-
 namespace RHI
 {
 	DX12Resource::DX12Resource(Microsoft::WRL::ComPtr<ID3D12Resource> Resource, D3D12_RESOURCE_STATES InitState)
@@ -13,10 +12,8 @@ namespace RHI
 		}
 	}
 
-	void* DX12Resource::Map()
+	void DX12Resource::Map()
 	{
-		void* m_MappedAdderessMemory = nullptr;
 		ThrowIfFailed(m_Resource->Map(0, nullptr, &m_MappedAdderessMemory));
-		return m_MappedAdderessMemory;
 	}
 }
