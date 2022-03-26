@@ -41,6 +41,8 @@
 #include <Windows.h>
 #include <wrl/client.h>
 #include <wrl/event.h>
+#include <D3Dcompiler.h>
+#include <dxgi1_4.h>
 
 #include <d3d12.h>
 

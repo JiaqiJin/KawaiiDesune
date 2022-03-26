@@ -158,6 +158,7 @@
     <ClCompile Include="RHI\DX12HeapAllocator.cpp" />
     <ClCompile Include="RHI\DX12MemoryAllocator.cpp" />
     <ClCompile Include="RHI\DX12Resource.cpp" />
+    <ClCompile Include="RHI\DX12Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="RHI\DX12HeapAllocator.h" />
     <ClInclude Include="RHI\DX12MemoryAllocator.h" />
     <ClInclude Include="RHI\DX12Resource.h" />
+    <ClInclude Include="RHI\DX12Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />
