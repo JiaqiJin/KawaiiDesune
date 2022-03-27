@@ -149,7 +149,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common\Camera.cpp" />
-    <ClCompile Include="Example\InstancingAndCullingApp.cpp" />
+    <ClCompile Include="Common\CubeRenderTarget.cpp" />
+    <ClCompile Include="Example\DynamicCubeMapApp.cpp" />
     <ClCompile Include="Example\Waves.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Camera.h" />
+    <ClInclude Include="Common\CubeRenderTarget.h" />
     <ClInclude Include="Example\Waves.h" />
     <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
