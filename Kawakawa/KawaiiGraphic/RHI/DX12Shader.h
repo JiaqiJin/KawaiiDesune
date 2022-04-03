@@ -86,8 +86,6 @@ namespace RHI
 	public:
 		TShaderInfo m_ShaderInfo;
 
-		TShaderInfo m_ShaderInfo;
-
 		std::vector<TShaderCBVParameter> CBVParams;
 		std::vector<TShaderSRVParameter> SRVParams;
 		std::vector<TShaderUAVParameter> UAVParams;

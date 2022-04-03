@@ -155,7 +155,7 @@
     <ClCompile Include="RHI\DX12Device.cpp" />
     <ClCompile Include="RHI\DX12GraphicRHI.cpp" />
     <ClCompile Include="RHI\D3D12Utils.cpp" />
-    <ClCompile Include="RHI\DX12HeapAllocator.cpp" />
+    <ClCompile Include="RHI\DX12HeapSlotAllocator.cpp" />
     <ClCompile Include="RHI\DX12MemoryAllocator.cpp" />
     <ClCompile Include="RHI\DX12Resource.cpp" />
     <ClCompile Include="RHI\DX12Shader.cpp" />
@@ -178,7 +178,7 @@
     <ClInclude Include="RHI\DX12Device.h" />
     <ClInclude Include="RHI\DX12GraphicRHI.h" />
     <ClInclude Include="RHI\D3D12Utils.h" />
-    <ClInclude Include="RHI\DX12HeapAllocator.h" />
+    <ClInclude Include="RHI\DX12HeapSlotAllocator.h" />
     <ClInclude Include="RHI\DX12MemoryAllocator.h" />
     <ClInclude Include="RHI\DX12Resource.h" />
     <ClInclude Include="RHI\DX12Shader.h" />

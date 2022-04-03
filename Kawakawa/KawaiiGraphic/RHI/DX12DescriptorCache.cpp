@@ -16,6 +16,34 @@ namespace RHI
 
 	}
 
+	void DX12DescriptorCache::CreateCacheCbvSrvUavDescriptorHeap()
+	{
+		// Create the descriptor heap.
+		D3D12_DESCRIPTOR_HEAP_DESC HeapDesc = {};
+		HeapDesc.NumDescriptors = m_MaxCbvSrvUavDescripotrCount;
+		HeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+		HeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+
+		ThrowIfFailed(m_Device->GetD3DDevice()->CreateDescriptorHeap(&HeapDesc, IID_PPV_ARGS(&m_CacheCbvSrvUavDescriptorHeap)));
+		SetDebugName(m_CacheCbvSrvUavDescriptorHeap.Get(), L"DX12DescriptorCache CacheCbvSrvUavDescriptorHeap");
+
+		m_CbvSrvUavDescriptorSize = m_Device->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	}
+
+	void DX12DescriptorCache::CreateCacheRtvDescriptorHeap()
+	{
+		// Create the descriptor heap.
+		D3D12_DESCRIPTOR_HEAP_DESC HeapDesc = {};
+		HeapDesc.NumDescriptors = m_MaxRtvDescriptorCount;
+		HeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		HeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+		ThrowIfFailed(m_Device->GetD3DDevice()->CreateDescriptorHeap(&HeapDesc, IID_PPV_ARGS(&m_CacheRtvDescriptorHeap)));
+		SetDebugName(m_CacheRtvDescriptorHeap.Get(), L"DX12DescriptorCache CacheRtvDescriptorHeap");
+
+		m_RtvDescriptorSize = m_Device->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	}
+
 	CD3DX12_GPU_DESCRIPTOR_HANDLE DX12DescriptorCache::AppendCbvSrvUavDescriptors(const std::vector<D3D12_CPU_DESCRIPTOR_HANDLE>& SrcDescriptors)
 	{
 		uint32_t SlotsNeeded = (uint32_t)SrcDescriptors.size();
@@ -45,9 +73,11 @@ namespace RHI
 		uint32_t SlotsNeeded = (uint32_t)RtvDescriptors.size();
 		assert(m_RtvDescriptorOffset + SlotsNeeded < m_MaxRtvDescriptorCount);
 
+		// CpuDescriptorHandle
 		auto CpuDescriptorHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(m_CacheRtvDescriptorHeap->GetCPUDescriptorHandleForHeapStart(), 
 			m_RtvDescriptorOffset, m_RtvDescriptorSize);
 
+		// GpuDescriptorHandle
 		m_Device->GetD3DDevice()->CopyDescriptors(1, &CpuDescriptorHandle, &SlotsNeeded, SlotsNeeded, RtvDescriptors.data(), 
 			nullptr, D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
@@ -59,34 +89,6 @@ namespace RHI
 
 		// Increase descriptor offset
 		m_RtvDescriptorOffset += SlotsNeeded;
-	}
-
-	void DX12DescriptorCache::CreateCacheCbvSrvUavDescriptorHeap()
-	{
-		// Create the descriptor heap.
-		D3D12_DESCRIPTOR_HEAP_DESC HeapDesc = {};
-		HeapDesc.NumDescriptors = m_MaxCbvSrvUavDescripotrCount;
-		HeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
-		HeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
-
-		ThrowIfFailed(m_Device->GetD3DDevice()->CreateDescriptorHeap(&HeapDesc, IID_PPV_ARGS(&m_CacheCbvSrvUavDescriptorHeap)));
-		SetDebugName(m_CacheCbvSrvUavDescriptorHeap.Get(), L"DX12DescriptorCache CacheCbvSrvUavDescriptorHeap");
-
-		m_CbvSrvUavDescriptorSize = m_Device->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	}
-
-	void DX12DescriptorCache::CreateCacheRtvDescriptorHeap()
-	{
-		// Create the descriptor heap.
-		D3D12_DESCRIPTOR_HEAP_DESC HeapDesc = {};
-		HeapDesc.NumDescriptors = m_MaxRtvDescriptorCount;
-		HeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
-		HeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-
-		ThrowIfFailed(m_Device->GetD3DDevice()->CreateDescriptorHeap(&HeapDesc, IID_PPV_ARGS(&m_CacheRtvDescriptorHeap)));
-		SetDebugName(m_CacheRtvDescriptorHeap.Get(), L"DX12DescriptorCache CacheRtvDescriptorHeap");
-
-		m_RtvDescriptorSize = m_Device->GetD3DDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	}
 
 	void DX12DescriptorCache::ResetCacheCbvSrvUavDescriptorHeap()

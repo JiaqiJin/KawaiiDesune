@@ -16,4 +16,9 @@ namespace RHI
 	private:
 		DX12ResourceAllocation m_ResourceAllocation;
 	};
+
+	typedef std::shared_ptr<DX12Buffer> VertexBuffer;
+	typedef std::shared_ptr<DX12Buffer> IndexBuffer;
+	typedef std::shared_ptr<DX12Buffer> ConstantBuffer;
+	typedef std::shared_ptr<DX12Buffer> ReadBackBuffer;
 }

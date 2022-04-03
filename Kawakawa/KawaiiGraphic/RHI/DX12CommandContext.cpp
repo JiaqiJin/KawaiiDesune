@@ -2,6 +2,7 @@
 #include "DX12CommandContext.h"
 #include "DX12Device.h"
 #include "D3D12Utils.h"
+#include "DX12DescriptorCache.h"
 
 namespace RHI
 {
@@ -9,6 +10,8 @@ namespace RHI
 		: m_Device(device)
 	{
 		CreateCommandContext();
+
+		m_DescriptorCache = std::make_unique<DX12DescriptorCache>(device);
 	}
 
 	DX12CommandContext::~DX12CommandContext()

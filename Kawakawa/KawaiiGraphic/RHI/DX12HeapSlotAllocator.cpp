@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "DX12HeapAllocator.h"
+#include "DX12HeapSlotAllocator.h"
 #include <assert.h>
 
 namespace RHI
 {
-	DX12HeapAllocator::DX12HeapAllocator(ID3D12Device* Device, D3D12_DESCRIPTOR_HEAP_TYPE Type, uint32_t NumDescriptorsPerHeap)
+	DX12HeapSlotAllocator::DX12HeapSlotAllocator(ID3D12Device* Device, D3D12_DESCRIPTOR_HEAP_TYPE Type, uint32_t NumDescriptorsPerHeap)
 		: m_Device(Device),
 		m_HeapDesc(CreateHeapDesc(Type, NumDescriptorsPerHeap)),
 		m_DescriptorSize(m_Device->GetDescriptorHandleIncrementSize(m_HeapDesc.Type))
@@ -12,12 +12,12 @@ namespace RHI
 
 	}
 
-	DX12HeapAllocator::~DX12HeapAllocator()
+	DX12HeapSlotAllocator::~DX12HeapSlotAllocator()
 	{
 		
 	}
 
-	D3D12_DESCRIPTOR_HEAP_DESC DX12HeapAllocator::CreateHeapDesc(D3D12_DESCRIPTOR_HEAP_TYPE Type, uint32_t NumDescriptorsPerHeap)
+	D3D12_DESCRIPTOR_HEAP_DESC DX12HeapSlotAllocator::CreateHeapDesc(D3D12_DESCRIPTOR_HEAP_TYPE Type, uint32_t NumDescriptorsPerHeap)
 	{
 		D3D12_DESCRIPTOR_HEAP_DESC Desc = {};
 		Desc.Type = Type;
@@ -28,7 +28,7 @@ namespace RHI
 		return Desc;
 	}
 
-	DX12HeapAllocator::HeapSlot DX12HeapAllocator::AllocateHeapSlot()
+	DX12HeapSlotAllocator::HeapSlot DX12HeapSlotAllocator::AllocateHeapSlot()
 	{
 		// Find the entry with free list
 		int EntryIndex = -1;
@@ -66,7 +66,7 @@ namespace RHI
 		return Slot;
 	}
 
-	void DX12HeapAllocator::FreeHeapSlot(const HeapSlot& Slot)
+	void DX12HeapSlotAllocator::FreeHeapSlot(const HeapSlot& Slot)
 	{
 		assert(Slot.HeapIndex < m_HeapMap.size());
 		HeapEntry& Entry = m_HeapMap[Slot.HeapIndex];
@@ -111,12 +111,12 @@ namespace RHI
 		}
 	}
 
-	void DX12HeapAllocator::AllocateHeap()
+	void DX12HeapSlotAllocator::AllocateHeap()
 	{
 		// Create a new descriptorHeap
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> Heap;
 		ThrowIfFailed(m_Device->CreateDescriptorHeap(&m_HeapDesc, IID_PPV_ARGS(&Heap)));
-		SetDebugName(Heap.Get(), L"DX12HeapAllocator Descriptor Heap");
+		SetDebugName(Heap.Get(), L"DX12HeapSlotAllocator Descriptor Heap");
 
 		// Add an entry covering the entire heap.
 		DescriptorHandle HeapBase = Heap->GetCPUDescriptorHandleForHeapStart();

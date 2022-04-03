@@ -3,6 +3,7 @@
 namespace RHI
 {
 	class RenderDevice;
+	class DX12DescriptorCache;
 
 	class DX12CommandContext
 	{
@@ -10,18 +11,16 @@ namespace RHI
 		DX12CommandContext(RenderDevice* device);
 		~DX12CommandContext();
 
+		void CreateCommandContext();
+		void DestroyCommandContext();
 		void ResetCommandAllocator();
 		void ResetCommandList();
 		void ExecuteCommandLists();
 		void FlushCommandQueue();
+
 		// Getters
 		ID3D12CommandQueue* GetCommandQueue() { return CommandQueue.Get(); }
 		ID3D12GraphicsCommandList* GetCommandList() { return CommandList.Get(); }
-
-	private:
-		void CreateCommandContext();
-
-		void DestroyCommandContext();
 
 	private:
 		RenderDevice* m_Device;
@@ -35,5 +34,7 @@ namespace RHI
 		Microsoft::WRL::ComPtr<ID3D12Fence> Fence = nullptr;
 		// Fence Value
 		UINT64 CurrentFenceValue = 0;
+		// Descriptor Cache
+		std::unique_ptr<DX12DescriptorCache> m_DescriptorCache = nullptr;
 	};
 }
