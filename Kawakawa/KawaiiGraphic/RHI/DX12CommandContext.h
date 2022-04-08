@@ -17,10 +17,12 @@ namespace RHI
 		void ResetCommandList();
 		void ExecuteCommandLists();
 		void FlushCommandQueue();
+		void EndFrame();
 
 		// Getters
 		ID3D12CommandQueue* GetCommandQueue() { return CommandQueue.Get(); }
 		ID3D12GraphicsCommandList* GetCommandList() { return CommandList.Get(); }
+		DX12DescriptorCache* GetDescriptorCache() { return m_DescriptorCache.get(); }
 
 	private:
 		RenderDevice* m_Device;

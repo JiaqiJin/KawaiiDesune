@@ -9,6 +9,15 @@
 #define DEFAULT_RESOURCE_ALIGNMENT 4
 #define UPLOAD_RESOURCE_ALIGNMENT 256
 
+/*
+* BuddyAllocator :
+* - When allocating, if the free memory block is too large, it will be continuously divided into two parts
+*  and the divided memory will be smaller than the required space.
+* - When releasing, it will detect whether Buddy is free, and if so, it will be merged with Buddy into a large free block. 
+* If the merged large free block finds that its Buddy is also free, it will continue to merge until it cannot be merged.
+* https://github.com/EpicGames/UnrealEngine/blob/c3caf7b6bf12ae4c8e09b606f10a09776b4d1f38/Engine/Source/Runtime/D3D12RHI/Private/D3D12Allocation.h
+*/
+
 namespace RHI
 {
 	class DX12ResourceAllocation;
@@ -33,8 +42,8 @@ namespace RHI
 
 		struct AllocatorInitData
 		{
-			EAllocationStrategy AllocationStrategy;
-			D3D12_HEAP_TYPE HeapType;
+			EAllocationStrategy AllocationStrategy;  // Allocation Strategy
+			D3D12_HEAP_TYPE HeapType; 
 			D3D12_HEAP_FLAGS HeapFlags = D3D12_HEAP_FLAG_NONE;  // Only for PlacedResource
 			D3D12_RESOURCE_FLAGS ResourceFlags = D3D12_RESOURCE_FLAG_NONE;  // Only for ManualSubAllocation
 		};
@@ -55,14 +64,18 @@ namespace RHI
 	private:
 		void Initialize();
 
+		// Find a suitable free block and allocate it.
 		uint32_t AllocateBlock(uint32_t Order);
 
 		uint32_t GetSizeToAllocate(uint32_t Size, uint32_t Alignment);
 
+		// Check to see if there is more space to allocate
 		bool CanAllocate(uint32_t SizeToAllocate);
 
 		void DeallocateInternal(const DX12BuddyBlockData& Block);
 
+		// When the ResourceAllocation is destroyed, the video memory resources are released.
+		// Instead of releasing immediately, the block information is saved in the destruction queue
 		void DeallocateBlock(uint32_t Offset, uint32_t Order);
 
 		uint32_t GetBuddyOffset(const uint32_t& Offset, const uint32_t& Size)
@@ -90,18 +103,25 @@ namespace RHI
 		}
 
 	private:
+		// Allocator Init Data (Heap datas, type)
 		AllocatorInitData InitData;
+		// Min Block Size
 		const uint32_t MinBlockSize = 256;
+		// The level corresponding to the required size
 		uint32_t MaxOrder;
 		uint32_t TotalAllocSize = 0;
 		std::vector<std::set<uint32_t>> FreeBlocks;
 		std::vector<DX12BuddyBlockData> DeferredDeletionQueue;
 
 		ID3D12Device* m_Device;
+		// Backing Resource
 		DX12Resource* BackingResource = nullptr;
+		// Backing Heap
 		ID3D12Heap* BackingHeap = nullptr;
 	};
 
+	// Contains a set of BuddyAllocators, When applying for resources, 
+	// if it is found that the existing BuddyAllocator has no free space, a new BuddyAllocator will be created for allocation.
 	class DX12MultiBuddyAllocator
 	{
 	public:
@@ -118,6 +138,7 @@ namespace RHI
 		DX12BuddyAllocator::AllocatorInitData m_InitData;
 	};
 
+	// DX12UploadBufferAllocator
 	class DX12UploadBufferAllocator
 	{
 	public:
@@ -133,6 +154,7 @@ namespace RHI
 		ID3D12Device* D3DDevice = nullptr;
 	};
 
+	// DX12DefaultBufferAllocator
 	class DX12DefaultBufferAllocator
 	{
 	public:
@@ -150,6 +172,7 @@ namespace RHI
 		ID3D12Device* D3DDevice = nullptr;
 	};
 
+	// DX12TextureResourceAllocator
 	class DX12TextureResourceAllocator
 	{
 	public:

@@ -1,10 +1,19 @@
 #pragma once
 
+/* ID3D12Resource Memory allocation scheme
+* StandAlone -> CommittedResource to creates TD3D12Resource, give it to a rendering resource to use.
+* SubAllocation :
+*	PlacedResource -> Create an ID3D12Heap and use the PlacedResource interface on the Heap to create multiple ID3D12Resources
+*	ManualSubAllocation -> ID3D12Resource is created through the CommittedResource interface, 
+		logically divide a ID3D12Resource into multiple copies for use by multiple rendering resources.
+*/
+
 namespace RHI
 {
 	class RenderDevice;
 	class DX12BuddyAllocator;
 
+	// ID3D12Resource represent GPU resources (Textures, buffer)
 	class DX12Resource
 	{
 	public:
@@ -12,9 +21,13 @@ namespace RHI
 
 		void Map();
 	public:
+		// DX12 Resource
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_Resource = nullptr;
+		// GPU Virtual Address
 		D3D12_GPU_VIRTUAL_ADDRESS m_GPUVirtualAddress = 0;
+		// Current State
 		D3D12_RESOURCE_STATES m_CurrentState;
+		// Mapped Memory
 		void* m_MappedAdderessMemory = nullptr;
 	};
 
@@ -27,6 +40,10 @@ namespace RHI
 		DX12Resource* PlacedResource = nullptr;
 	};
 
+	// Support SubAllocation by recording offset,
+	// If it is SubAllocation (PlacedResource), then OffsetFromBaseOfHeap records its relative to Heap,
+	// If it is SubAllocation (ManualSubAllocation)
+	// then OffsetFromBaseOfResource records its offset relative to the starting position
 	class DX12ResourceAllocation
 	{
 	public:

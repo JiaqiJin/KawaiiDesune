@@ -24,6 +24,7 @@ namespace RHI
 
 	void DX12BuddyAllocator::Initialize()
 	{
+		// when the allocation strategy is PlacedResource, we need to create a Heap
 		if (InitData.AllocationStrategy == EAllocationStrategy::kPlacedResource)
 		{
 			CD3DX12_HEAP_PROPERTIES HeapProperties(InitData.HeapType);
@@ -40,7 +41,7 @@ namespace RHI
 
 			BackingHeap = Heap;
 		}
-		else //ManualSubAllocation
+		else // ManualSubAllocation we are going to create a CommittedResource
 		{
 			CD3DX12_HEAP_PROPERTIES HeapProperties(InitData.HeapType);
 			D3D12_RESOURCE_STATES HeapResourceStates;
@@ -75,6 +76,8 @@ namespace RHI
 			}
 		}
 
+		// Then we add a free block that includes the entire memory space we allocated.
+
 		// Initialize free blocks, add the free block for MaxOrder
 		MaxOrder = UnitSizeToOrder(SizeToUnitSize(DEFAULT_POOL_SIZE));
 
@@ -88,20 +91,23 @@ namespace RHI
 
 	bool DX12BuddyAllocator::AllocResource(uint32_t Size, uint32_t Alignment, DX12ResourceAllocation& ResourceLocation)
 	{
+		// If the alignment doesn't match the block size
 		uint32_t SizeToAllocate = GetSizeToAllocate(Size, Alignment);
 
 		if (CanAllocate(SizeToAllocate))
 		{
-			// Allocate block
+			// Work out what size block is needed and allocate one
 			const uint32_t UnitSize = SizeToUnitSize(SizeToAllocate);
 			const uint32_t Order = UnitSizeToOrder(UnitSize);
 			const uint32_t Offset = AllocateBlock(Order); // This is the offset in MinBlockSize units
+
 			const uint32_t AllocSize = UnitSize * MinBlockSize;
 			TotalAllocSize += AllocSize;
 
 			//Calculate AlignedOffsetFromResourceBase
 			const uint32_t OffsetFromBaseOfResource = GetAllocOffsetInBytes(Offset);
 			uint32_t AlignedOffsetFromResourceBase = OffsetFromBaseOfResource;
+
 			if (Alignment != 0 && OffsetFromBaseOfResource % Alignment != 0)
 			{
 				AlignedOffsetFromResourceBase = AlignArbitrary(OffsetFromBaseOfResource, Alignment);
@@ -162,6 +168,8 @@ namespace RHI
 		DeferredDeletionQueue.clear();
 	}
 
+	// For example, if 10KB of space is required, then the corresponding level is 16KB. If the current level has excess allocation space, 
+	// then find a free block in the current level and return it and delete it from the free block list.
 	uint32_t DX12BuddyAllocator::AllocateBlock(uint32_t Order)
 	{
 		uint32_t Offset;
@@ -249,6 +257,9 @@ namespace RHI
 		}
 	}
 
+	// When recycling each block, it will check if the buddy is free. 
+	// If it is, it will be merged with the buddy into a large free block. If not,
+	// the current block will be directly added to the free block list.
 	void DX12BuddyAllocator::DeallocateBlock(uint32_t Offset, uint32_t Order)
 	{
 		// Get buddy block

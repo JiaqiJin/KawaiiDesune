@@ -51,5 +51,8 @@ namespace RHI
 
 			ThrowIfFailed(D3D12CreateDevice(WarpAdapter.Get(), D3D_FEATURE_LEVEL_11_0, IID_PPV_ARGS(&m_Device)));
 		}
+
+		//Create CommandContext
+		m_CommandContext = std::make_unique<DX12CommandContext>(this);
 	}
 }

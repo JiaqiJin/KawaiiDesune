@@ -1,5 +1,7 @@
 #pragma once
 
+// https://github.com/EpicGames/UnrealEngine/blob/c3caf7b6bf12ae4c8e09b606f10a09776b4d1f38/Engine/Source/Runtime/D3D12RHI/Private/D3D12DescriptorCache.h
+
 namespace RHI
 {
 	// Responsible for creating non-shader-visible descriptor heaps, and allocating slots for creating descriptors.

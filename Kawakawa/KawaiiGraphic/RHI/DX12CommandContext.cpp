@@ -92,4 +92,9 @@ namespace RHI
 			CloseHandle(eventHandle);
 		}
 	}
+
+	void DX12CommandContext::EndFrame()
+	{
+		m_DescriptorCache->Reset();
+	}
 }

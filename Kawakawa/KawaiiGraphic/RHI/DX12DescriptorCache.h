@@ -5,7 +5,9 @@
 * and use a GPU descriptor heap to collect the descriptors needed for each drawing.
 * Before each drawing, fill the GPU descriptor heap with the descriptors needed for the current drawing
 * https://zhuanlan.zhihu.com/p/129257338
+* https://github.com/EpicGames/UnrealEngine/blob/c3caf7b6bf12ae4c8e09b606f10a09776b4d1f38/Engine/Source/Runtime/D3D12RHI/Private/D3D12DescriptorCache.h
 */
+
 namespace RHI
 {
 	class RenderDevice;
