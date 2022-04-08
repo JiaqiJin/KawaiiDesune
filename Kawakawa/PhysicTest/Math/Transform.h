@@ -5,6 +5,10 @@
 
 namespace Physic
 {
+	static glm::vec3 worldUp = glm::vec3(0.f, 1.f, 0.f);
+	static glm::vec3 worldSide = glm::vec3(1.f, 0.f, 0.f);
+	static glm::vec3 worldForward = glm::vec3(0.f, 0.f, -1.f);
+
 	class Transform
 	{
 	public:

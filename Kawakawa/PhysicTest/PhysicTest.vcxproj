@@ -149,10 +149,10 @@
   <ItemGroup>
     <ClCompile Include="Demos\Demo.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Math\Transform.cpp" />
     <ClCompile Include="Physic\Entities\Body.cpp" />
     <ClCompile Include="Physic\Entities\Particle.cpp" />
     <ClCompile Include="Physic\Entities\ParticleManager.cpp" />
+    <ClCompile Include="Physic\Entities\Rigidbody.cpp" />
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\AnchoredSpringForceGenerator.cpp" />
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\BungeeSpringForceGenerator.cpp" />
     <ClCompile Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.cpp" />
@@ -177,6 +177,7 @@
     <ClInclude Include="Physic\Entities\IIntegratable.h" />
     <ClInclude Include="Physic\Entities\Particle.h" />
     <ClInclude Include="Physic\Entities\ParticleManager.h" />
+    <ClInclude Include="Physic\Entities\Rigidbody.h" />
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\AnchoredSpringForceGenerator.h" />
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\BungeeSpringForceGenerator.h" />
     <ClInclude Include="Physic\ForceGenerator\ParticleForceGenerator\BuoyancyForceGenerator.h" />

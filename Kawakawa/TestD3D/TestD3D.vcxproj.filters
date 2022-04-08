@@ -45,13 +45,7 @@
     <ClCompile Include="Example\Waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Example\DynamicCubeMapApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\CubeRenderTarget.cpp">
+
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
