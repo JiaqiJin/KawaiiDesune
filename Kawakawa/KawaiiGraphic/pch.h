@@ -10,6 +10,11 @@
 #pragma warning(disable:4239)	// a non-const reference may only be bound to an lvalue; assignment operator takes a reference to non-const
 #pragma warning(disable:4324)	// structure was padded due to __declspec(align())
 
+#pragma comment(lib, "d3d12.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxguid.lib")
+
 #include <winsdkver.h>
 #define _WIN32_WINNT 0x0A00
 #include <sdkddkver.h>
@@ -36,6 +41,8 @@
 #include <Windows.h>
 #include <wrl/client.h>
 #include <wrl/event.h>
+#include <D3Dcompiler.h>
+#include <dxgi1_4.h>
 
 #include <d3d12.h>
 
@@ -81,36 +88,4 @@
 #include <dxgidebug.h>
 #endif
 
-#include "Core/VectorMath.h"
-#include "Core/Utility.h"
-
-namespace MyDirectX
-{
-	// Helper class for COM exceptions
-	class com_exception : public std::exception
-	{
-	public:
-		com_exception(HRESULT hr) : result(hr) {}
-
-		virtual const char* what() const override
-		{
-			static char s_str[64] = {};
-			sprintf_s(s_str, "Failure with HRESULT of %08X", static_cast<unsigned int>(result));
-			return s_str;
-		}
-
-	private:
-		HRESULT result;
-	};
-
-	// Helper utility converts D3D API failures into exceptions.
-	inline void ThrowIfFailed(HRESULT hr)
-	{
-		if (FAILED(hr))
-		{
-			throw com_exception(hr);
-		}
-	}
-
-	const unsigned SCR_WIDTH = 640, SCR_HEIGHT = 480;
-}
+#include "RHI/D3D12Utils.h"

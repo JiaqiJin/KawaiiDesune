@@ -18,31 +18,37 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Frustum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Utility.cpp">
+    <ClCompile Include="RHI\DX12Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\CommandAllocatorPool.cpp">
+    <ClCompile Include="RHI\DX12GraphicRHI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\CommandContext.cpp">
+    <ClCompile Include="RHI\D3D12Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\CommandListManager.cpp">
+    <ClCompile Include="RHI\DX12CommandContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\CommandQueue.cpp">
+    <ClCompile Include="RHI\DX12Resource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RHI\Graphics.cpp">
+    <ClCompile Include="RHI\DX12MemoryAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DX12HeapSlotAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DX12DescriptorCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DX12Buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RHI\DX12Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,22 +56,10 @@
     <ClInclude Include="Common\d3dx12.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Math\BoundingPlane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\BoundingSphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Frustum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Math\GLMath.h">
@@ -92,25 +86,34 @@
     <ClInclude Include="Math\Vector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\VectorMath.h">
+    <ClInclude Include="RHI\DX12Device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Utility.h">
+    <ClInclude Include="RHI\DX12GraphicRHI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\CommandAllocatorPool.h">
+    <ClInclude Include="RHI\D3D12Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\CommandContext.h">
+    <ClInclude Include="RHI\DX12CommandContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\CommandListManager.h">
+    <ClInclude Include="RHI\DX12Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\CommandQueue.h">
+    <ClInclude Include="RHI\DX12MemoryAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RHI\Graphics.h">
+    <ClInclude Include="RHI\DX12HeapSlotAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\DX12DescriptorCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\DX12Buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RHI\DX12Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
