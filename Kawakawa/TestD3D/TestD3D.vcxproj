@@ -148,7 +148,8 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-
+    <ClCompile Include="Common\Camera.cpp" />
+    <ClCompile Include="Common\CubeRenderTarget.cpp" />
     <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
     <ClCompile Include="Common\DDSTextureLoader.cpp" />

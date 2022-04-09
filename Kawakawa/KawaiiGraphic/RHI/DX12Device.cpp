@@ -54,5 +54,28 @@ namespace RHI
 
 		//Create CommandContext
 		m_CommandContext = std::make_unique<DX12CommandContext>(this);
+
+		//Create heapSlot allocator
+		m_RTVHeapSlotAllocator = std::make_unique<DX12HeapSlotAllocator>(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 200);
+		m_DSVHeapSlotAllocator = std::make_unique<DX12HeapSlotAllocator>(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 200);
+		m_SRVHeapSlotAllocator = std::make_unique<DX12HeapSlotAllocator>(m_Device.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 200);
+	}
+
+	DX12HeapSlotAllocator* RenderDevice::GetHeapSlotAllocator(D3D12_DESCRIPTOR_HEAP_TYPE HeapType)
+	{
+		switch (HeapType)
+		{
+		case D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV:
+			return m_SRVHeapSlotAllocator.get();
+			break;
+		case D3D12_DESCRIPTOR_HEAP_TYPE_RTV:
+			return m_RTVHeapSlotAllocator.get();
+			break;
+		case D3D12_DESCRIPTOR_HEAP_TYPE_DSV:
+			return m_DSVHeapSlotAllocator.get();
+			break;
+		default:
+			return nullptr;
+		}
 	}
 }
