@@ -159,9 +159,12 @@
     <ClCompile Include="RHI\DX12MemoryAllocator.cpp" />
     <ClCompile Include="RHI\DX12Resource.cpp" />
     <ClCompile Include="RHI\DX12Shader.cpp" />
+    <ClCompile Include="RHI\DX12Texture.cpp" />
+    <ClCompile Include="RHI\DX12View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
+    <ClInclude Include="Math\Math.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Math\Common.h" />
     <ClInclude Include="Math\GLMath.h" />
@@ -182,6 +185,8 @@
     <ClInclude Include="RHI\DX12MemoryAllocator.h" />
     <ClInclude Include="RHI\DX12Resource.h" />
     <ClInclude Include="RHI\DX12Shader.h" />
+    <ClInclude Include="RHI\DX12Texture.h" />
+    <ClInclude Include="RHI\DX12View.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\Functions.inl" />
