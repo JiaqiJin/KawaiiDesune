@@ -147,8 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component\CameraComponent.cpp" />
+    <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math\Random.cpp" />
+    <ClCompile Include="Math\Math.cpp" />
+    <ClCompile Include="Math\Transform.cpp" />
     <ClCompile Include="RHI\DX12Buffer.cpp" />
     <ClCompile Include="RHI\DX12CommandContext.cpp" />
     <ClCompile Include="RHI\DX12DescriptorCache.cpp" />
@@ -164,17 +167,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
+    <ClInclude Include="Component\CameraComponent.h" />
+    <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Math\IntPoint.h" />
     <ClInclude Include="Math\Math.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Math\Common.h" />
-    <ClInclude Include="Math\GLMath.h" />
-    <ClInclude Include="Math\Matrix3.h" />
-    <ClInclude Include="Math\Matrix4.h" />
-    <ClInclude Include="Math\Quaternion.h" />
-    <ClInclude Include="Math\Random.h" />
-    <ClInclude Include="Math\Scalar.h" />
+    <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Transform.h" />
-    <ClInclude Include="Math\Vector.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="RHI\DX12Buffer.h" />
     <ClInclude Include="RHI\DX12CommandContext.h" />
     <ClInclude Include="RHI\DX12DescriptorCache.h" />
@@ -187,9 +189,9 @@
     <ClInclude Include="RHI\DX12Shader.h" />
     <ClInclude Include="RHI\DX12Texture.h" />
     <ClInclude Include="RHI\DX12View.h" />
+    <ClInclude Include="Texture\TextureInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Math\Functions.inl" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
