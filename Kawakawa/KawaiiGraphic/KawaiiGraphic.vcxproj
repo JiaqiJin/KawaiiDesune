@@ -164,6 +164,7 @@
     <ClCompile Include="RHI\DX12Shader.cpp" />
     <ClCompile Include="RHI\DX12Texture.cpp" />
     <ClCompile Include="RHI\DX12View.cpp" />
+    <ClCompile Include="RHI\DX12Viewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\d3dx12.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="RHI\DX12Shader.h" />
     <ClInclude Include="RHI\DX12Texture.h" />
     <ClInclude Include="RHI\DX12View.h" />
+    <ClInclude Include="RHI\DX12Viewport.h" />
     <ClInclude Include="Texture\TextureInfo.h" />
   </ItemGroup>
   <ItemGroup>

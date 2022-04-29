@@ -25,10 +25,9 @@ namespace RHI
 		void Initialize();
 
 	private:
-		DX12GraphicRHI* D3D12RHI = nullptr;
+		DX12GraphicRHI* m_D3D12RHI = nullptr;
 
 		Microsoft::WRL::ComPtr<ID3D12Device> m_Device = nullptr;
-		Microsoft::WRL::ComPtr<IDXGIFactory4> DxgiFactory = nullptr;
 		// Command Context
 		std::unique_ptr<DX12CommandContext> m_CommandContext = nullptr;
 		

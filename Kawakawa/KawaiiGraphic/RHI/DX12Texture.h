@@ -12,8 +12,8 @@ namespace RHI
 		DX12Resource* GetResource() { return m_ResourceAllocation.m_UnderlyingResource; }
 		ID3D12Resource* GetD3DResource() { return m_ResourceAllocation.m_UnderlyingResource->m_Resource.Get(); }
 
-		void SetRTVClearValue(Math::Vector4 ClearValue) { RTVClearValue = ClearValue; }
-		Math::Vector4 GetRTVClearValue() { return RTVClearValue; }
+		void SetRTVClearValue(TVector4 ClearValue) { RTVClearValue = ClearValue; }
+		TVector4 GetRTVClearValue() { return RTVClearValue; }
 		float* GetRTVClearValuePtr() { return (float*)&RTVClearValue; }
 
 		// Getters
@@ -36,7 +36,7 @@ namespace RHI
 		std::vector<std::unique_ptr<DX12UnorderedAccessView>> m_UAVs;
 
 		// Clear Value
-		Math::Vector4 RTVClearValue;
+		TVector4 RTVClearValue;
 	};
 
 	typedef std::shared_ptr<DX12Texture> DX12TextureRef;
