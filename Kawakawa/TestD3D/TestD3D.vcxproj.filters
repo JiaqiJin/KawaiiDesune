@@ -16,7 +16,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Common\Camera.cpp" />
     <ClCompile Include="Common\CubeRenderTarget.cpp" />
-    <ClCompile Include="Example\InstancingAndCullingApp.cpp" />
+    <ClCompile Include="Example\CubeMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Camera.h" />

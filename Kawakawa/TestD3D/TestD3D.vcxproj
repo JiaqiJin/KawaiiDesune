@@ -158,7 +158,7 @@
     <ClCompile Include="Common\GeometryGenerator.cpp" />
     <ClCompile Include="Common\Helpers.cpp" />
     <ClCompile Include="Common\MathHelper.cpp" />
-    <ClCompile Include="Example\InstancingAndCullingApp.cpp" />
+    <ClCompile Include="Example\CubeMap.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
