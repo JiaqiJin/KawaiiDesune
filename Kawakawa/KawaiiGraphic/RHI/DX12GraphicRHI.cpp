@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "DX12GraphicRHI.h"
 #include "DX12Device.h"
+#include "DX12CommandContext.h"
+#include "DX12Texture.h"
+#include "DX12MemoryAllocator.h"
 
 using Microsoft::WRL::ComPtr;
 
@@ -62,6 +65,68 @@ namespace RHI
 
 	}
 
+	// Commands 
+	void  DX12GraphicRHI::ExecuteCommandLists()
+	{
+		GetDevice()->GetCommandContext()->ExecuteCommandLists();
+	}
+
+	void  DX12GraphicRHI::FlushCommandQueue()
+	{
+		GetDevice()->GetCommandContext()->FlushCommandQueue();
+	}
+
+	void  DX12GraphicRHI::ResetCommandList()
+	{
+		GetDevice()->GetCommandContext()->ResetCommandList();
+	}
+
+	void  DX12GraphicRHI::ResetCommandAllocator()
+	{
+		GetDevice()->GetCommandContext()->ResetCommandAllocator();
+	}
+
+	void  DX12GraphicRHI::Present()
+	{
+		GetViewport()->Present();
+	}
+
+	void  DX12GraphicRHI::ResizeViewport(int Width, int Height)
+	{
+		GetViewport()->OnResize(Width, Height);
+	}
+
+	void  DX12GraphicRHI::TransitionResource(DX12Resource* Resource, D3D12_RESOURCE_STATES StateAfter)
+	{
+		D3D12_RESOURCE_STATES StateBefore = Resource->m_CurrentState;
+
+		if (StateBefore != StateAfter)
+		{
+			GetDevice()->GetCommandList()->ResourceBarrier(1, 
+				&CD3DX12_RESOURCE_BARRIER::Transition(Resource->m_Resource.Get(), StateBefore, StateAfter));
+
+			Resource->m_CurrentState = StateAfter;
+		}
+	}
+
+	void DX12GraphicRHI::CopyResource(DX12Resource* DstResource, DX12Resource* SrcResource)
+	{
+		GetDevice()->GetCommandList()->CopyResource(DstResource->m_Resource.Get(), SrcResource->m_Resource.Get());
+	}
+
+	void DX12GraphicRHI::CopyBufferRegion(DX12Resource* DstResource, UINT64 DstOffset,
+		DX12Resource* SrcResource, UINT64 SrcOffset, UINT64 Size)
+	{
+		GetDevice()->GetCommandList()->CopyBufferRegion(DstResource->m_Resource.Get(),
+			DstOffset, SrcResource->m_Resource.Get(), SrcOffset, Size);
+	}
+
+	void DX12GraphicRHI::CopyTextureRegion(const D3D12_TEXTURE_COPY_LOCATION* Dst, UINT DstX, 
+		UINT DstY, UINT DstZ, const D3D12_TEXTURE_COPY_LOCATION* Src, const D3D12_BOX* SrcBox)
+	{
+		GetDevice()->GetCommandList()->CopyTextureRegion(Dst, DstX, DstY, DstZ, Src, SrcBox);
+	}
+
 	// Texture
 	DX12TextureRef DX12GraphicRHI::CreateTexture(const TextureInfo& TextureInfo, uint32_t CreateFlags, TVector4 RTVClearValue)
 	{
@@ -113,11 +178,36 @@ namespace RHI
 		return TextureRef;
 	}
 
+	void DX12GraphicRHI::UploadTexture(DX12TextureRef Texture, const std::vector<D3D12_SUBRESOURCE_DATA>& InitData)
+	{
+		auto TextureResource = Texture->GetResource();
+		D3D12_RESOURCE_DESC TexDesc = TextureResource->m_Resource->GetDesc();
+
+		const UINT NumSubresources = (UINT)InitData.size();
+
+		// GetCopyableFootprints
+		std::vector<D3D12_PLACED_SUBRESOURCE_FOOTPRINT> Layouts(NumSubresources);
+		std::vector<uint32_t> NumRows(NumSubresources);
+		std::vector<uint64_t> RowSizesInBytes(NumSubresources);
+		uint64_t RequiredSize = 0;
+
+		m_RenderDevice->GetD3DDevice()->GetCopyableFootprints(&TexDesc, 0, NumSubresources, 0, 
+			&Layouts[0], &NumRows[0], &RowSizesInBytes[0], &RequiredSize);
+
+		// Create upload resource
+		DX12ResourceAllocation UploadResourceAllocation;
+		auto UploadBufferAllocator = GetDevice()->GetUploadBufferAllocator();
+		void* MappedData = UploadBufferAllocator->AllocUploadResource((uint32_t)RequiredSize, D3D12_TEXTURE_DATA_PLACEMENT_ALIGNMENT, UploadResourceAllocation);
+		ID3D12Resource* UploadBuffer = UploadResourceAllocation.m_UnderlyingResource->m_Resource.Get();
+
+		// Copy contents to upload resource
+
+		// Copy data from upload resource to default resource
+	}
+
 	void DX12GraphicRHI::CreateTextureViews(DX12TextureRef TextureRef, const TextureInfo& TextureInfo, uint32_t CreateFlags)
 	{
-		auto TextureResource = TextureRef->GetD3DResource();
-
-
+	
 	}
 
 	UINT DX12GraphicRHI::GetSupportMSAAQuality(DXGI_FORMAT BackBufferFormat)
