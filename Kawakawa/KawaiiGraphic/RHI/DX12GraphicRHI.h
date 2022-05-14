@@ -42,7 +42,7 @@ namespace RHI
 		DX12TextureRef CreateTexture(const TextureInfo& TextureInfo, uint32_t CreateFlags, TVector4 RTVClearValue = TVector4::Zero);
 		DX12TextureRef CreateTexture(Microsoft::WRL::ComPtr<ID3D12Resource> D3DResource, const TextureInfo& TextureInfo, uint32_t CreateFlags);
 
-		void UploadTexture(DX12TextureRef Texture, const std::vector<D3D12_SUBRESOURCE_DATA>& InitData);
+		void UploadTextureData(DX12TextureRef Texture, const std::vector<D3D12_SUBRESOURCE_DATA>& InitData);
 
 		// Getters
 		RenderDevice* GetDevice() { return m_RenderDevice.get(); }

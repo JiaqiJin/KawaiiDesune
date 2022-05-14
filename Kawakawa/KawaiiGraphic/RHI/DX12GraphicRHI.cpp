@@ -178,7 +178,7 @@ namespace RHI
 		return TextureRef;
 	}
 
-	void DX12GraphicRHI::UploadTexture(DX12TextureRef Texture, const std::vector<D3D12_SUBRESOURCE_DATA>& InitData)
+	void DX12GraphicRHI::UploadTextureData(DX12TextureRef Texture, const std::vector<D3D12_SUBRESOURCE_DATA>& InitData)
 	{
 		auto TextureResource = Texture->GetResource();
 		D3D12_RESOURCE_DESC TexDesc = TextureResource->m_Resource->GetDesc();
@@ -201,13 +201,80 @@ namespace RHI
 		ID3D12Resource* UploadBuffer = UploadResourceAllocation.m_UnderlyingResource->m_Resource.Get();
 
 		// Copy contents to upload resource
+		for (uint32_t i = 0; i < NumSubresources; i++)
+		{
+			if (RowSizesInBytes[i] > SIZE_T(-1))
+			{
+				assert(0);
+			}
+			D3D12_MEMCPY_DEST DestData = { (BYTE*)MappedData + Layouts[i].Offset, Layouts[i].Footprint.RowPitch, SIZE_T(Layouts[i].Footprint.RowPitch) * SIZE_T(NumRows[i]) };
+			MemcpySubresource(&DestData, &(InitData[i]), static_cast<SIZE_T>(RowSizesInBytes[i]), NumRows[i], Layouts[i].Footprint.Depth);
+		}
 
 		// Copy data from upload resource to default resource
+		TransitionResource(TextureResource, D3D12_RESOURCE_STATE_COPY_DEST);
+
+		for (UINT i = 0; i < NumSubresources; ++i)
+		{
+			Layouts[i].Offset += UploadResourceAllocation.OffsetFromBaseOfResource;
+
+			CD3DX12_TEXTURE_COPY_LOCATION Src;
+			Src.pResource = UploadBuffer;
+			Src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT;
+			Src.PlacedFootprint = Layouts[i];
+
+			CD3DX12_TEXTURE_COPY_LOCATION Dst;
+			Dst.pResource = TextureResource->m_Resource.Get();
+			Dst.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
+			Dst.SubresourceIndex = i;
+
+			CopyTextureRegion(&Dst, 0, 0, 0, &Src, nullptr);
+		}
+
+		TransitionResource(TextureResource, D3D12_RESOURCE_STATE_COMMON);
 	}
 
 	void DX12GraphicRHI::CreateTextureViews(DX12TextureRef TextureRef, const TextureInfo& TextureInfo, uint32_t CreateFlags)
 	{
-	
+		auto TextureResource = TextureRef->GetD3DResource();
+
+		// Create SRV
+		if (CreateFlags & TexCreate_SRV)
+		{
+			D3D12_SHADER_RESOURCE_VIEW_DESC SrvDesc = {};
+			SrvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+
+			if (TextureInfo.SRVFormat == DXGI_FORMAT_UNKNOWN)
+			{
+				SrvDesc.Format = TextureInfo.Format;
+			}
+			else
+			{
+				SrvDesc.Format = TextureInfo.SRVFormat;
+			}
+
+			if (TextureInfo.Type == ETextureType::TEXTURE_2D)
+			{
+				SrvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+				SrvDesc.Texture2D.MostDetailedMip = 0;
+				SrvDesc.Texture2D.MipLevels = (uint16_t)TextureInfo.MipCount;
+			}
+			else if (TextureInfo.Type == ETextureType::TEXTURE_CUBE)
+			{
+				SrvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURECUBE;
+				SrvDesc.TextureCube.MostDetailedMip = 0;
+				SrvDesc.TextureCube.MipLevels = (uint16_t)TextureInfo.MipCount;
+			}
+			else
+			{
+				SrvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE3D;
+				SrvDesc.Texture3D.MostDetailedMip = 0;
+				SrvDesc.Texture3D.MipLevels = (uint16_t)TextureInfo.MipCount;
+			}
+
+			auto SrvRef = std::make_unique<DX12ShaderResourceView>(GetDevice(), SrvDesc, TextureResource);
+			TextureRef->AddSRV(SrvRef);
+		}
 	}
 
 	UINT DX12GraphicRHI::GetSupportMSAAQuality(DXGI_FORMAT BackBufferFormat)
