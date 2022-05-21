@@ -119,7 +119,7 @@
       <AdditionalIncludeDirectories>E:\VisualStudio\KawaiiDesune\Kawakawa\DX12Lab;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;opengl32.lib;dxguid.lib;d3d12.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -141,31 +141,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Camera.cpp" />
+    <ClCompile Include="Common\CubeRenderTarget.cpp" />
+    <ClCompile Include="Common\d3dApp.cpp" />
     <ClCompile Include="Common\d3dUtil.cpp" />
     <ClCompile Include="Common\DDSTextureLoader.cpp" />
     <ClCompile Include="Common\FrameResource.cpp" />
     <ClCompile Include="Common\GameTimer.cpp" />
+    <ClCompile Include="Common\GeometryGenerator.cpp" />
+    <ClCompile Include="Common\Helpers.cpp" />
     <ClCompile Include="Common\MathHelper.cpp" />
     <ClCompile Include="Core\RenderObject.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Math\FMathLib.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="WinApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common\Camera.h" />
+    <ClInclude Include="Common\CubeRenderTarget.h" />
+    <ClInclude Include="Common\d3dApp.h" />
     <ClInclude Include="Common\d3dUtil.h" />
     <ClInclude Include="Common\d3dx12.h" />
     <ClInclude Include="Common\DDSTextureLoader.h" />
     <ClInclude Include="Common\FrameResource.h" />
     <ClInclude Include="Common\GameTimer.h" />
+    <ClInclude Include="Common\GeometryGenerator.h" />
+    <ClInclude Include="Common\Helpers.h" />
     <ClInclude Include="Common\MathHelper.h" />
+    <ClInclude Include="Common\UploadBuffer.h" />
     <ClInclude Include="Core\RenderObject.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Math\FMathLib.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Utils\StringHelper.h" />
-    <ClInclude Include="WinApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\FMathLib.inl" />
